@@ -29,6 +29,17 @@ public interface ConstantesAplicacao {
     // >>> MessageTransportProtocol <<<
     public static final int MTP_PORTA = 1500;
     
+    // >>> Tempos em ms<<<
+    public static final int TEMPO_LIMPAR_UM_PONTO = 200;
+    public static final int TEMPO_ARRUMAR_UM_PONTO = 300;
+    public static final int TEMPO_SUJAR_UM_PONTO = 600;
+    public static final int TEMPO_DESARRUMAR_UM_PONTO = 900;
+    
+    // >>> Pontuacoes <<<
+    public static final int PONTUACAO_TOTAL_LIMPO = 10;
+    public static final int PONTUACAO_TOTAL_ARRUMADO = 10;
+    
+    
     // >>> Acoes <<<
     public static final String ACAO_LIMPAR = "Limpar";
     public static final String ACAO_SUJAR = "Sujar";

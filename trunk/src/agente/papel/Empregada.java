@@ -18,5 +18,5 @@ public class Empregada extends AgentRole{
     public Empregada(){
         
     }
-
+    
 }

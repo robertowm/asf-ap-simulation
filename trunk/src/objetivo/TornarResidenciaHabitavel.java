@@ -13,10 +13,6 @@ import framework.mentalState.goal.LeafGoal;
  */
 public class TornarResidenciaHabitavel extends LeafGoal{
     
-//    public TornarResidenciaHabitavel(String tipo, String descricao, Object valor){
-//        super(tipo, descricao, valor);
-//    }
-    
     public TornarResidenciaHabitavel(){
         super("boolean", "Tornar_Residencia_Habitavel",true);
     }

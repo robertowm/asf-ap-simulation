@@ -68,7 +68,7 @@ public class UsuarioAgente extends Agent {
 
     @Override
     protected boolean checkIfWillContinue() {
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + false + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
-        return false;
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
+        return plans.isEmpty();
     }
 }

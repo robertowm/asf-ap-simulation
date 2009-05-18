@@ -26,9 +26,10 @@ public class PlanoFaxina extends Plan{
         Collection<Message> mensagens = agente.getInMessages();
         for (Message mensagem : mensagens) {
             AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
-            acao.execute(agente, mensagem);
+            boolean executou = acao.execute(agente, mensagem);
+            
         }
         
-       
+        
     }
 }
