@@ -5,6 +5,7 @@
 
 package plano;
 
+import framework.agentRole.AgentRole;
 import framework.mentalState.Plan;
 
 /**
@@ -13,5 +14,8 @@ import framework.mentalState.Plan;
  */
 public class PlanoFaxina extends Plan{
     
-    
+    @Override
+    public void execute(AgentRole role) {
+        
+    }
 }
