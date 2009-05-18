@@ -4,6 +4,8 @@
  */
 package sis_multagente;
 
+import agente.UsuarioAgente;
+import agente.papel.Morador;
 import static util.ConstantesAplicacao.*;
 
 import ambiente.Residencia;
@@ -11,6 +13,8 @@ import comunicacao.ProtocoloTransporteMensagem;
 import framework.FIPA.AMS;
 import framework.FIPA.AgentPlatformDescription;
 import framework.FIPA.ElementID;
+import framework.agent.Agent;
+import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
 import organizacao.Habitacao;
