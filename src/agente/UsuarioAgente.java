@@ -6,7 +6,6 @@ package agente;
 
 import comunicacao.ProtocoloTransporteMensagem;
 import framework.FIPA.ElementID;
-import framework.FIPA.communication.http.MessageTransportProtocol;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
