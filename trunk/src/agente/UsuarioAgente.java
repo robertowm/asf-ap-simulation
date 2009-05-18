@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package agente;
 
+import comunicacao.ProtocoloTransporteMensagem;
 import framework.FIPA.ElementID;
 import framework.FIPA.communication.http.MessageTransportProtocol;
 import framework.agent.Agent;
@@ -19,12 +19,12 @@ import java.util.Collection;
  *
  * @author heliokann
  */
-public class UsuarioAgente extends Agent{
-    
+public class UsuarioAgente extends Agent {
+
     boolean manterResidenciaHabitavel;
-    
-    public UsuarioAgente(MTS_Environment theEnvironment, MainOrganization initialOrg, AgentRole initialRole, ElementID idElemento){
-        super(idElemento,new MessageTransportProtocol());
+
+    public UsuarioAgente(MTS_Environment theEnvironment, MainOrganization initialOrg, AgentRole initialRole, ElementID idElemento) {
+        super(idElemento, ProtocoloTransporteMensagem.getInstancia());
     }
 
     @Override
@@ -39,12 +39,24 @@ public class UsuarioAgente extends Agent{
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Goal objetivoSelecionado = null;
+
+        for (Object object : this.getGoals()) {
+            Goal objetivo = (Goal) object;
+
+            if (objetivo.getPriority() > objetivoSelecionado.getPriority()) {
+                objetivoSelecionado = objetivo;
+            }
+        }
+
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+
+        return objetivoSelecionado;
     }
 
     @Override
     protected boolean checkIfWillContinue() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + false + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
+        return false;
     }
-
 }

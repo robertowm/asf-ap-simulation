@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package organizacao;
 
 import framework.FIPA.ElementID;
@@ -17,9 +16,9 @@ import java.util.Collection;
  *
  * @author heliokann
  */
-public class Habitacao extends MainOrganization{
-    
-    public Habitacao(MTS_Environment ambiente, ElementID idElemento, MTP  protocoloTransporteMensagem){
+public class Habitacao extends MainOrganization {
+
+    public Habitacao(MTS_Environment ambiente, ElementID idElemento, MTP protocoloTransporteMensagem) {
         super(ambiente, idElemento, protocoloTransporteMensagem);
     }
 
@@ -35,13 +34,24 @@ public class Habitacao extends MainOrganization{
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Goal objetivoSelecionado = null;
+
+        for (Object object : this.getGoals()) {
+            Goal objetivo = (Goal) object;
+
+            if (objetivo.getPriority() > objetivoSelecionado.getPriority()) {
+                objetivoSelecionado = objetivo;
+            }
+        }
+
+        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+
+        return objetivoSelecionado;
     }
 
     @Override
     protected boolean checkIfWillContinue() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + false + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
+        return false;
     }
-    
-
 }
