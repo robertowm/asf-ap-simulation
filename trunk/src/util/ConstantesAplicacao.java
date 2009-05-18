@@ -21,7 +21,7 @@ public interface ConstantesAplicacao {
 
 
     // >>> MessageTransportProtocol <<<
-    public static final String MTP_PORTA = "1500";
+    public static final int MTP_PORTA = 1500;
 
     // >> Outros <<
     public static final String LOCAL_HOST = "127.0.0.1";
