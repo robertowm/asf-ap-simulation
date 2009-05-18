@@ -14,6 +14,7 @@ import framework.mentalState.Plan;
 import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -21,20 +22,32 @@ import java.util.Collection;
  */
 public class UsuarioAgente extends Agent {
 
-    boolean manterResidenciaHabitavel;
+    private boolean manterResidenciaHabitavel;
 
     public UsuarioAgente(MTS_Environment theEnvironment, MainOrganization initialOrg, AgentRole initialRole, ElementID idElemento) {
         super(idElemento, ProtocoloTransporteMensagem.getInstancia());
     }
 
     @Override
-    protected Plan selectingPlan(Collection arg0, Goal arg1) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    // COLOCAR CEREBRO!
+    protected Plan selectingPlan(Collection colecaoPlanos, Goal objetivoAlvo) {
+        List<Plan> planos = (List<Plan>) colecaoPlanos;
+
+        for (Plan plano : planos) {
+            if(plano.getGoal().equals(objetivoAlvo)) {
+                System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando o plano " + plano.toString() + " para o objetivo " + objetivoAlvo.getName());
+                return plano;
+            }
+        }
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando nulo -> nao encontrou nenhum plano que atendia ao objetivo " + objetivoAlvo.getName());
+        return null;
     }
 
     @Override
-    protected void executingPlan(Plan arg0) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    // VERIFICAR
+    protected void executingPlan(Plan plano) {
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'executingPlan': executando na AgentRole " + this.getCurrentRole().getRoleName());
+        plano.execute(this.getCurrentRole());
     }
 
     @Override
