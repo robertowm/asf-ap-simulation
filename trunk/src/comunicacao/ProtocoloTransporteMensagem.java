@@ -19,8 +19,7 @@ public class ProtocoloTransporteMensagem extends MessageTransportProtocol {
 
     private ProtocoloTransporteMensagem() {
         super();
-
-        instancia.activateServer(MTP_PORTA);
+        this.activateServer(MTP_PORTA);
     }
 
     public static ProtocoloTransporteMensagem getInstancia() {

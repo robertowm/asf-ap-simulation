@@ -18,6 +18,7 @@ import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
 import organizacao.Habitacao;
+import util.GeradorAgentes;
 
 /**
  *
@@ -58,6 +59,9 @@ public class Main {
 
         Thread mainOrgThread = new Thread(mainOrg, THREAD_ORGANIZACAO_PRINCIPAL);
         mainOrgThread.start();
+
+        Agent agente = GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        
     }
 
     public void criandoAgentes_EXEMPLO(AMS ams) {

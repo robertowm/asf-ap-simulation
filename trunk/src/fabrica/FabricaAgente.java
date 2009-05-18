@@ -38,21 +38,17 @@ public class FabricaAgente {
         
         ElementID elementID = ams.createAgentElementId(nomeAgente, true);
 
-        ElementID elementIdRegra = new ElementID("Viviane::Buyer", true);
+        ElementID elementIdRegra = new ElementID(regraAgente.toString(), true);
         elementIdRegra.setAddress(LOCAL_HOST);
         regraAgente.setRoleName(elementIdRegra);
         regraAgente.setAgent(agente);
 
         agente = new UsuarioAgente(ambiente, organizacao, regraAgente, elementID);
+        agente.setRolesBeingPlayed(regraAgente, organizacao);
         agente.createAgentRoleDescription(regraAgente, elementIdRegra, "");
 
+
         ams.createDescription(agente, elementID, "");
-
-//        Thread threadAgente = new Thread(agente, agente.getAgentName().getName());
-
-        /////////////////////
-        //Beliefs do agente - COLOCAR
-        ///////////////////
 
         mapaAgentes.put(nomeAgente, agente);
 
