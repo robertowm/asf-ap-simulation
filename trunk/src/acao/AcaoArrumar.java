@@ -6,22 +6,24 @@
 package acao;
 
 import framework.agent.Agent;
-import framework.mentalState.Action;
-import framework.organization.MainOrganization;
+import framework.mentalState.Message;
 
 /**
  *
  * @author heliokann
  */
-public class AcaoArrumar extends Action{
+public class AcaoArrumar extends AcaoAgente{
     
     @Override
     public boolean execute() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    public void execute(MainOrganization organizacaoPrincipal, Agent agente) {
+
+    @Override
+    public boolean execute(Agent agente, Message msg) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+   
 
 }

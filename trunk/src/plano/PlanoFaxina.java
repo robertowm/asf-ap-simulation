@@ -5,8 +5,13 @@
 
 package plano;
 
+import acao.AcaoAgente;
+import acao.command.ComandoAcao;
+import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Plan;
+import java.util.Collection;
+import framework.mentalState.Message;
 
 /**
  *
@@ -17,5 +22,13 @@ public class PlanoFaxina extends Plan{
     @Override
     public void execute(AgentRole role) {
         
+        Agent agente = role.getAgentPlayingRole();
+        Collection<Message> mensagens = agente.getInMessages();
+        for (Message mensagem : mensagens) {
+            AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
+            acao.execute(agente, mensagem);
+        }
+        
+       
     }
 }
