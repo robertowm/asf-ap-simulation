@@ -7,6 +7,7 @@ package acao;
 
 import framework.agent.Agent;
 import framework.mentalState.Message;
+import objeto.Comodo;
 
 /**
  *
@@ -21,6 +22,7 @@ public class AcaoVerificarComodo extends AcaoAgente{
     
     @Override
     public boolean execute(Agent agente, Message msg) {
+         Comodo comodo = (Comodo) msg.getContent();
         /**
          * tem que analisar o quarto de acordo com a personalidade e papel do agente
          * por exemplo, se  agente é empregada ele vai querer limpar ou arrumar, de acordo com a condição do comodo
