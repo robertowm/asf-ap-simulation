@@ -36,47 +36,58 @@ public class Comodo {
     }
 
     // VERIFICAR CONCORRENCIA
-    public int getTempoArrumacao() {
-        return (PONTUACAO_TOTAL_ARRUMADO - pontuacaoArrumacao) * TEMPO_ARRUMAR_UM_PONTO;
+    public int getPontosFaltaArrumado() {
+        return (PONTUACAO_TOTAL_ARRUMADO - pontuacaoArrumacao);
     }
     // VERIFICAR CONCORRENCIA
 
-    public int getTempoLimpeza() {
-        return (PONTUACAO_TOTAL_LIMPO - pontuacaoArrumacao) * TEMPO_LIMPAR_UM_PONTO;
+    public int getPontosFaltaLimpo() {
+        return (PONTUACAO_TOTAL_LIMPO - pontuacaoLimpeza);
     }
 
-    public void limpar(Agent agent) {
+    public void suja() {
+        setPontuacaoLimpeza(--pontuacaoLimpeza);
     }
-
-    public void sujar(Agent agent) {
+    public void limpa() {
+        setPontuacaoLimpeza(++pontuacaoLimpeza);
     }
-
-    public void arrumar(Agent agent) {
+    public void arruma() {
+        setPontuacaoArrumacao(++pontuacaoArrumacao);
     }
-
-    public void desarrumar(Agent agent) {
+    public void desarruma() {
+        setPontuacaoArrumacao(--pontuacaoArrumacao);
     }
 
     // VERIFICAR CONCORRENCIA
     public String getNivelLimpeza() {
         if (pontuacaoLimpeza > 8) {
             nivelLimpeza = LIMPO;
-        } else if (pontuacaoArrumacao > 6) {
+        } else if (pontuacaoLimpeza > 6) {
             nivelLimpeza = NORMAL_LIMPO;
-        } else if (pontuacaoArrumacao > 4) {
+        } else if (pontuacaoLimpeza > 4) {
             nivelLimpeza = SUJO;
         } else {
             nivelLimpeza = INABITAVEL_SUJO;
         }
         return nivelLimpeza;
     }
+    
+    // VERIFICAR CONCORRENCIA
+    public String getNivelArrumacao() {
+        if (pontuacaoArrumacao > 8) {
+            nivelArrumacao = ARRUMADO;
+        } else if (pontuacaoArrumacao > 6) {
+            nivelArrumacao = NORMAL_ARRUMADO;
+        } else if (pontuacaoArrumacao > 4) {
+            nivelArrumacao = DESARRUMADO;
+        } else {
+            nivelArrumacao = INABITAVEL_DESARRUMADO;
+        }
+        return nivelArrumacao;
+    }
 
     public void setNivelLimpeza(String nivelLimpeza) {
         this.nivelLimpeza = nivelLimpeza;
-    }
-
-    public String getNivelArrumacao() {
-        return nivelArrumacao;
     }
 
     public void setNivelArrumacao(String nivelArrumacao) {
@@ -100,7 +111,7 @@ public class Comodo {
         return pontuacaoLimpeza;
     }
 
-    public void setPontuacaoLimpeza(int pontuacaoLimpeza) {
+    private synchronized  void setPontuacaoLimpeza(int pontuacaoLimpeza) {
         if (pontuacaoLimpeza > -1 && pontuacaoLimpeza <=PONTUACAO_TOTAL_LIMPO) {
             this.pontuacaoLimpeza = pontuacaoLimpeza;
         }
@@ -110,7 +121,7 @@ public class Comodo {
         return pontuacaoArrumacao;
     }
 
-    public void setPontuacaoArrumacao(int pontuacaoArrumacao) {
+    private synchronized void setPontuacaoArrumacao(int pontuacaoArrumacao) {
         if (pontuacaoArrumacao > -1 && pontuacaoArrumacao < PONTUACAO_TOTAL_ARRUMADO) {
             this.pontuacaoArrumacao = pontuacaoArrumacao;
         }

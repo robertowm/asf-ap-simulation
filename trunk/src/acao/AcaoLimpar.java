@@ -25,23 +25,25 @@ public class AcaoLimpar extends AcaoAgente {
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
-        String nivelLimpeza = comodo.getNivelLimpeza();
-        // enquanto o nivel de limpeza nao esta limpo
-        while (!nivelLimpeza.equals(Comodo.LIMPO)) {
-            int sleep = comodo.getTempoLimpeza();
-            int pontuacaoLimpeza = comodo.getTempoLimpeza();
+
+        int pontuacaoLimparDeAcordoComPersonalidade = 3;
+        boolean empregada = true;
+
+        do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo
+
             do {
-                try {                    
-                    sleep = -ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO;
-                    Thread.sleep(sleep);
-                    // cada ponto de limpeza demora 200 ms para executar
-                    comodo.setPontuacaoLimpeza(++pontuacaoLimpeza);
+                try {
+                    Thread.sleep(ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO);
+                    comodo.limpa();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } while (sleep > 1);
-            nivelLimpeza = comodo.getNivelLimpeza();
-        }
+            } while (--pontuacaoLimparDeAcordoComPersonalidade > 0);
+
+            pontuacaoLimparDeAcordoComPersonalidade = comodo.getPontosFaltaLimpo();
+
+        } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
+
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }
 }

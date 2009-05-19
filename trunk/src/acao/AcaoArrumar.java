@@ -25,23 +25,26 @@ public class AcaoArrumar extends AcaoAgente {
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
-        String nivelArrumacao = comodo.getNivelArrumacao();
-        // enquanto o nivel de arrumacao nao esta arrumado
-        while (!nivelArrumacao.equals(Comodo.ARRUMADO)) {
-            int sleep = comodo.getTempoArrumacao();
-            int pontuacaoArrumacao = comodo.getPontuacaoArrumacao();
+
+        int pontuacaoArrumarDeAcordoComPersonalidade = 3;
+        boolean empregada = true;
+
+        do { // se for empregada repete a limpeza até ficar limpo o comodo
+
             do {
                 try {
-                    sleep = -ConstantesAplicacao.TEMPO_ARRUMAR_UM_PONTO;
-                    Thread.sleep(sleep);
-                    // cada ponto de arrumacao demora 300 ms para executar
-                    comodo.setPontuacaoArrumacao(++pontuacaoArrumacao);
+                    Thread.sleep(ConstantesAplicacao.TEMPO_ARRUMAR_UM_PONTO);
+                    comodo.arruma();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } while (sleep > 1);
-            nivelArrumacao = comodo.getNivelArrumacao();
-        }
+            } while (--pontuacaoArrumarDeAcordoComPersonalidade > 0);
+
+            // caso seja empregada eh necessario verificar se ainda falta arrumar
+            pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
+
+        } while (empregada && !comodo.getNivelArrumacao().equals(Comodo.ARRUMADO));
+
         return comodo.getNivelArrumacao().equals(Comodo.ARRUMADO);
     }
 }
