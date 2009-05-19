@@ -16,5 +16,9 @@ public class TornarResidenciaHabitavel extends LeafGoal{
     public TornarResidenciaHabitavel(){
         super("boolean", "Tornar_Residencia_Habitavel",true);
     }
+
+    public TornarResidenciaHabitavel(boolean valor){
+        super("boolean", "Tornar_Residencia_Habitavel",valor);
+    }
     
 }

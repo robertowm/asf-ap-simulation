@@ -4,8 +4,14 @@
  */
 package objeto;
 
-import framework.agent.Agent;
 import static util.ConstantesAplicacao.*;
+
+import framework.agent.Agent;
+import framework.mentalState.Condition;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,7 +20,9 @@ import static util.ConstantesAplicacao.*;
 public class Comodo {
 
     private String nome;
-    // pontuacao vai de zero a 10 onde 0 é inabitavel e 10 Limpo
+    private String tipo;
+//    private Map<String, Condition> mapaCondicoesComodo;
+//    private Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();
     private int pontuacaoLimpeza = 7;
     private int pontuacaoArrumacao = 7;
     private String nivelLimpeza;
@@ -32,33 +40,63 @@ public class Comodo {
     public static final String MUITO_DESARRUMADO = "Muito desarrumado";
     public static final String INABITAVEL_DESARRUMADO = "Inabitável";
 
-    public Comodo() {
+    public Comodo(String nome) {
+        this(nome, "", new HashMap<String, Condition>());
     }
 
-    // VERIFICAR CONCORRENCIA
-    public int getPontosFaltaArrumado() {
-        return (PONTUACAO_TOTAL_ARRUMADO - pontuacaoArrumacao);
+//    public Comodo(String nome, String tipo) {
+//        this(nome, tipo, new HashMap<String, Condition>());
+//    }
+// TORNAR PUBLICO DEPOIS
+    private Comodo(String nome, String tipo, Map<String, Condition> condicoes) {
+        this.nome = nome;
+        this.tipo = tipo;
+//        this.mapaCondicoesComodo = condicoes;
     }
-    // VERIFICAR CONCORRENCIA
+//
+//    public void atribuirAgente(Agent agente) {
+//        mapaAgentes.put(agente.getAgentName().getName(), agente);
+//    }
+//
+//    public void removerAgente(Agent agente) {
+//        mapaAgentes.remove(agente.getAgentName().getName());
+//    }
+//
+//    public boolean verificarAgente(Agent agente) {
+//        return mapaAgentes.containsKey(agente.getAgentName().getName());
+//    }
+//
+//    public Agent recuperarAgentePeloNome(String nome) {
+//        return mapaAgentes.get(nome);
+//    }
 
-    public int getPontosFaltaLimpo() {
-        return (PONTUACAO_TOTAL_LIMPO - pontuacaoLimpeza);
-    }
+//    public boolean atendePreCondicoes(Collection<Condition> condicoes) {
+//        for (Condition condicaoAcao : condicoes) {
+//            Condition condicaoComodo = mapaCondicoesComodo.get(condicaoAcao.getName());
+//            if (condicaoComodo == null || !condicaoComodo.getValue().equals(condicaoAcao.getValue()) || !condicaoComodo.getType().equals(condicaoAcao.getType())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     public void suja() {
         setPontuacaoLimpeza(--pontuacaoLimpeza);
     }
+
     public void limpa() {
         setPontuacaoLimpeza(++pontuacaoLimpeza);
+
     }
+
     public void arruma() {
         setPontuacaoArrumacao(++pontuacaoArrumacao);
     }
+
     public void desarruma() {
         setPontuacaoArrumacao(--pontuacaoArrumacao);
     }
 
-    // VERIFICAR CONCORRENCIA
     public String getNivelLimpeza() {
         if (pontuacaoLimpeza > 8) {
             nivelLimpeza = LIMPO;
@@ -71,7 +109,7 @@ public class Comodo {
         }
         return nivelLimpeza;
     }
-    
+
     // VERIFICAR CONCORRENCIA
     public String getNivelArrumacao() {
         if (pontuacaoArrumacao > 8) {
@@ -94,11 +132,6 @@ public class Comodo {
         this.nivelArrumacao = nivelArrumacao;
     }
 
-    @Override
-    public String toString() {
-        return nome;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -107,12 +140,32 @@ public class Comodo {
         this.nome = nome;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+
+    // VERIFICAR CONCORRENCIA
+    public int getPontosFaltaArrumado() {
+        return (PONTUACAO_TOTAL_ARRUMADO - pontuacaoArrumacao);
+    }
+
+    // VERIFICAR CONCORRENCIA
+    public int getPontosFaltaLimpo() {
+        return (PONTUACAO_TOTAL_LIMPO - pontuacaoLimpeza);
+    }
+
+    // VERIFICAR CONCORRENCIA
     public int getPontuacaoLimpeza() {
         return pontuacaoLimpeza;
     }
 
-    private synchronized  void setPontuacaoLimpeza(int pontuacaoLimpeza) {
-        if (pontuacaoLimpeza > -1 && pontuacaoLimpeza <=PONTUACAO_TOTAL_LIMPO) {
+    private synchronized void setPontuacaoLimpeza(int pontuacaoLimpeza) {
+        if (pontuacaoLimpeza > -1 && pontuacaoLimpeza <= PONTUACAO_TOTAL_LIMPO) {
             this.pontuacaoLimpeza = pontuacaoLimpeza;
         }
     }
@@ -125,5 +178,10 @@ public class Comodo {
         if (pontuacaoArrumacao > -1 && pontuacaoArrumacao < PONTUACAO_TOTAL_ARRUMADO) {
             this.pontuacaoArrumacao = pontuacaoArrumacao;
         }
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

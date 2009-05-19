@@ -20,5 +20,9 @@ public class ResidirFeliz extends LeafGoal{
     public ResidirFeliz(){
         super("boolean", "Residir_Feliz",true);
     }
+
+    public ResidirFeliz(boolean valor) {
+        super("boolean", "Residir_Feliz",valor);
+    }
     
 }

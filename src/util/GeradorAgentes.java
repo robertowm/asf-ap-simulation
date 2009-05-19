@@ -13,6 +13,8 @@ import framework.environment.MTS_Environment;
 import framework.mentalState.goal.LeafGoal;
 import framework.organization.MainOrganization;
 import java.util.Random;
+import objetivo.ResidirFeliz;
+import plano.PlanoCozinharINVALIDO;
 
 /**
  *
@@ -35,9 +37,13 @@ public class GeradorAgentes {
         agente.setBelief(RepositorioCrencas.criarCrenca("organizado", random.nextBoolean()));
         agente.setBelief(RepositorioCrencas.criarCrenca("higienico", random.nextBoolean()));
 
-        agente.setGoal(new LeafGoal("boolean", "viver", "true"));
+        agente.setGoal(new ResidirFeliz());
+
+        agente.setPlan(new PlanoCozinharINVALIDO());
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
+
+        ambiente.registerAgents(agente);
 
         return agente;
     }
