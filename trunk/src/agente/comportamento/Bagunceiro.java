@@ -5,6 +5,8 @@
 
 package agente.comportamento;
 
+import framework.mentalState.belief.LeafBelief;
+
 /**
  *
  * @author heliokann
@@ -17,7 +19,10 @@ public class Bagunceiro extends Comportamento{
     
     @Override
     protected void carregaCrencas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        crencas.add(new LeafBelief("int", "dessarruma", 60));
+        crencas.add(new LeafBelief("int", "arruma", 20));
+        crencas.add(new LeafBelief("int", "limpa", 20));
+        crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
     
     
