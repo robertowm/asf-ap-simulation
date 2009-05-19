@@ -16,7 +16,13 @@ import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
+import framework.mentalState.Condition;
 import framework.organization.MainOrganization;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import objeto.Comodo;
 import organizacao.Habitacao;
 import util.GeradorAgentes;
 
@@ -37,7 +43,15 @@ public class Main {
 
         MTS_Environment ambiente = null;
         try {
-            ambiente = new Residencia(elementID);
+//            List<Comodo> comodos = new ArrayList<Comodo>();
+//            Map<String, Condition> condicoes = new HashMap<String, Condition>();
+//            condicoes.put("comida_pronta", new Condition("boolean", "comida_pronta", false));
+//            condicoes.put("louca_suja", new Condition("boolean", "louca_suja", false));
+//            condicoes.put("panela_suja", new Condition("boolean", "panela_suja", false));
+//
+//            comodos.add(new Comodo("Cozinha do APJAVA", "cozinha", condicoes));
+//
+            ambiente = new Residencia(elementID/*, comodos*/);
             ams.createDescription(ambiente, elementID, "");
             elementID.setAddress(LOCAL_HOST);
         } catch (NullPointerException ex) {
@@ -61,7 +75,7 @@ public class Main {
         mainOrgThread.start();
 
         Agent agente = GeradorAgentes.gerarMorador(ambiente, mainOrg);
-        
+
     }
 
     public void criandoAgentes_EXEMPLO(AMS ams) {
