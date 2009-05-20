@@ -30,9 +30,11 @@ public class PlanoFaxina extends Plan {
         long timeOut = ConstantesAplicacao.QTD_COMODO*ConstantesAplicacao.PONTUACAO_TOTAL_ARRUMADO*2 + 2*descansa;
         List<Message> listaExecutada;
         
+        Agent agente = role.getAgentPlayingRole();
+        System.out.println("Iniciando o plano faxina --->>> "+agente);
+        
         while (timeOut > 0) {
             
-            Agent agente = role.getAgentPlayingRole();
             Collection<Message> mensagens = agente.getInMessages();
             listaExecutada = new ArrayList(mensagens.size());
             

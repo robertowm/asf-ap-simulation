@@ -42,7 +42,7 @@ public class FabricaAgente {
         
         ElementID elementIdRegra = new ElementID(regraAgente.toString(), true);
         elementIdRegra.setAddress(LOCAL_HOST);
-        regraAgente.setRoleName(elementIdRegra);
+        regraAgente.setRoleName(elementIdRegra);        
         regraAgente.setAgent(agente);
 
         agente = new UsuarioAgente(ambiente, organizacao, regraAgente, elementID);
