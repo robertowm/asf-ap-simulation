@@ -55,7 +55,7 @@ public class PlanoFaxina extends Plan implements Serializable{
             int aguardandoMensagem = 300;
             
             try {
-                    tela.apendTexto("Agente ------>>   AGUARDANDO MENSAGEM");
+//                    tela.apendTexto("Agente ------>>   AGUARDANDO MENSAGEM");
                     Thread.sleep(aguardandoMensagem);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,7 +64,7 @@ public class PlanoFaxina extends Plan implements Serializable{
             for(Message mensagem: mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
                 long tempoAcao = System.currentTimeMillis();
-                tela.apendTexto("   INICIANDO A ACAO --->"+acao.getClass().getSimpleName());
+//                tela.apendTexto("   INICIANDO A ACAO --->"+acao.getClass().getSimpleName());
                 boolean executou = acao.execute(agente, mensagem);
                 timeOut -= ( System.currentTimeMillis() - tempoAcao );
                 
@@ -73,7 +73,8 @@ public class PlanoFaxina extends Plan implements Serializable{
                 }
                 
                 try {
-                    tela.apendTexto("Agente ------>>   DESCANSANDO");
+//                    tela.apendTexto("Agente ------>>   DESCANSANDO");
+                    tela.apendTexto("\"Vou descancar um pouco...\"");
                     Thread.sleep(descansa);                    
                 } catch (InterruptedException ex) {
                     Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +83,8 @@ public class PlanoFaxina extends Plan implements Serializable{
                 timeOut -= descansa;
                 // se escotou o tempo do agente fazer faxina ele vai embora sem pegar uma próxima ação
                 if( timeOut <=0 ) {
-                    tela.apendTexto("TEMPO ESGOTADO DE FAZER FAXINA --> abandonando plano");
+//                    tela.apendTexto("TEMPO ESGOTADO DE FAZER FAXINA --> abandonando plano");
+                    tela.apendTexto("\"Hora de ir embora.\"");
                     return;
                 }
             }
@@ -94,7 +96,8 @@ public class PlanoFaxina extends Plan implements Serializable{
         }
         
         goal.setAchieved(true);
-        tela.apendTexto("Plano FAXINA cumprido com sucesso");
+//        tela.apendTexto("Plano FAXINA cumprido com sucesso");
+        tela.apendTexto("\"Trabalhei e fiz tudo que deveria! :)\"");
 
     }
     
