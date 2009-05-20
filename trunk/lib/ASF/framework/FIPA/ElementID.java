@@ -76,7 +76,7 @@ public class ElementID implements Serializable
 	private void setLocalName(String name) 
 	{
 		String hap;
-		hap = AgentPlataformDescription.getInstance().getName();
+		hap = AgentPlatformDescription.getInstance().getName();
 		// initialize the static variable atHAP, if not yet initialized
 		if (hap == null) 
 			throw new RuntimeException("Unknown Platform Name");
