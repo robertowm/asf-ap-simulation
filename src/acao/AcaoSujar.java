@@ -4,6 +4,7 @@
  */
 package acao;
 
+import ambiente.Residencia;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import visual.Principal;
  *
  * @author heliokann
  */
-public class AcaoSujar extends AcaoAgente implements Serializable{
+public class AcaoSujar extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute() {
@@ -28,15 +29,17 @@ public class AcaoSujar extends AcaoAgente implements Serializable{
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
+        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
 
         // suja de acordo com a personalidade
 
-        int pontuacaoSujarDeAcordoComPersonalidade = 1;
+        int pontuacaoSujarDeAcordoComPersonalidade = 2;
         Principal tela = JDesktop.getTela(agente);
         tela.apendTexto("\"Vou sujar, mas so um pouquinho...\"");
         do {
             try {
                 // dormindo o tempo de sujar um ponto
+                tela.apendTexto("\"Sujando Comodo...\"");
                 Thread.sleep(ConstantesAplicacao.TEMPO_SUJAR_UM_PONTO);
                 comodo.suja();
             } catch (InterruptedException ex) {

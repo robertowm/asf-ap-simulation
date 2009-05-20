@@ -4,6 +4,7 @@
  */
 package acao;
 
+import ambiente.Residencia;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -28,16 +29,18 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
+        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
 
         // suja de acordo com a personalidade
 
-        int pontuacaoDesarrumarDeAcordoComPersonalidade = 1;
+        int pontuacaoDesarrumarDeAcordoComPersonalidade = 2;
 
         Principal tela = JDesktop.getTela(agente);
         tela.apendTexto("\"Vou desarrumar, mas so um pouquinho...\"");
         do {
             try {
                 // dormindo o tempo de sujar um ponto
+                tela.apendTexto("\"Desarrumando Comodo...\"");
                 Thread.sleep(ConstantesAplicacao.TEMPO_DESARRUMAR_UM_PONTO);
                 comodo.desarruma();
             } catch (InterruptedException ex) {

@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JInternalFrame {
     private void initComponents() {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-
+        
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);

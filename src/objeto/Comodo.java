@@ -173,4 +173,14 @@ public class Comodo implements Serializable {
     public String toString() {
         return nome;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Comodo)) return false;
+        Comodo c = (Comodo) obj;
+        return c.nome.equals(this.nome);
+        
+    }
+    
+    
 }

@@ -5,6 +5,7 @@
 package acao;
 
 import agente.papel.Empregada;
+import ambiente.Residencia;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
+        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
 
         int pontuacaoArrumarDeAcordoComPersonalidade = 1;
         boolean empregada = false;
@@ -44,6 +46,7 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
 
             do {
                 try {
+                    tela.apendTexto(" Arrumando quarto...>"+comodo);
                     Thread.sleep(ConstantesAplicacao.TEMPO_ARRUMAR_UM_PONTO);
                     comodo.arruma();
                 } catch (InterruptedException ex) {
@@ -55,10 +58,20 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
             pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
 
         } while (empregada && !comodo.getNivelArrumacao().equals(Comodo.ARRUMADO));
+        
+        tela.apendTexto("Saindo do comodo ->"+comodo);
+        tela.apendTexto("Situação de Arrumacao ->"+comodo.getNivelArrumacao());
 
-        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
-        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-        agente.send(saida);
+        if(empregada){
+            Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+            saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
+            agente.send(saida);
+            
+        }
+//        else{
+//            saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+//            agente.send(saida);
+//        }
 
         return comodo.getNivelArrumacao().equals(Comodo.ARRUMADO);
     }
