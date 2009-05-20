@@ -14,8 +14,9 @@ import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import framework.environment.MTS_Environment;
 import framework.mentalState.Message;
+import framework.mentalState.Plan;
+import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
-import java.util.ArrayList;
 import java.util.List;
 import organizacao.Habitacao;
 import util.GeradorAgentes;
@@ -80,10 +81,21 @@ public class Main {
         for (Object obj : ambiente.getAgents()) {
             Agent agent = (Agent) obj;
             System.out.println("Pegando " + agent.getAgentName().getName());
-            
-            Message msg = new Message("?" + Thread.currentThread().getName(), "localhost", agent.getAgentName(), idEmpregada);
+//            System.out.println("mensagem --->>> "+ Thread.currentThread().getName());
+            Message msg = new Message("?" + agent.getAgentName().getName(), "localhost", agent.getAgentName(), idEmpregada);
             msg.setPerformative(ACAO_VERIFICAR_COMODO);
             agent.send(msg);
+        }
+        for (Object obj : ambiente.getAgents()) {
+            Agent agent = (Agent) obj;
+            Thread agentThread = new Thread(agent, agent.getAgentName().getName());
+            agentThread.start();
+            List<Goal> goals = (List<Goal>) agent.getGoals();
+            for (Goal goal : goals) {
+                if(goal.getAchieved()){
+                    agent.setGoal(goal);
+                }
+            }
         }
 
     }

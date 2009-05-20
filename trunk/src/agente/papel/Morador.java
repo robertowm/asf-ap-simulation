@@ -36,6 +36,7 @@ public class Morador extends AgentRole {
 //        this.setProtocol(null);
 
         this.setRight(null);
+        this.startThread();
         
 //        this.setRoleName("Morador");
 //        this.setStatus(null);
