@@ -82,6 +82,13 @@ public class Main {
         GeradorAgentes.gerarMorador(ambiente, mainOrg);
         GeradorAgentes.gerarMorador(ambiente, mainOrg);
 
+        for (Object obj : ambiente.getAgents()) {
+            Agent agent = (Agent) obj;
+            System.out.println("Pegando " + agent.getAgentName().getName());
+
+            agent.send(new Message("?" + Thread.currentThread().getName(), "BLA", agent.getAgentName(), idEmpregada));
+        }
+
     }
 
     public void criandoAgentes_EXEMPLO(AMS ams) {

@@ -9,6 +9,7 @@ import static util.ConstantesAplicacao.*;
 import crenca.RepositorioCrencas;
 import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
+import framework.agentRole.Duty;
 import framework.organization.MainOrganization;
 
 /**
@@ -26,7 +27,7 @@ public class Morador extends AgentRole {
         this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
         this.setBelief(RepositorioCrencas.criarCrenca("chamar_empregada", true));
 
-//        this.setDuty(null);
+//        this.setDuty(new Duty("AcaoVerificarComodo"));
 
 //        this.setGoal(new ResidirFeliz());
 
@@ -39,6 +40,8 @@ public class Morador extends AgentRole {
 //        this.setRoleName("Morador");
 //        this.setStatus(null);
     }
+
+
 
     @Override
     public String toString() {

@@ -9,6 +9,7 @@ import static util.ConstantesAplicacao.*;
 
 import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
+import framework.agentRole.Duty;
 import framework.mentalState.belief.LeafBelief;
 import framework.organization.MainOrganization;
 
@@ -34,6 +35,8 @@ public class Empregada extends AgentRole{
         this.setOwner(organizacao);
 
         this.setRight(null);
+
+//        this.setDuty( new Duty("teste"));
     }
 
     @Override

@@ -47,7 +47,6 @@ public class FabricaAgente {
         agente.setRolesBeingPlayed(regraAgente, organizacao);
         agente.createAgentRoleDescription(regraAgente, elementIdRegra, "");
 
-
         ams.createDescription(agente, elementID, "");
 
         mapaAgentes.put(nomeAgente, agente);
