@@ -2,9 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package plano;
-
 
 import acao.AcaoAgente;
 import acao.AcaoArrumar;
@@ -31,7 +29,7 @@ import objetivo.ResidirFeliz;
  *
  * @author heliokann
  */
-public class PlanoHabitar extends Plan implements Serializable{
+public class PlanoHabitar extends Plan implements Serializable {
 
     public PlanoHabitar() {
         this.setAction(new AcaoChamarEmpregada());
@@ -40,7 +38,7 @@ public class PlanoHabitar extends Plan implements Serializable{
         this.setAction(new AcaoLimpar());
         this.setAction(new AcaoSujar());
         this.setAction(new AcaoVerificarComodo());
-        
+
         this.setGoal(new ResidirFeliz());
     }
 
@@ -54,12 +52,11 @@ public class PlanoHabitar extends Plan implements Serializable{
 
             Collection<Message> mensagens = agente.getInMessages();
             listaExecutada = new ArrayList(mensagens.size());
-
             for (Message mensagem : mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
                 boolean executou = acao.execute(agente, mensagem);
 
-                if(executou){
+                if (executou) {
                     listaExecutada.add(mensagem);
                 }
 
@@ -85,12 +82,6 @@ public class PlanoHabitar extends Plan implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        return  (obj instanceof PlanoHabitar);
+        return (obj instanceof PlanoHabitar);
     }
-    
-    
-
-
-
-
 }
