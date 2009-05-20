@@ -21,9 +21,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -48,14 +51,17 @@ public class PlanoHabitar extends Plan implements Serializable {
         Agent agente = role.getAgentPlayingRole();
         boolean loop = true;
         int descansa = 400;
-        while (loop) {
+        Principal tela = JDesktop.getTela(agente);
 
-            Collection<Message> mensagens = agente.getInMessages();
+        while (loop) {
+            CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>( agente.getInMessages());
             listaExecutada = new ArrayList(mensagens.size());
             for (Message mensagem : mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
+                tela.apendTexto("acao = " + acao.toString());
                 boolean executou = acao.execute(agente, mensagem);
 
+                tela.apendTexto("executou? " + executou);
                 if (executou) {
                     listaExecutada.add(mensagem);
                 }
@@ -63,14 +69,14 @@ public class PlanoHabitar extends Plan implements Serializable {
                 try {
                     Thread.sleep(descansa);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
-
-            mensagens.removeAll(listaExecutada);
+            synchronized(agente) {
+                agente.getInMessages().removeAll(listaExecutada);
+            }
         }
-
         goal.setAchieved(true);
 
     }

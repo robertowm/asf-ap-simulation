@@ -29,7 +29,7 @@ public class AcaoSujar extends AcaoAgente implements Serializable{
 
         // suja de acordo com a personalidade
 
-        int pontuacaoSujarDeAcordoComPersonalidade = 3;
+        int pontuacaoSujarDeAcordoComPersonalidade = 1;
 
         do {
             try {
@@ -40,6 +40,10 @@ public class AcaoSujar extends AcaoAgente implements Serializable{
                 Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (--pontuacaoSujarDeAcordoComPersonalidade > 0);
+
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+        agente.send(saida);
 
 
         return true;

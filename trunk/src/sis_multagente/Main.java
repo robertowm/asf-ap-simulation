@@ -90,9 +90,9 @@ public class Main {
         e1.send(msg);
 
         //Mensagem Morador
-//        Message msgm = new Message("?" + m1.getAgentName().getName(), ambiente.pegarComodoPorAgente(m1), m1.getAgentName(), m1.getAgentName());
-//        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
-//        m1.send(msgm);
+        Message msgm = new Message("?" + m1.getAgentName().getName(), ambiente.pegarComodoPorAgente(m1), m1.getAgentName(), m1.getAgentName());
+        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+        m1.send(msgm);
 
 
 

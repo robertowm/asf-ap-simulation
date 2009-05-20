@@ -4,6 +4,7 @@
  */
 package acao;
 
+import agente.papel.Empregada;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import util.ConstantesAplicacao;
  *
  * @author heliokann
  */
-public class AcaoArrumar extends AcaoAgente implements Serializable{
+public class AcaoArrumar extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute() {
@@ -27,8 +28,14 @@ public class AcaoArrumar extends AcaoAgente implements Serializable{
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
 
-        int pontuacaoArrumarDeAcordoComPersonalidade = 3;
-        boolean empregada = true;
+        int pontuacaoArrumarDeAcordoComPersonalidade = 1;
+        boolean empregada = false;
+        for (Object object : agente.getRolesBeingPlayed()) {
+            if (object instanceof Empregada) {
+                empregada = true;
+                break;
+            }
+        }
 
         do { // se for empregada repete a limpeza até ficar limpo o comodo
 
@@ -45,6 +52,10 @@ public class AcaoArrumar extends AcaoAgente implements Serializable{
             pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
 
         } while (empregada && !comodo.getNivelArrumacao().equals(Comodo.ARRUMADO));
+
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+        agente.send(saida);
 
         return comodo.getNivelArrumacao().equals(Comodo.ARRUMADO);
     }
