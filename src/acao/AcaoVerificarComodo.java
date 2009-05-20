@@ -63,7 +63,6 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                 } catch (InterruptedException ex) {
                 }
                 if (crenca.getName().equals("limpa")) {
-                    tela.apendTexto("\"Vou limpar aqui!\"");
                     // acao limpa
                     saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
                     agente.send(saida);

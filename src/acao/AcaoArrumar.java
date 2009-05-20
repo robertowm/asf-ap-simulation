@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -36,7 +38,8 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
                 break;
             }
         }
-
+        Principal tela = JDesktop.getTela(agente);
+        tela.apendTexto("\"Vou arrumar aqui!\"");
         do { // se for empregada repete a limpeza até ficar limpo o comodo
 
             do {

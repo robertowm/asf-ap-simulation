@@ -42,13 +42,13 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
         
         Principal tela = JDesktop.getTela(agente);
         
-        tela.apendTexto("empregada? " + empregada);
+        tela.apendTexto("\"Vou limpar aqui!\"");
         do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo
 
-            tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
+//            tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
             do {
                 try {
-                    tela.apendTexto(" ---> Limpando o comodo ->"+comodo);
+//                    tela.apendTexto(" ---> Limpando o comodo ->"+comodo);
                     Thread.sleep(ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO);
                     comodo.limpa();
                 } catch (InterruptedException ex) {
@@ -59,7 +59,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
             pontuacaoLimparDeAcordoComPersonalidade = comodo.getPontosFaltaLimpo();
 
         } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
-        tela.apendTexto("Saindo do comodo ->"+comodo);
+//        tela.apendTexto("Saindo do comodo ->"+comodo);
 
         Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
