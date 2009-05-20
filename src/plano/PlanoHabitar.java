@@ -36,13 +36,6 @@ import objeto.Comodo;
  */
 public class PlanoHabitar extends Plan{
 
-    private Action acaoChamarEmpregada;
-    private Action acaoArrumar;
-    private Action acaoDesarrumar;
-    private Action acaoLimpar;
-    private Action acaoSujar;
-    private Action acaoVerificarComodo;
-
     public PlanoHabitar() {
         this.setAction(new AcaoChamarEmpregada());
         this.setAction(new AcaoDesarrumar());
