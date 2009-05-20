@@ -51,17 +51,15 @@ public class PlanoHabitar extends Plan implements Serializable {
         Agent agente = role.getAgentPlayingRole();
         boolean loop = true;
         int descansa = 400;
-        Principal tela = JDesktop.getTela(agente);
+//        Principal tela = JDesktop.getTela(agente);
 
         while (loop) {
             CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>( agente.getInMessages());
             listaExecutada = new ArrayList(mensagens.size());
             for (Message mensagem : mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
-                tela.apendTexto("acao = " + acao.toString());
                 boolean executou = acao.execute(agente, mensagem);
 
-                tela.apendTexto("executou? " + executou);
                 if (executou) {
                     listaExecutada.add(mensagem);
                 }
