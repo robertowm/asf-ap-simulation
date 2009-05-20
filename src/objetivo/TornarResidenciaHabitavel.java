@@ -21,4 +21,13 @@ public class TornarResidenciaHabitavel extends LeafGoal{
         super("boolean", "Tornar_Residencia_Habitavel",valor);
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof TornarResidenciaHabitavel)){
+            return false;
+        }
+        TornarResidenciaHabitavel resi = (TornarResidenciaHabitavel) obj;
+        return (resi.name.equals(this.name) && resi.value.equals(this.value));
+    }
+    
 }

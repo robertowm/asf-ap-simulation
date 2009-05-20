@@ -21,6 +21,8 @@ import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
 import objetivo.ResidirFeliz;
 import objetivo.TornarResidenciaHabitavel;
+import plano.PlanoFaxina;
+import plano.PlanoHabitar;
 
 /**
  *
@@ -37,6 +39,8 @@ public class GeradorAgentes {
         papelEmpregada.setAgent(agente);
 
         agente.setGoal(new TornarResidenciaHabitavel());
+        
+        agente.setPlan(new PlanoFaxina());
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
 
@@ -79,6 +83,8 @@ public class GeradorAgentes {
         }
 
         agente.setGoal(new ResidirFeliz());
+        
+        agente.setPlan(new PlanoHabitar());
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
 

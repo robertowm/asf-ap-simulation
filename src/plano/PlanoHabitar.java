@@ -15,6 +15,8 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.Action;
 import framework.mentalState.Plan;
 import framework.organization.MainOrganization;
+import objetivo.ResidirFeliz;
+import objetivo.TornarResidenciaHabitavel;
 
 /**
  *
@@ -30,12 +32,14 @@ public class PlanoHabitar extends Plan{
     private Action acaoVerificarComodo;
 
     public PlanoHabitar() {
-        this.setAction(new AcaoArrumar());
         this.setAction(new AcaoChamarEmpregada());
         this.setAction(new AcaoDesarrumar());
+        this.setAction(new AcaoArrumar());
         this.setAction(new AcaoLimpar());
         this.setAction(new AcaoSujar());
         this.setAction(new AcaoVerificarComodo());
+        
+        this.setGoal(new ResidirFeliz());
     }
 
     @Override
@@ -48,6 +52,13 @@ public class PlanoHabitar extends Plan{
     public void execute(MainOrganization organization) {
         System.out.println("[PlanoHabitar] chamada do metodo 'public void execute(MainOrganization organization)'");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return  (obj instanceof PlanoHabitar);
+    }
+    
+    
 
 
 

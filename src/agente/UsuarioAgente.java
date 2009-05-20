@@ -31,15 +31,25 @@ public class UsuarioAgente extends Agent {
 
     @Override
     // COLOCAR CEREBRO!
-    protected Plan selectingPlan(Collection colecaoPlanos, Goal objetivoAlvo) {
-        List<Plan> planos = (List<Plan>) colecaoPlanos;
+    protected Plan selectingPlan(Collection planosExecutados, Goal objetivoAlvo) {
+        List<Plan> planosUsados = (List<Plan>) planosExecutados;
 
-        for (Plan plano : planos) {
-            if(plano.getGoal().equals(objetivoAlvo)) {
-                System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando o plano " + plano.toString() + " para o objetivo " + objetivoAlvo.getName());
-                return plano;
+        List<Plan> planosObjetivo = (List<Plan>) this.getPlans();
+
+        for (Plan plan : planosObjetivo) {
+            if (plan.getGoal().equals(objetivoAlvo)) {
+                if (!planosUsados.contains(plan)) {
+                    return plan;
+                }
             }
         }
+
+//        for (Plan plano : planos) {
+//            if(plano.getGoal().equals(objetivoAlvo)) {
+//                System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando o plano " + plano.toString() + " para o objetivo " + objetivoAlvo.getName());
+//                return plano;
+//            }
+//        }
         System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando nulo -> nao encontrou nenhum plano que atendia ao objetivo " + objetivoAlvo.getName());
         return null;
     }
@@ -53,20 +63,20 @@ public class UsuarioAgente extends Agent {
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        System.out.println("selectingGoalToAchieve ----->>>>>"+this);
-        Goal objetivoSelecionado = null;
+        System.out.println("selectingGoalToAchieve ----->>>>>" + this);
 
         for (Object object : this.getGoals()) {
             Goal objetivo = (Goal) object;
+            return objetivo;
 
-            if (objetivo.getPriority() > objetivoSelecionado.getPriority()) {
-                objetivoSelecionado = objetivo;
-            }
+//            if (objetivo.getPriority() > getobjetivoSelecionado.getPriority()) {
+//                objetivoSelecionado = objetivo;
+//            }
         }
 
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
 
-        return objetivoSelecionado;
+        return null;
     }
 
     @Override
@@ -74,7 +84,7 @@ public class UsuarioAgente extends Agent {
         System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
         return plans.isEmpty();
     }
-    
+
     public void run() {
         System.out.println("-----> Agent " + getAgentName().getName() + " beginning its execution <-----");
         // Parte nova!
@@ -185,19 +195,19 @@ public class UsuarioAgente extends Agent {
             }
         }
     }
-    
+
     protected AgentRole getCurrentRole() {
         Collection vRoles = getRolesBeingPlayed();
         for (Object object : vRoles) {
             AgentRole role = (AgentRole) object;
-            System.out.println(role.getRoleName());
-            System.out.println("********************************");
-            System.out.println(Thread.currentThread().getName());
+//            System.out.println(role.getRoleName());
+//            System.out.println("********************************");
+//            System.out.println(Thread.currentThread().getName());
             if (role.getAgentPlayingRole().equals(this)) {
                 return role;
             }
         }
-        
+
         return null;
     }
 }
