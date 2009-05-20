@@ -6,6 +6,7 @@
 package agente.papel;
 
 import framework.agentRole.AgentRole;
+import framework.mentalState.belief.LeafBelief;
 
 /**
  *
@@ -14,9 +15,10 @@ import framework.agentRole.AgentRole;
 public class Empregada extends AgentRole{
     
     boolean manterResidenciaHabitavel;
-    
+
     public Empregada(){
-        
+        this.setBelief(new LeafBelief("int", "limpa", 50));
+        this.setBelief(new LeafBelief("int", "arruma", 50));
     }
     
 }

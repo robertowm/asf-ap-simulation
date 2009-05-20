@@ -5,6 +5,8 @@
 
 package agente.comportamento;
 
+import framework.mentalState.belief.LeafBelief;
+
 /**
  *
  * @author heliokann
@@ -17,7 +19,11 @@ public class Equilibrado extends Comportamento{
 
     @Override
     protected void carregaCrencas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        crencas.add(new LeafBelief("int", "dessarruma", 25));
+        crencas.add(new LeafBelief("int", "arruma", 25));
+        crencas.add(new LeafBelief("int", "limpa", 25));
+        crencas.add(new LeafBelief("int", "suja", 25));
+        crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
 
 }

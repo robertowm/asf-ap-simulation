@@ -5,6 +5,8 @@
 
 package agente.comportamento;
 
+import framework.mentalState.belief.LeafBelief;
+
 /**
  *
  * @author heliokann
@@ -17,7 +19,11 @@ public class NaoHigienico extends Comportamento{
 
     @Override
     protected void carregaCrencas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       crencas.add(new LeafBelief("int", "dessarruma", 15));
+        crencas.add(new LeafBelief("int", "arruma", 15));
+        crencas.add(new LeafBelief("int", "limpa", 10));
+        crencas.add(new LeafBelief("int", "suja", 60));
+        crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
 
 }

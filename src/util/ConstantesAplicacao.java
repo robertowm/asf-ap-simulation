@@ -39,6 +39,11 @@ public interface ConstantesAplicacao {
     public static final int PONTUACAO_TOTAL_LIMPO = 10;
     public static final int PONTUACAO_TOTAL_ARRUMADO = 10;
     
+    // >>> NumeroComodos <<<
+    public static final int QTD_COMODO = 2;
+    public static final int MEDIA_PONTOS_COMODOS = (PONTUACAO_TOTAL_ARRUMADO + PONTUACAO_TOTAL_LIMPO)/QTD_COMODO ;
+    
+    
     
     // >>> Acoes <<<
     public static final String ACAO_LIMPAR = "Limpar";
