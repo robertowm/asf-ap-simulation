@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import util.GerenciadorFluxos;
 
 
 /**
@@ -24,10 +25,10 @@ public class JDesktop extends javax.swing.JFrame {
     
     
     public static Map<Agent, Principal> telagentes = new HashMap<Agent, Principal>();
-    public static Principal principal;
+    public static Principal saidas;
     
     private javax.swing.JMenu jMArquivo;
-    private javax.swing.JMenuItem jMIArqCriacao;
+    private javax.swing.JMenuItem jMIniciar;
     private javax.swing.JMenuItem jMISair;
     private javax.swing.JMenuItem jMISobre;
     private javax.swing.JMenu jMSobre;
@@ -42,31 +43,33 @@ public class JDesktop extends javax.swing.JFrame {
     }
     
     private void addComponentes(){
-        principal = new Principal();
-        principal.setVisible(true);
-        add(principal);
+        saidas = new Principal();
+        saidas.setVisible(true);
+        saidas.setTitle("Outras saídas");
+        saidas.setBounds(0, 0, 600, 300);
+        add(saidas);
     }
     
     
     private void initComponents() {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMArquivo = new javax.swing.JMenu();
-        jMIArqCriacao = new javax.swing.JMenuItem();
+        jMIniciar = new javax.swing.JMenuItem();
         jMISair = new javax.swing.JMenuItem();
         jMSobre = new javax.swing.JMenu();
         jMISobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
-        jMArquivo.setText("Arquivo");
-        jMIArqCriacao.setText("Novo");
-        jMIArqCriacao.addActionListener(new java.awt.event.ActionListener() {
+        jMArquivo.setText("Agente");
+        jMIniciar.setText("Iniciar Simulação");
+        jMIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIArqCriacaoActionPerformed(evt);
             }
         });
 
-        jMArquivo.add(jMIArqCriacao);
+        jMArquivo.add(jMIniciar);
 
         jMISair.setText("Sair");
         jMISair.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +124,8 @@ public class JDesktop extends javax.swing.JFrame {
     
     private void jMIArqCriacaoActionPerformed(java.awt.event.ActionEvent evt) {
         addComponentes();
-        
+        GerenciadorFluxos.iniciarFluxo();
+        jMIniciar.setEnabled(false);
     }
     
     

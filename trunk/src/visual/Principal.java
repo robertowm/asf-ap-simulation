@@ -33,7 +33,7 @@ public class Principal extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        setBounds(380, 10, 600, 300);
+        setBounds(380, 10, 500, 300);
     }
     
     public void apendTexto(String linha){

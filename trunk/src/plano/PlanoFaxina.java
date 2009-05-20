@@ -39,7 +39,7 @@ public class PlanoFaxina extends Plan implements Serializable{
     public void execute(AgentRole role) {
 //        System.out.println("===================PlanoFaxina.execute===================");
         int descansa = 500;
-        long timeOut = ConstantesAplicacao.QTD_COMODO*ConstantesAplicacao.PONTUACAO_TOTAL_ARRUMADO*600 + 2*descansa;
+        long timeOut = ConstantesAplicacao.QTD_COMODO*ConstantesAplicacao.PONTUACAO_TOTAL_ARRUMADO*100 + 2*descansa;
         List<Message> listaExecutada;
         
         Agent agente = role.getAgentPlayingRole();
@@ -51,7 +51,6 @@ public class PlanoFaxina extends Plan implements Serializable{
             CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>( agente.getInMessages());
             listaExecutada = new ArrayList(mensagens.size());
             
-//            Iterator<Message> e =  mensagens.iterator();
 //            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             int aguardandoMensagem = 300;
             
@@ -63,7 +62,6 @@ public class PlanoFaxina extends Plan implements Serializable{
                 }
             
             for(Message mensagem: mensagens) {
-//                Message mensagem = e.next();                
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
                 long tempoAcao = System.currentTimeMillis();
                 tela.apendTexto("   INICIANDO A ACAO --->"+acao.getClass().getSimpleName());

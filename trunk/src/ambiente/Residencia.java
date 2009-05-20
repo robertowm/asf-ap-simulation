@@ -22,39 +22,19 @@ public class Residencia extends MTS_Environment implements Serializable{
     public Residencia(ElementID aid, List<Comodo> listaComodos) {
         super(aid);
         this.listaComodos = listaComodos;
-//        for (Comodo comodo : listaComodos) {
-//            listaAgentesPorComodo.add(new ArrayList<Agent>());
-//        }
     }
 
     public Comodo pegarComodoPorAgente(Agent agente) {
         return mapaAgentesComodo.get(agente);
     }
 
-    @SuppressWarnings("empty-statement")
     public synchronized void colocarAgenteComodo(Agent agent, Comodo comodo) {
         mapaAgentesComodo.put(agent, comodo);
-//        int i = 0;
-//        for (i = 0; i < listaComodos.size(); i++) {
-//            Comodo c = listaComodos.get(i);
-////            if(c.equals(comodo)) {
-////                listaAgentesPorComodo.get(i).add(agent);
-////                break;
-////            }
-//
-//        }
     }
 
-    public synchronized void tirarAgenteComodo(Agent agent, Comodo comodo) {
-        int i = 0;
-        for (i = 0; i < listaComodos.size(); i++) {
-            Comodo c = listaComodos.get(i);
-//            if(c.equals(comodo)) {
-//                listaAgentesPorComodo.get(i).remove(agent);
-//                break;
-//            }
-
-        }
+    public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {
+       mapaAgentesComodo.remove(agent);
+       mapaAgentesComodo.put(agent, comodo);
     }
 
 
