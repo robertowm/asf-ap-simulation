@@ -43,7 +43,9 @@ public interface ConstantesAplicacao {
     public static final int QTD_COMODO = 2;
     public static final int MEDIA_PONTOS_COMODOS = (PONTUACAO_TOTAL_ARRUMADO + PONTUACAO_TOTAL_LIMPO)/QTD_COMODO ;
     
-    
+    // >>> Papel <<<
+    public static final String PAPEL_EMPREGADA = "Empregada";
+    public static final String PAPEL_MORADOR = "Morador";
     
     // >>> Acoes <<<
     public static final String ACAO_LIMPAR = "Limpar";
@@ -60,5 +62,4 @@ public interface ConstantesAplicacao {
     public static final String PREFIXO_NOME_AGENTE = "Agente::";
     public static final String PREFIXO_NOME_PAPEL = "Papel::";
     public static final String PREFIXO_PAPEL_MORADOR = "Morador::";
-
 }

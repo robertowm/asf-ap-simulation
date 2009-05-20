@@ -77,10 +77,10 @@ public class Main {
         Thread mainOrgThread = new Thread(mainOrg, THREAD_ORGANIZACAO_PRINCIPAL);
         mainOrgThread.start();
 
-        Agent empregada = GeradorAgentes.gerarEmpregada(ambiente, mainOrg);
-        idEmpregada = empregada.getAgentName();
+        idEmpregada = GeradorAgentes.gerarEmpregada(ambiente, mainOrg).getAgentName();
 
-        Agent agente = GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        GeradorAgentes.gerarMorador(ambiente, mainOrg);
 
     }
 
