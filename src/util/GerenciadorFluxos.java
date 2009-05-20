@@ -5,9 +5,9 @@
 
 package util;
 
-import framework.agent.Agent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -25,11 +25,17 @@ public class GerenciadorFluxos {
     public static Thread registrarFluxo(String nome, Runnable thread) {
         if(mapa.get(nome) == null){
             Thread novaThread = new Thread(thread, nome);
-            novaThread.start();
+//            novaThread.start();
             
             mapa.put(nome, novaThread);
         }
 
         return null;
+    }
+    
+    public static void iniciarFluxo(){
+        for (String str : mapa.keySet()) {
+            mapa.get(str).start();
+        }
     }
 }
