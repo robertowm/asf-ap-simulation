@@ -3,13 +3,13 @@ package ambiente;
 import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import framework.environment.MTS_Environment;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import objeto.Comodo;
 import util.GeradorRandomico;
 
-public class Residencia extends MTS_Environment {
+public class Residencia extends MTS_Environment implements Serializable{
 
     private List<Comodo> listaComodos = new ArrayList<Comodo>();
 

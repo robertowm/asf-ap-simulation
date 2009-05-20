@@ -6,12 +6,13 @@
 package objetivo;
 
 import framework.mentalState.goal.LeafGoal;
+import java.io.Serializable;
 
 /**
  *
  * @author heliokann
  */
-public class TornarResidenciaHabitavel extends LeafGoal{
+public class TornarResidenciaHabitavel extends LeafGoal implements Serializable{
     
     public TornarResidenciaHabitavel(){
         super("boolean", "Tornar_Residencia_Habitavel",true);

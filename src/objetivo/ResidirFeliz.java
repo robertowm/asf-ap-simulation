@@ -5,14 +5,14 @@
 
 package objetivo;
 
-import framework.mentalState.goal.Goal;
 import framework.mentalState.goal.LeafGoal;
+import java.io.Serializable;
 
 /**
  *
  * @author heliokann
  */
-public class ResidirFeliz extends LeafGoal{
+public class ResidirFeliz extends LeafGoal implements Serializable{
     
 //    public ResidirFeliz(String tipo, String descricao, Object valor){
 //        super(tipo, descricao, valor);

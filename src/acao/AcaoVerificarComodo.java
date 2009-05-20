@@ -13,6 +13,7 @@ import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
 import framework.mentalState.belief.Belief;
+import java.io.Serializable;
 import sis_multagente.Main;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
@@ -21,7 +22,7 @@ import util.ConstantesAplicacao;
  *
  * @author heliokann
  */
-public class AcaoVerificarComodo extends AcaoAgente {
+public class AcaoVerificarComodo extends AcaoAgente implements Serializable{
     private Collection organizacao;
 
     @Override

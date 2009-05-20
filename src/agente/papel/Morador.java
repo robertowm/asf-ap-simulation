@@ -9,14 +9,14 @@ import static util.ConstantesAplicacao.*;
 import crenca.RepositorioCrencas;
 import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
-import framework.agentRole.Duty;
 import framework.organization.MainOrganization;
+import java.io.Serializable;
 
 /**
  *
  * @author heliokann
  */
-public class Morador extends AgentRole {
+public class Morador extends AgentRole implements Serializable{
 
     private AMS ams = AMS.getInstance();
 

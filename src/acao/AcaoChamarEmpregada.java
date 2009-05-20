@@ -7,12 +7,13 @@ package acao;
 
 import framework.agent.Agent;
 import framework.mentalState.Message;
+import java.io.Serializable;
 
 /**
  *
  * @author heliokann
  */
-public class AcaoChamarEmpregada extends AcaoAgente{
+public class AcaoChamarEmpregada extends AcaoAgente implements Serializable{
     
     @Override
     public boolean execute() {

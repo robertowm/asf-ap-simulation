@@ -4,11 +4,13 @@
  */
 package crenca;
 
+import java.io.Serializable;
+
 /**
  *
  * @author robertowm
  */
-public class TipoCrenca {
+public class TipoCrenca implements Serializable{
 
     private String nome;
     private String retorno;

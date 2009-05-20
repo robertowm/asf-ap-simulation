@@ -13,6 +13,7 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.Plan;
 import java.util.Collection;
 import framework.mentalState.Message;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ import util.ConstantesAplicacao;
  *
  * @author heliokann
  */
-public class PlanoFaxina extends Plan {
+public class PlanoFaxina extends Plan implements Serializable{
     
     public PlanoFaxina(){
         this.setAction(new AcaoArrumar());
