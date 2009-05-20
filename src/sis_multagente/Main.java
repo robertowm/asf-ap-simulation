@@ -17,7 +17,9 @@ import framework.mentalState.Message;
 import framework.mentalState.Plan;
 import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
+import java.util.ArrayList;
 import java.util.List;
+import objeto.Comodo;
 import organizacao.Habitacao;
 import util.GeradorAgentes;
 
@@ -39,17 +41,19 @@ public class Main {
         elementID = ams.createEnvironmentElementId(AMBIENTE_APJAVA_NOME, true);
 //        elementID.setAddress(LOCAL_HOST);
 
-        MTS_Environment ambiente = null;
+        Residencia ambiente = null;
         try {
-//            List<Comodo> comodos = new ArrayList<Comodo>();
+            List<Comodo> comodos = new ArrayList<Comodo>();
 //            Map<String, Condition> condicoes = new HashMap<String, Condition>();
 //            condicoes.put("comida_pronta", new Condition("boolean", "comida_pronta", false));
 //            condicoes.put("louca_suja", new Condition("boolean", "louca_suja", false));
 //            condicoes.put("panela_suja", new Condition("boolean", "panela_suja", false));
 //
-//            comodos.add(new Comodo("Cozinha do APJAVA", "cozinha", condicoes));
+            comodos.add(new Comodo("Cozinha"/*, "cozinha", condicoes*/));
+            comodos.add(new Comodo("Quarto"/*, "cozinha", condicoes*/));
+            comodos.add(new Comodo("Sala"/*, "cozinha", condicoes*/));
 //
-            ambiente = new Residencia(elementID/*, comodos*/);
+            ambiente = new Residencia(elementID, comodos);
             ams.createDescription(ambiente, elementID, "");
             elementID.setAddress(LOCAL_HOST);
         } catch (NullPointerException ex) {
@@ -72,31 +76,34 @@ public class Main {
         Thread mainOrgThread = new Thread(mainOrg, THREAD_ORGANIZACAO_PRINCIPAL);
         mainOrgThread.start();
 
-        idEmpregada = GeradorAgentes.gerarEmpregada(ambiente, mainOrg).getAgentName();
+        Agent e1 = GeradorAgentes.gerarEmpregada(ambiente, mainOrg);
+        idEmpregada = e1.getAgentName();
 
-        GeradorAgentes.gerarMorador(ambiente, mainOrg);
-        GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        Agent m1 = GeradorAgentes.gerarMorador(ambiente, mainOrg);
 
-//        List <ElementID> ids = new ArrayList<ElementID>();
-        for (Object obj : ambiente.getAgents()) {
-            Agent agent = (Agent) obj;
-            System.out.println("Pegando " + agent.getAgentName().getName());
-//            System.out.println("mensagem --->>> "+ Thread.currentThread().getName());
-            Message msg = new Message("?" + agent.getAgentName().getName(), "localhost", agent.getAgentName(), idEmpregada);
-            msg.setPerformative(ACAO_VERIFICAR_COMODO);
-            agent.send(msg);
-        }
-        for (Object obj : ambiente.getAgents()) {
-            Agent agent = (Agent) obj;
-            Thread agentThread = new Thread(agent, agent.getAgentName().getName());
-            agentThread.start();
-            List<Goal> goals = (List<Goal>) agent.getGoals();
-            for (Goal goal : goals) {
-                if(goal.getAchieved()){
-                    agent.setGoal(goal);
-                }
-            }
-        }
+        //Mensagem Empregada
+        Message msg = new Message("?" + idEmpregada.getName(), ambiente.pegarComodoPorAgente(e1), idEmpregada, idEmpregada);
+        msg.setPerformative(ACAO_VERIFICAR_COMODO);
+        e1.send(msg);
+
+        //Mensagem Morador
+        Message msgm = new Message("?" + m1.getAgentName().getName(), ambiente.pegarComodoPorAgente(m1), m1.getAgentName(), m1.getAgentName());
+        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+        m1.send(msgm);
+
+
+
+//        for (Object obj : ambiente.getAgents()) {
+//            Agent agent = (Agent) obj;
+//            Thread agentThread = new Thread(agent, agent.getAgentName().getName());
+//            agentThread.start();
+//            List<Goal> goals = (List<Goal>) agent.getGoals();
+//            for (Goal goal : goals) {
+//                if(goal.getAchieved()){
+//                    agent.setGoal(goal);
+//                }
+//            }
+//        }
 
     }
 

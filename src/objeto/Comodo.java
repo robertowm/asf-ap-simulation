@@ -8,6 +8,7 @@ import static util.ConstantesAplicacao.*;
 
 import framework.agent.Agent;
 import framework.mentalState.Condition;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,12 +18,12 @@ import java.util.Map;
  *
  * @author heliokann
  */
-public class Comodo {
+public class Comodo implements Serializable {
 
     private String nome;
     private String tipo;
 //    private Map<String, Condition> mapaCondicoesComodo;
-//    private Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();
+    private Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();
     private int pontuacaoLimpeza = 7;
     private int pontuacaoArrumacao = 7;
     private String nivelLimpeza;
@@ -54,21 +55,21 @@ public class Comodo {
 //        this.mapaCondicoesComodo = condicoes;
     }
 //
-//    public void atribuirAgente(Agent agente) {
-//        mapaAgentes.put(agente.getAgentName().getName(), agente);
-//    }
-//
-//    public void removerAgente(Agent agente) {
-//        mapaAgentes.remove(agente.getAgentName().getName());
-//    }
-//
-//    public boolean verificarAgente(Agent agente) {
-//        return mapaAgentes.containsKey(agente.getAgentName().getName());
-//    }
-//
-//    public Agent recuperarAgentePeloNome(String nome) {
-//        return mapaAgentes.get(nome);
-//    }
+    public void atribuirAgente(Agent agente) {
+        mapaAgentes.put(agente.getAgentName().getName(), agente);
+    }
+
+    public void removerAgente(Agent agente) {
+        mapaAgentes.remove(agente.getAgentName().getName());
+    }
+
+    public boolean verificarAgente(Agent agente) {
+        return mapaAgentes.containsKey(agente.getAgentName().getName());
+    }
+
+    public Agent recuperarAgentePeloNome(String nome) {
+        return mapaAgentes.get(nome);
+    }
 
 //    public boolean atendePreCondicoes(Collection<Condition> condicoes) {
 //        for (Condition condicaoAcao : condicoes) {
