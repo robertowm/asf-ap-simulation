@@ -5,8 +5,12 @@
 
 package agente.papel;
 
+import static util.ConstantesAplicacao.*;
+
+import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
 import framework.mentalState.belief.LeafBelief;
+import framework.organization.MainOrganization;
 
 /**
  *
@@ -16,9 +20,24 @@ public class Empregada extends AgentRole{
     
     boolean manterResidenciaHabitavel;
 
-    public Empregada(){
+    private AMS ams = AMS.getInstance();
+
+    private String nome;
+
+    public Empregada(String nome, MainOrganization organizacao) {
+        super();
+        this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
+
         this.setBelief(new LeafBelief("int", "limpa", 50));
         this.setBelief(new LeafBelief("int", "arruma", 50));
+
+        this.setOwner(organizacao);
+
+        this.setRight(null);
     }
-    
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -14,6 +14,7 @@ import agente.papel.Empregada;
 import agente.papel.Morador;
 import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
+import sis_multagente.Main;
 import sun.management.resources.agent;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
@@ -83,7 +84,7 @@ public class AcaoVerificarComodo extends AcaoAgente {
                 }
                 
                 if(chamarEmpregada){
-                    saida = new Message(comversionId, comodo, agente.getAgentName(), EMPREGADA.getAgentName());
+                    saida = new Message(comversionId, comodo, agente.getAgentName(), Main.idEmpregada);
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                     break;
@@ -115,6 +116,6 @@ public class AcaoVerificarComodo extends AcaoAgente {
             }
             
         }
-
+        return true;
     }
 }
