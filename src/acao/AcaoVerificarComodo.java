@@ -9,20 +9,26 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
+import ambiente.Residencia;
 import framework.mentalState.belief.Belief;
 import java.io.Serializable;
 import sis_multagente.Main;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
  * @author heliokann
  */
-public class AcaoVerificarComodo extends AcaoAgente implements Serializable{
+public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
+
     private Collection organizacao;
 
     @Override
@@ -37,17 +43,27 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable{
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
         boolean morador = false;
-        
+
         String comversionId = "?" + Thread.currentThread().getName();
-        
+
+        Principal tela = JDesktop.getTela(agente);
+        tela.apendTexto("Verificando comodo: " + comodo.getNome());
+        tela.apendTexto(" - Nivel de limpeza   = " + comodo.getNivelLimpeza());
+        tela.apendTexto(" - Nivel de arrumacao = " + comodo.getNivelArrumacao());
+
         Message saida = new Message(comversionId, comodo, agente.getAgentName(), agente.getAgentName());
-        
+
         for (AgentRole agentRole : papeis) {
             empregada = (agentRole instanceof Empregada);
             morador = (agentRole instanceof Morador);
             if (empregada) {
                 Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
+                try {
+                    Thread.sleep(ConstantesAplicacao.TEMPO_VERIFICAR_COMODO);
+                } catch (InterruptedException ex) {
+                }
                 if (crenca.getName().equals("limpa")) {
+                    tela.apendTexto("\"Vou limpar aqui!\"");
                     // acao limpa
                     saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
                     agente.send(saida);
@@ -58,37 +74,40 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable{
                 }
             }
             if (morador) {
-                
-                final List<Comodo> comodos =  (List<Comodo>) agente.getEnvironment().getObjects();
+
+//                final List<Comodo> comodos =  (List<Comodo>) agente.getEnvironment().getObjects();
+                final List<Comodo> comodos = ((Residencia) agente.getEnvironment()).getListaComodos();
                 int pontoLimpezaArrumacao = 0;
-                boolean  chamarEmpregada = false;
+                boolean chamarEmpregada = false;
+
                 for (Comodo comodoAnalise : comodos) {
-                    
-                    if(comodoAnalise.getNivelArrumacao().equals(Comodo.INABITAVEL_DESARRUMADO)){
+                    if (comodoAnalise.getNivelArrumacao().equals(Comodo.INABITAVEL_DESARRUMADO)) {
                         chamarEmpregada = true;
                         break;
                     }
-                    
-                    if(comodoAnalise.getNivelLimpeza().equals(Comodo.INABITAVEL_SUJO)){
+
+                    if (comodoAnalise.getNivelLimpeza().equals(Comodo.INABITAVEL_SUJO)) {
                         chamarEmpregada = true;
                         break;
                     }
-                    
                     pontoLimpezaArrumacao += comodoAnalise.getPontuacaoLimpeza() + comodoAnalise.getPontuacaoArrumacao();
-                    
                 }
-                
-                if(pontoLimpezaArrumacao <= ConstantesAplicacao.MEDIA_PONTOS_COMODOS){
+
+                if (pontoLimpezaArrumacao <= ConstantesAplicacao.MEDIA_PONTOS_COMODOS) {
                     chamarEmpregada = true;
                 }
-                
-                if(chamarEmpregada){
+
+                if (chamarEmpregada) {
+                    try {
+                        Thread.sleep(ConstantesAplicacao.TEMPO_VERIFICAR_COMODO);
+                    } catch (InterruptedException ex) {
+                    }
                     saida = new Message(comversionId, comodo, agente.getAgentName(), Main.idEmpregada);
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                     break;
                 }
-                
+
                 Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
                 if (crenca.getName().equals("dessarruma")) {
                     // acao dessarruma
@@ -113,7 +132,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable{
                 }
 
             }
-            
+
         }
         return true;
     }

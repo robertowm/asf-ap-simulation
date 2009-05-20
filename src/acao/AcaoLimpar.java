@@ -33,7 +33,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
         Comodo comodo = (Comodo) msg.getContent();
 
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
-        int pontuacaoLimparDeAcordoComPersonalidade = 3;
+        int pontuacaoLimparDeAcordoComPersonalidade = 1;
         boolean empregada = false;
         for (AgentRole agentRole : papeis) {
             empregada = (agentRole instanceof Empregada);
@@ -42,7 +42,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
         
         Principal tela = JDesktop.getTela(agente);
         
-
+        tela.apendTexto("empregada? " + empregada);
         do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo
 
             tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
@@ -60,7 +60,11 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
 
         } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
         tela.apendTexto("Saindo do comodo ->"+comodo);
-        
+
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+        agente.send(saida);
+
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }
 }

@@ -29,7 +29,7 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
 
         // suja de acordo com a personalidade
 
-        int pontuacaoDesarrumarDeAcordoComPersonalidade = 3;
+        int pontuacaoDesarrumarDeAcordoComPersonalidade = 1;
 
         do {
             try {
@@ -41,6 +41,9 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
             }
         } while (--pontuacaoDesarrumarDeAcordoComPersonalidade > 0);
 
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+        agente.send(saida);
 
         return true;
     }

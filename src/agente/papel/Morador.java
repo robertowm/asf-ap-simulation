@@ -25,7 +25,6 @@ public class Morador extends AgentRole implements Serializable{
     public Morador(String nome, MainOrganization organizacao) {
         super();
         this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
-        this.setBelief(RepositorioCrencas.criarCrenca("chamar_empregada", true));
 
 //        this.setDuty(new Duty("AcaoVerificarComodo"));
 
@@ -35,8 +34,8 @@ public class Morador extends AgentRole implements Serializable{
 
 //        this.setProtocol(null);
 
-        this.setRight(null);
-        this.startThread();
+//        this.setRight(null);
+//        this.startThread();
         
 //        this.setRoleName("Morador");
 //        this.setStatus(null);

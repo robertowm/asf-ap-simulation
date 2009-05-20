@@ -24,6 +24,8 @@ import objetivo.ResidirFeliz;
 import objetivo.TornarResidenciaHabitavel;
 import plano.PlanoFaxina;
 import plano.PlanoHabitar;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -65,6 +67,8 @@ public class GeradorAgentes {
 
         papelMorador.setAgent(agente);
 
+        Principal tela = JDesktop.getTela(agente);
+
         Comportamento c = null;
         switch(GeradorRandomico.geraRandomico(6)) {
             case 0:
@@ -86,6 +90,7 @@ public class GeradorAgentes {
                 c = new Relaxado();
                 break;
         }
+        tela.apendTexto("Comportamento: " + c.getClass().getSimpleName());
         for (Belief belief : c.getCrencas()) {
             agente.setBelief(belief);
         }
