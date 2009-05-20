@@ -6,6 +6,7 @@ package acao;
 
 import agente.papel.Empregada;
 import agente.papel.Morador;
+import ambiente.Residencia;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -33,6 +34,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
+        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
 
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
 

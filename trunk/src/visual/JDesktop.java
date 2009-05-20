@@ -43,10 +43,7 @@ public class JDesktop extends javax.swing.JFrame {
     }
     
     private void addComponentes(){
-        saidas = new Principal();
-        saidas.setVisible(true);
-        saidas.setTitle("Outras saídas");
-        saidas.setBounds(0, 0, 600, 300);
+        saidas.setVisible(true);        
         add(saidas);
     }
     
@@ -58,6 +55,10 @@ public class JDesktop extends javax.swing.JFrame {
         jMISair = new javax.swing.JMenuItem();
         jMSobre = new javax.swing.JMenu();
         jMISobre = new javax.swing.JMenuItem();
+        
+        saidas = new Principal();
+        saidas.setTitle("Outras saídas");
+        saidas.setBounds(0, 0, 600, 300);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);

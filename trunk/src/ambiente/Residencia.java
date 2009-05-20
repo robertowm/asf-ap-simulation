@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import objeto.Comodo;
 import util.GeradorRandomico;
+import visual.JDesktop;
 
 public class Residencia extends MTS_Environment implements Serializable{
 
@@ -30,6 +31,20 @@ public class Residencia extends MTS_Environment implements Serializable{
 
     public synchronized void colocarAgenteComodo(Agent agent, Comodo comodo) {
         mapaAgentesComodo.put(agent, comodo);
+    }
+    
+    public synchronized void atualizarComodo(Agent agent, Comodo comodo) {
+        Comodo c = mapaAgentesComodo.get(agent);
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
+        comodo.setNivelArrumacao(c.getNivelArrumacao());
+        comodo.setNivelLimpeza(c.getNivelLimpeza());
+        comodo.setNome(c.getNome());
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
+//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
+        
     }
 
     public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {

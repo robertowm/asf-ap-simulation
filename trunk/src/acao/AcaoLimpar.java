@@ -5,6 +5,7 @@
 package acao;
 
 import agente.papel.Empregada;
+import ambiente.Residencia;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -31,6 +32,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
+        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
 
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         int pontuacaoLimparDeAcordoComPersonalidade = 1;
@@ -48,7 +50,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
 //            tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
             do {
                 try {
-//                    tela.apendTexto(" ---> Limpando o comodo ->"+comodo);
+                    tela.apendTexto(" ---> Limpando o comodo ->"+comodo);
                     Thread.sleep(ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO);
                     comodo.limpa();
                 } catch (InterruptedException ex) {
@@ -59,11 +61,20 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
             pontuacaoLimparDeAcordoComPersonalidade = comodo.getPontosFaltaLimpo();
 
         } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
-//        tela.apendTexto("Saindo do comodo ->"+comodo);
+        tela.apendTexto("Saindo do comodo ->"+comodo);
+        tela.apendTexto("Situação de Limpeza ->"+comodo.getNivelLimpeza());
 
-        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
-        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-        agente.send(saida);
+        
+        if(empregada){
+            Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+            saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
+            agente.send(saida);
+            
+        }else{
+            Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+            saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+            agente.send(saida);
+        }
 
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }
