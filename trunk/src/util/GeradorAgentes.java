@@ -5,16 +5,22 @@
 
 package util;
 
+import agente.comportamento.Bagunceiro;
+import agente.comportamento.Comportamento;
+import agente.comportamento.Equilibrado;
+import agente.comportamento.Higienico;
+import agente.comportamento.NaoHigienico;
+import agente.comportamento.Organizado;
+import agente.comportamento.Relaxado;
+import agente.papel.Empregada;
 import agente.papel.Morador;
-import crenca.RepositorioCrencas;
 import fabrica.FabricaAgente;
 import framework.agent.Agent;
 import framework.environment.MTS_Environment;
-import framework.mentalState.goal.LeafGoal;
+import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
-import java.util.Random;
 import objetivo.ResidirFeliz;
-import plano.PlanoCozinharINVALIDO;
+import objetivo.TornarResidenciaHabitavel;
 
 /**
  *
@@ -22,7 +28,23 @@ import plano.PlanoCozinharINVALIDO;
  */
 public class GeradorAgentes {
 
-    private static Random random = new Random(System.currentTimeMillis());
+
+    public static Agent gerarEmpregada(MTS_Environment ambiente, MainOrganization organizacao) {
+        String nome = GeradorNomes.gerarNome();
+        Empregada papelEmpregada = new Empregada(nome, organizacao);
+        Agent agente = FabricaAgente.getAgente(nome, papelEmpregada, ambiente, organizacao);
+        papelEmpregada.setAgent(agente);
+
+        agente.setGoal(new TornarResidenciaHabitavel());
+
+
+        GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
+
+
+        ambiente.registerAgents(agente);
+
+        return agente;
+    }
 
     public static Agent gerarMorador(MTS_Environment ambiente, MainOrganization organizacao) {
         String nome = GeradorNomes.gerarNome();
@@ -32,14 +54,32 @@ public class GeradorAgentes {
 
         papelMorador.setAgent(agente);
 
-        agente.setBelief(RepositorioCrencas.criarCrenca("gosta_casa_limpa", random.nextBoolean()));
-        agente.setBelief(RepositorioCrencas.criarCrenca("gosta_casa_arrumada", random.nextBoolean()));
-        agente.setBelief(RepositorioCrencas.criarCrenca("organizado", random.nextBoolean()));
-        agente.setBelief(RepositorioCrencas.criarCrenca("higienico", random.nextBoolean()));
+        Comportamento c = null;
+        switch(GeradorRandomico.geraRandomico(6)) {
+            case 0:
+                c = new Bagunceiro();
+                break;
+            case 1:
+                c = new Equilibrado();
+                break;
+            case 2:
+                c = new Higienico();
+                break;
+            case 3:
+                c = new NaoHigienico();
+                break;
+            case 4:
+                c = new Organizado();
+                break;
+            case 5:
+                c = new Relaxado();
+                break;
+        }
+        for (Belief belief : c.getCrencas()) {
+            agente.setBelief(belief);
+        }
 
         agente.setGoal(new ResidirFeliz());
-
-        agente.setPlan(new PlanoCozinharINVALIDO());
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
 
@@ -47,10 +87,4 @@ public class GeradorAgentes {
 
         return agente;
     }
-
-    public Agent gerarEmpregada() {
-
-        return null;
-    }
-
 }

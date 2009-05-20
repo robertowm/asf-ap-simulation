@@ -17,8 +17,6 @@ import framework.organization.MainOrganization;
  */
 public class Morador extends AgentRole {
 
-    boolean manterResidenciaHabitavel;
-
     private AMS ams = AMS.getInstance();
 
     private String nome;
