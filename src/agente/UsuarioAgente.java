@@ -51,6 +51,7 @@ public class UsuarioAgente extends Agent {
 
     @Override
     protected Goal selectingGoalToAchieve() {
+        System.out.println("blabalbalbalabl");
         Goal objetivoSelecionado = null;
 
         for (Object object : this.getGoals()) {
