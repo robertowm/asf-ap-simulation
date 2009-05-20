@@ -30,6 +30,7 @@ public class GeradorRandomico {
         for (Belief crenca : crencas) {
             Integer valor = (Integer)crenca.getValue();
             if(probabilidade <= valor) {
+                System.out.println("RETORNANDO A CRENCA ALEATORIAMENTE --->>"+crenca.getName());
                 return crenca;
             }
             probabilidade -= valor;
