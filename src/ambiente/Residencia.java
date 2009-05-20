@@ -59,10 +59,12 @@ public class Residencia extends MTS_Environment implements Serializable{
     @Override
     public synchronized void registerAgents(Agent newAgent) {
         super.registerAgents(newAgent);
-        Comodo comodo = listaComodos.get(GeradorRandomico.geraRandomico(listaComodos.size()));
-        mapaAgentesComodo.put(newAgent, comodo);
+        mapaAgentesComodo.put(newAgent, pegarComodoAleatoriamente());
     }
 
+    public Comodo pegarComodoAleatoriamente() {
+        return listaComodos.get(GeradorRandomico.geraRandomico(listaComodos.size()));
+    }
 
     @Override
     public String toString() {

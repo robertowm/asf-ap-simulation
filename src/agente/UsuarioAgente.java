@@ -45,6 +45,7 @@ public class UsuarioAgente extends Agent implements Serializable {
         for (Plan plan : planosObjetivo) {
             if (plan.getGoal().equals(objetivoAlvo)) {
                 if (!planosUsados.contains(plan)) {
+                    System.out.println("plano bolado");
                     return plan;
                 }
             }
@@ -57,24 +58,27 @@ public class UsuarioAgente extends Agent implements Serializable {
     @Override
     // VERIFICAR
     protected void executingPlan(Plan plano) {
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'executingPlan': executando na AgentRole " + this.getCurrentRole().getRoleName());
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] " + plano.toString() + " Metodo 'executingPlan': executando na AgentRole " + this.getCurrentRole().getRoleName());
         plano.execute(this.getCurrentRole());
     }
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        for (Object object : this.getGoals()) {
-            Goal objetivo = (Goal) object;
-            return objetivo;
+        if(this.getGoals().isEmpty()) return null;
+        
+        List<Goal> lista = (List<Goal>)this.getGoals();
+        Goal objetivoSelecionado = lista.get(0);
+        for (int valor = 1; valor < this.getGoals().size(); valor++) {
+            Goal objetivo = (Goal) lista.get(valor);
 
-//            if (objetivo.getPriority() > getobjetivoSelecionado.getPriority()) {
-//                objetivoSelecionado = objetivo;
-//            }
+            if (objetivo.getPriority() > objetivoSelecionado.getPriority()) {
+                objetivoSelecionado = objetivo;
+            }
         }
 
-//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
 
-        return null;
+        return objetivoSelecionado;
     }
 
     @Override
