@@ -48,7 +48,9 @@ public class FabricaAgente {
         agente = new UsuarioAgente(ambiente, organizacao, regraAgente, elementID);
         agente.setRolesBeingPlayed(regraAgente, organizacao);
         agente.createAgentRoleDescription(regraAgente, elementIdRegra, "");
-                
+
+        agente.setEnvironment(ambiente);
+
         ams.createDescription(agente, elementID, "");
 
         mapaAgentes.put(nomeAgente, agente);

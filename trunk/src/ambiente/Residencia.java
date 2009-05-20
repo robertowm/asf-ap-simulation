@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import objeto.Comodo;
+import util.GeradorRandomico;
 
 public class Residencia extends MTS_Environment {
 
@@ -21,22 +22,21 @@ public class Residencia extends MTS_Environment {
         this.listaComodos = listaComodos;
     }
 
-//    public Comodo pegarComodoPorAgente(Agent agente) {
-//        for (Comodo comodo : listaComodos) {
-//            if(comodo.verificarAgente(agente)) {
-//                return comodo;
-//            }
-//        }
-//        return null;
-//    }
+    public Comodo pegarComodoPorAgente(Agent agente) {
+        for (Comodo comodo : listaComodos) {
+            if(comodo.verificarAgente(agente)) {
+                return comodo;
+            }
+        }
+        return null;
+    }
 
     @Override
     public synchronized void registerAgents(Agent newAgent) {
         super.registerAgents(newAgent);
 
-//        Random random = new Random();
-//        Comodo comodo = listaComodos.get(random.nextInt(listaComodos.size()));
-//        comodo.atribuirAgente(newAgent);
+        Comodo comodo = listaComodos.get(GeradorRandomico.geraRandomico(listaComodos.size()));
+        comodo.atribuirAgente(newAgent);
     }
 
     @Override

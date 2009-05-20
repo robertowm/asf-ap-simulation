@@ -34,6 +34,7 @@ public class PlanoFaxina extends Plan {
 
     @Override
     public void execute(AgentRole role) {
+        System.out.println("===================PlanoFaxina.execute===================");
         int descansa = 500;
         long timeOut = ConstantesAplicacao.QTD_COMODO*ConstantesAplicacao.PONTUACAO_TOTAL_ARRUMADO*2 + 2*descansa;
         List<Message> listaExecutada;

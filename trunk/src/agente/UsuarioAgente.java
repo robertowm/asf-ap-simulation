@@ -12,6 +12,7 @@ import framework.environment.MTS_Environment;
 import framework.mentalState.Plan;
 import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Vector;
  *
  * @author heliokann
  */
-public class UsuarioAgente extends Agent {
+public class UsuarioAgente extends Agent implements Serializable {
 
     private boolean manterResidenciaHabitavel;
 
@@ -63,8 +64,6 @@ public class UsuarioAgente extends Agent {
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        System.out.println("selectingGoalToAchieve ----->>>>>" + this);
-
         for (Object object : this.getGoals()) {
             Goal objetivo = (Goal) object;
             return objetivo;
