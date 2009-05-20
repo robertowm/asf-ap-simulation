@@ -5,18 +5,30 @@
 
 package plano;
 
+import static util.ConstantesAplicacao.*;
+
+import acao.AcaoAgente;
 import acao.AcaoArrumar;
 import acao.AcaoChamarEmpregada;
 import acao.AcaoDesarrumar;
 import acao.AcaoLimpar;
 import acao.AcaoSujar;
 import acao.AcaoVerificarComodo;
+import acao.command.ComandoAcao;
+import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Action;
+import framework.mentalState.Message;
 import framework.mentalState.Plan;
 import framework.organization.MainOrganization;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
 import objetivo.TornarResidenciaHabitavel;
+import objeto.Comodo;
 
 /**
  *
@@ -44,7 +56,35 @@ public class PlanoHabitar extends Plan{
 
     @Override
     public void execute(AgentRole role) {
-//        super.execute(role);
+        List<Message> listaExecutada;
+        Agent agente = role.getAgentPlayingRole();
+        boolean loop = true;
+        int descansa = 400;
+        while (loop) {
+
+            Collection<Message> mensagens = agente.getInMessages();
+            listaExecutada = new ArrayList(mensagens.size());
+
+            for (Message mensagem : mensagens) {
+                AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
+                boolean executou = acao.execute(agente, mensagem);
+
+                if(executou){
+                    listaExecutada.add(mensagem);
+                }
+
+                try {
+                    Thread.sleep(descansa);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            mensagens.removeAll(listaExecutada);
+        }
+
+        goal.setAchieved(true);
 
     }
 
