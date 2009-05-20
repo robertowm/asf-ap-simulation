@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import sis_multagente.Main;
 import util.ConstantesAplicacao;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -48,6 +50,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
                 empregada = true;
             }
         }
+        Principal tela = JDesktop.getTela(agente);
         try {
             Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
             if (morador) {
@@ -65,6 +68,8 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        
+        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada?"Preciso comecar a limpar logo!":"Preciso chamar a empregada rapido!") + "\"");
         return true;
     }
 }
