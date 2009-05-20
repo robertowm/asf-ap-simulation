@@ -30,16 +30,15 @@ public class GeradorAgentes {
 
 
     public static Agent gerarEmpregada(MTS_Environment ambiente, MainOrganization organizacao) {
-        String nome = GeradorNomes.gerarNome();
+        String nome = GeradorNomes.gerarNome() + ":" + ConstantesAplicacao.PAPEL_EMPREGADA;
         Empregada papelEmpregada = new Empregada(nome, organizacao);
+
         Agent agente = FabricaAgente.getAgente(nome, papelEmpregada, ambiente, organizacao);
         papelEmpregada.setAgent(agente);
 
         agente.setGoal(new TornarResidenciaHabitavel());
 
-
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
-
 
         ambiente.registerAgents(agente);
 
@@ -47,7 +46,7 @@ public class GeradorAgentes {
     }
 
     public static Agent gerarMorador(MTS_Environment ambiente, MainOrganization organizacao) {
-        String nome = GeradorNomes.gerarNome();
+        String nome = GeradorNomes.gerarNome() + ":" + ConstantesAplicacao.PAPEL_MORADOR;
         Morador papelMorador = new Morador(nome, organizacao);
 
         Agent agente = FabricaAgente.getAgente(nome, papelMorador, ambiente, organizacao);
