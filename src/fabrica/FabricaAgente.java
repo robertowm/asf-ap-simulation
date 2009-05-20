@@ -15,6 +15,7 @@ import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +38,8 @@ public class FabricaAgente {
         }
         
         ElementID elementID = ams.createAgentElementId(nomeAgente, true);
-
+        elementID.setAddress(LOCAL_HOST);
+        
         ElementID elementIdRegra = new ElementID(regraAgente.toString(), true);
         elementIdRegra.setAddress(LOCAL_HOST);
         regraAgente.setRoleName(elementIdRegra);
@@ -46,7 +48,7 @@ public class FabricaAgente {
         agente = new UsuarioAgente(ambiente, organizacao, regraAgente, elementID);
         agente.setRolesBeingPlayed(regraAgente, organizacao);
         agente.createAgentRoleDescription(regraAgente, elementIdRegra, "");
-
+                
         ams.createDescription(agente, elementID, "");
 
         mapaAgentes.put(nomeAgente, agente);

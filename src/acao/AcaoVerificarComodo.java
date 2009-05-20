@@ -13,9 +13,7 @@ import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
 import framework.mentalState.belief.Belief;
-import framework.organization.MainOrganization;
 import sis_multagente.Main;
-import sun.management.resources.agent;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
 

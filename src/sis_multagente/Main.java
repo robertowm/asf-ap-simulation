@@ -4,8 +4,6 @@
  */
 package sis_multagente;
 
-import agente.UsuarioAgente;
-import agente.papel.Morador;
 import static util.ConstantesAplicacao.*;
 
 import ambiente.Residencia;
@@ -14,16 +12,11 @@ import framework.FIPA.AMS;
 import framework.FIPA.AgentPlatformDescription;
 import framework.FIPA.ElementID;
 import framework.agent.Agent;
-import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
-import framework.mentalState.Condition;
 import framework.mentalState.Message;
 import framework.organization.MainOrganization;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import objeto.Comodo;
 import organizacao.Habitacao;
 import util.GeradorAgentes;
 
@@ -43,6 +36,7 @@ public class Main {
         ElementID elementID = null;
 
         elementID = ams.createEnvironmentElementId(AMBIENTE_APJAVA_NOME, true);
+//        elementID.setAddress(LOCAL_HOST);
 
         MTS_Environment ambiente = null;
         try {
@@ -82,11 +76,14 @@ public class Main {
         GeradorAgentes.gerarMorador(ambiente, mainOrg);
         GeradorAgentes.gerarMorador(ambiente, mainOrg);
 
+//        List <ElementID> ids = new ArrayList<ElementID>();
         for (Object obj : ambiente.getAgents()) {
             Agent agent = (Agent) obj;
             System.out.println("Pegando " + agent.getAgentName().getName());
-
-            agent.send(new Message("?" + Thread.currentThread().getName(), "BLA", agent.getAgentName(), idEmpregada));
+            
+            Message msg = new Message("?" + Thread.currentThread().getName(), "localhost", agent.getAgentName(), idEmpregada);
+            msg.setPerformative(ACAO_VERIFICAR_COMODO);
+            agent.send(msg);
         }
 
     }

@@ -4,8 +4,11 @@
  */
 package acao;
 
+import agente.papel.Empregada;
 import framework.agent.Agent;
+import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
@@ -26,8 +29,13 @@ public class AcaoLimpar extends AcaoAgente {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = (Comodo) msg.getContent();
 
+        List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         int pontuacaoLimparDeAcordoComPersonalidade = 3;
-        boolean empregada = true;
+        boolean empregada = false;
+        for (AgentRole agentRole : papeis) {
+            empregada = (agentRole instanceof Empregada);
+            if(empregada) break;
+        }
 
         do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo
 
