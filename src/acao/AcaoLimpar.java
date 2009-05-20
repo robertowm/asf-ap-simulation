@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -37,11 +39,16 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
             empregada = (agentRole instanceof Empregada);
             if(empregada) break;
         }
+        
+        Principal tela = JDesktop.getTela(agente);
+        
 
         do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo
 
+            tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
             do {
                 try {
+                    tela.apendTexto(" ---> Limpando o comodo ->"+comodo);
                     Thread.sleep(ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO);
                     comodo.limpa();
                 } catch (InterruptedException ex) {
@@ -52,7 +59,8 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
             pontuacaoLimparDeAcordoComPersonalidade = comodo.getPontosFaltaLimpo();
 
         } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
-
+        tela.apendTexto("Saindo do comodo ->"+comodo);
+        
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }
 }

@@ -10,8 +10,8 @@ import framework.agent.Agent;
 import framework.mentalState.Condition;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +53,11 @@ public class Comodo implements Serializable {
         this.tipo = tipo;
 //        this.mapaCondicoesComodo = condicoes;
     }
+
+//    public void atribuirAgente(Agent agente) {
+////        mapaAgentes.put(agente.toString(), agente);
+//        agentes.add(agente);
+//    }
 //
 //    public boolean atendePreCondicoes(Collection<Condition> condicoes) {
 //        for (Condition condicaoAcao : condicoes) {

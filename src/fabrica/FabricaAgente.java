@@ -15,8 +15,10 @@ import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import sis_multagente.Main;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -24,7 +26,7 @@ import java.util.Map;
  */
 public class FabricaAgente {
 
-    private static Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();
+    private static Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();    
 
     private static AMS ams = AMS.getInstance();
 
@@ -54,6 +56,12 @@ public class FabricaAgente {
         ams.createDescription(agente, elementID, "");
 
         mapaAgentes.put(nomeAgente, agente);
+        Principal p = new Principal();
+        p.setVisible(true);
+        p.setTitle(agente.toString());
+        p.apendTexto("Agente Criado");
+        Main.desktop.add(p);
+        JDesktop.telagentes.put(agente, p);
 
         return agente;
     }

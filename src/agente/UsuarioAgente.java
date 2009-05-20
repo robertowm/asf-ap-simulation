@@ -29,6 +29,13 @@ public class UsuarioAgente extends Agent implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return elementId.getName();
+    }
+    
+    
+
+    @Override
     // COLOCAR CEREBRO!
     protected Plan selectingPlan(Collection planosExecutados, Goal objetivoAlvo) {
         List<Plan> planosUsados = (List<Plan>) planosExecutados;

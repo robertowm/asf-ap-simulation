@@ -12,16 +12,14 @@ import framework.FIPA.AMS;
 import framework.FIPA.AgentPlatformDescription;
 import framework.FIPA.ElementID;
 import framework.agent.Agent;
-import framework.environment.MTS_Environment;
 import framework.mentalState.Message;
-import framework.mentalState.Plan;
-import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
 import java.util.ArrayList;
 import java.util.List;
 import objeto.Comodo;
 import organizacao.Habitacao;
 import util.GeradorAgentes;
+import visual.JDesktop;
 
 /**
  *
@@ -31,7 +29,12 @@ public class Main {
 
     public static ElementID idEmpregada = null;
 
+    public static JDesktop desktop;
     public static void main(String[] args) {
+        
+        desktop = new JDesktop();
+        desktop.setVisible(true);
+        
         AMS ams = AMS.getInstance();
         AgentPlatformDescription descricaoPlataforma = ams.getDescriptionPlatform();
         descricaoPlataforma.setName(PLATAFORMA_NOME);
@@ -87,9 +90,9 @@ public class Main {
         e1.send(msg);
 
         //Mensagem Morador
-        Message msgm = new Message("?" + m1.getAgentName().getName(), ambiente.pegarComodoPorAgente(m1), m1.getAgentName(), m1.getAgentName());
-        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
-        m1.send(msgm);
+//        Message msgm = new Message("?" + m1.getAgentName().getName(), ambiente.pegarComodoPorAgente(m1), m1.getAgentName(), m1.getAgentName());
+//        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+//        m1.send(msgm);
 
 
 

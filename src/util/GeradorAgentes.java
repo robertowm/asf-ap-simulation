@@ -8,6 +8,7 @@ package util;
 import agente.comportamento.Bagunceiro;
 import agente.comportamento.Comportamento;
 import agente.comportamento.Equilibrado;
+import agente.comportamento.Faxineira;
 import agente.comportamento.Higienico;
 import agente.comportamento.NaoHigienico;
 import agente.comportamento.Organizado;
@@ -41,10 +42,17 @@ public class GeradorAgentes {
         agente.setGoal(new TornarResidenciaHabitavel());
         
         agente.setPlan(new PlanoFaxina());
+        
+        Faxineira f = new Faxineira();
+        for (Belief belief : f.getCrencas()) {
+            agente.setBelief(belief);
+        }
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
+        
 
         ambiente.registerAgents(agente);
+        
 
         return agente;
     }
