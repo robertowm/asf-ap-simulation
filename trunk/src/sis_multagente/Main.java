@@ -17,6 +17,7 @@ import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.mentalState.Condition;
+import framework.mentalState.Message;
 import framework.organization.MainOrganization;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ import util.GeradorAgentes;
  * @author heliokann
  */
 public class Main {
+
+    public static ElementID idEmpregada = null;
 
     public static void main(String[] args) {
         AMS ams = AMS.getInstance();
@@ -75,6 +78,8 @@ public class Main {
         mainOrgThread.start();
 
         Agent agente = GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        agente = GeradorAgentes.gerarMorador(ambiente, mainOrg);
+        idEmpregada = agente.getAgentName();
 
     }
 
@@ -89,7 +94,7 @@ public class Main {
 //            agRoleBuyer1.setRoleName(elementIdRole);
 //            elementId.setAddress("127.0.0.1");
 //            //
-//
+        //
 //            Agent agentViviane = new User_Agent(env, mainOrg, agRoleBuyer1, elementId);
 //            //agentViviane.setAgentName("UserAgent::Viviane");
 //            //agentViviane.setAgentName(elementId.getName());
