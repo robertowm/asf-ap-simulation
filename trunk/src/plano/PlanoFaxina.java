@@ -6,6 +6,7 @@ package plano;
 
 import acao.AcaoAgente;
 import acao.AcaoLimpar;
+import acao.AcaoArrumar;
 import acao.command.ComandoAcao;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import objetivo.TornarResidenciaHabitavel;
 import util.ConstantesAplicacao;
 
 /**
@@ -23,6 +25,12 @@ import util.ConstantesAplicacao;
  * @author heliokann
  */
 public class PlanoFaxina extends Plan {
+    
+    public PlanoFaxina(){
+        this.setAction(new AcaoArrumar());
+        this.setAction(new AcaoLimpar());
+        this.setGoal(new TornarResidenciaHabitavel());
+    }
 
     @Override
     public void execute(AgentRole role) {
@@ -65,5 +73,10 @@ public class PlanoFaxina extends Plan {
         
         goal.setAchieved(true);
 
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return  (obj instanceof PlanoFaxina);
     }
 }
