@@ -58,7 +58,8 @@ public class AcaoVerificarComodo extends AcaoAgente {
                 }
             }
             if (morador) {
-                List<Comodo> comodos =  (List<Comodo>) agente.getEnvironment().getObjects();
+                
+                final List<Comodo> comodos =  (List<Comodo>) agente.getEnvironment().getObjects();
                 int pontoLimpezaArrumacao = 0;
                 boolean  chamarEmpregada = false;
                 for (Comodo comodoAnalise : comodos) {
@@ -77,11 +78,12 @@ public class AcaoVerificarComodo extends AcaoAgente {
                     
                 }
                 
-                if(pontoLimpezaArrumacao <ConstantesAplicacao.MEDIA_PONTOS_COMODOS){
+                if(pontoLimpezaArrumacao <= ConstantesAplicacao.MEDIA_PONTOS_COMODOS){
                     chamarEmpregada = true;
                 }
                 
                 if(chamarEmpregada){
+                    saida = new Message(comversionId, comodo, agente.getAgentName(), EMPREGADA.getAgentName());
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                     break;
@@ -102,20 +104,17 @@ public class AcaoVerificarComodo extends AcaoAgente {
                     agente.send(saida);
                 } else if (crenca.getName().equals("suja")) {
                     // acao suja
+                    saida.setPerformative(ConstantesAplicacao.ACAO_SUJAR);
+                    agente.send(saida);
                 } else if (crenca.getName().equals("chamaEmpregada")) {
                     // acao chamaEmpregada
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                 }
+
             }
+            
         }
 
-        /**
-         * tem que analisar o quarto de acordo com a personalidade e papel do agente
-         * por exemplo, se  agente é empregada ele vai querer limpar ou arrumar, de acordo com a condição do comodo
-         * se for um morador ele pode arrumar, limpar, desarrumar, sujar, ou chamar a empregada, dependendo de sua personalidade
-         * para chamar a empregada a média dos cômodos tem que estar inferior a 5 ou um comodo estar inabitavel
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
