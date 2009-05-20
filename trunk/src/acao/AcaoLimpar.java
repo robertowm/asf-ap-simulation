@@ -8,6 +8,7 @@ import agente.papel.Empregada;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import util.ConstantesAplicacao;
  *
  * @author heliokann
  */
-public class AcaoLimpar extends AcaoAgente {
+public class AcaoLimpar extends AcaoAgente implements Serializable{
 
     @Override
     public boolean execute() {

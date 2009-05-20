@@ -9,15 +9,15 @@ import static util.ConstantesAplicacao.*;
 
 import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
-import framework.agentRole.Duty;
 import framework.mentalState.belief.LeafBelief;
 import framework.organization.MainOrganization;
+import java.io.Serializable;
 
 /**
  *
  * @author heliokann
  */
-public class Empregada extends AgentRole{
+public class Empregada extends AgentRole implements Serializable{
     
     boolean manterResidenciaHabitavel;
 

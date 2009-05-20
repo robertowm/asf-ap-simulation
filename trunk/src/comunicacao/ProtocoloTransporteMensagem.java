@@ -8,12 +8,13 @@ package comunicacao;
 import static util.ConstantesAplicacao.*;
 
 import framework.FIPA.communication.http.MessageTransportProtocol;
+import java.io.Serializable;
 
 /**
  *
  * @author robertowm
  */
-public class ProtocoloTransporteMensagem extends MessageTransportProtocol {
+public class ProtocoloTransporteMensagem extends MessageTransportProtocol implements Serializable{
 
     private static ProtocoloTransporteMensagem instancia = null;
 

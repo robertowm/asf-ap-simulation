@@ -10,13 +10,14 @@ import framework.environment.MTS_Environment;
 import framework.mentalState.Plan;
 import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  *
  * @author heliokann
  */
-public class Habitacao extends MainOrganization {
+public class Habitacao extends MainOrganization implements Serializable {
 
     public Habitacao(MTS_Environment ambiente, ElementID idElemento, MTP protocoloTransporteMensagem) {
         super(ambiente, idElemento, protocoloTransporteMensagem);

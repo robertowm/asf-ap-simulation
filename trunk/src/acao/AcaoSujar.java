@@ -6,6 +6,7 @@ package acao;
 
 import framework.agent.Agent;
 import framework.mentalState.Message;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
@@ -15,7 +16,7 @@ import util.ConstantesAplicacao;
  *
  * @author heliokann
  */
-public class AcaoSujar extends AcaoAgente {
+public class AcaoSujar extends AcaoAgente implements Serializable{
 
     @Override
     public boolean execute() {

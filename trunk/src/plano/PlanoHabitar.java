@@ -5,7 +5,6 @@
 
 package plano;
 
-import static util.ConstantesAplicacao.*;
 
 import acao.AcaoAgente;
 import acao.AcaoArrumar;
@@ -17,24 +16,22 @@ import acao.AcaoVerificarComodo;
 import acao.command.ComandoAcao;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
-import framework.mentalState.Action;
 import framework.mentalState.Message;
 import framework.mentalState.Plan;
 import framework.organization.MainOrganization;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
-import objetivo.TornarResidenciaHabitavel;
-import objeto.Comodo;
 
 /**
  *
  * @author heliokann
  */
-public class PlanoHabitar extends Plan{
+public class PlanoHabitar extends Plan implements Serializable{
 
     public PlanoHabitar() {
         this.setAction(new AcaoChamarEmpregada());

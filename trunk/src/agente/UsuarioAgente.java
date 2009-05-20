@@ -5,6 +5,7 @@
 package agente;
 
 import comunicacao.ProtocoloTransporteMensagem;
+import framework.FIPA.Description;
 import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
@@ -14,7 +15,6 @@ import framework.mentalState.goal.Goal;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -23,8 +23,6 @@ import java.util.Vector;
  * @author heliokann
  */
 public class UsuarioAgente extends Agent implements Serializable {
-
-    private boolean manterResidenciaHabitavel;
 
     public UsuarioAgente(MTS_Environment theEnvironment, MainOrganization initialOrg, AgentRole initialRole, ElementID idElemento) {
         super(idElemento, ProtocoloTransporteMensagem.getInstancia());
@@ -45,12 +43,6 @@ public class UsuarioAgente extends Agent implements Serializable {
             }
         }
 
-//        for (Plan plano : planos) {
-//            if(plano.getGoal().equals(objetivoAlvo)) {
-//                System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando o plano " + plano.toString() + " para o objetivo " + objetivoAlvo.getName());
-//                return plano;
-//            }
-//        }
         System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando nulo -> nao encontrou nenhum plano que atendia ao objetivo " + objetivoAlvo.getName());
         return null;
     }
@@ -83,11 +75,21 @@ public class UsuarioAgente extends Agent implements Serializable {
         System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
         return plans.isEmpty();
     }
+    
+    @Override
+    public void setDescription(Description description) {
+        this.description = description;
+    }
 
     public void run() {
         System.out.println("-----> Agent " + getAgentName().getName() + " beginning its execution <-----");
         // Parte nova!
-        while (description == null);
+        try{
+        if (description == null) Thread.currentThread().wait();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+//        while (description == null);
         description.setState(Agent.running);
 
         Vector vPlansExecuted = new Vector();
