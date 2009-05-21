@@ -49,7 +49,7 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
         tela.apendTexto("Saindo do comodo ->"+comodo);
         tela.apendTexto("Situação de arrumacao ->"+comodo.getNivelArrumacao()+"\n");
 
-        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         agente.send(saida);
 

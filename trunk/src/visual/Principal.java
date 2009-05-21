@@ -21,6 +21,7 @@ public class Principal extends javax.swing.JInternalFrame {
         jTextArea1 = new javax.swing.JTextArea();
         
         setClosable(true);
+        
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -38,6 +39,8 @@ public class Principal extends javax.swing.JInternalFrame {
     
     public void apendTexto(String linha){
         jTextArea1.append(linha+"\n");
+        jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
+        
         this.repaint();
     }
     

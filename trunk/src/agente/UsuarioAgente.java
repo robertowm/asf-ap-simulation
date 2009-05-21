@@ -45,20 +45,19 @@ public class UsuarioAgente extends Agent implements Serializable {
         for (Plan plan : planosObjetivo) {
             if (plan.getGoal().equals(objetivoAlvo)) {
                 if (!planosUsados.contains(plan)) {
-                    System.out.println("plano bolado");
                     return plan;
                 }
             }
         }
 
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando nulo -> nao encontrou nenhum plano que atendia ao objetivo " + objetivoAlvo.getName());
+//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingPlan': retornando nulo -> nao encontrou nenhum plano que atendia ao objetivo " + objetivoAlvo.getName());
         return null;
     }
 
     @Override
     // VERIFICAR
     protected void executingPlan(Plan plano) {
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] " + plano.toString() + " Metodo 'executingPlan': executando na AgentRole " + this.getCurrentRole().getRoleName());
+//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] " + plano.toString() + " Metodo 'executingPlan': executando na AgentRole " + this.getCurrentRole().getRoleName());
         plano.execute(this.getCurrentRole());
     }
 
@@ -76,14 +75,14 @@ public class UsuarioAgente extends Agent implements Serializable {
             }
         }
 
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
 
         return objetivoSelecionado;
     }
 
     @Override
     protected boolean checkIfWillContinue() {
-        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
+//        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
         return plans.isEmpty();
     }
     
@@ -93,7 +92,7 @@ public class UsuarioAgente extends Agent implements Serializable {
     }
 
     public void run() {
-        System.out.println("-----> Agent " + getAgentName().getName() + " beginning its execution <-----");
+//        System.out.println("-----> Agent " + getAgentName().getName() + " beginning its execution <-----");
         // Parte nova!
         try{
         if (description == null) Thread.currentThread().wait();
@@ -194,7 +193,7 @@ public class UsuarioAgente extends Agent implements Serializable {
                 currentRole.destroy();
             }
 
-            System.out.println("-----> Agent Thread " + Thread.currentThread().getName() + " is finishing its execution <-----");
+//            System.out.println("-----> Agent Thread " + Thread.currentThread().getName() + " is finishing its execution <-----");
 
             //Verify if the agent is playing other roles
             vRoles = getRolesBeingPlayed();

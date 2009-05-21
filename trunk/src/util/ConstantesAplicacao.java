@@ -36,6 +36,7 @@ public interface ConstantesAplicacao {
     public static final int TEMPO_SUJAR_UM_PONTO = 600 * VELOCIDADE;
     public static final int TEMPO_DESARRUMAR_UM_PONTO = 900 * VELOCIDADE;
     public static final int TEMPO_CHAMAR_EMPREGADA = 500 * VELOCIDADE;
+    public static final int TEMPO_ESPERAR_EMPREGADA = 1000 * VELOCIDADE;;
     public static final int TEMPO_VERIFICAR_COMODO = 100 * VELOCIDADE;
     
     // >>> Pontuacoes <<<

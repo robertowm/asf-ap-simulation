@@ -53,25 +53,31 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
         }
         Principal tela = JDesktop.getTela(agente);
         try {
-//            tela.apendTexto("       Chamando Empregada");
             Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
-            if (morador) {
-                Message chamada = new Message(conversionId, comodo, agente.getAgentName(), empregada ? agente.getAgentName() : Main.idEmpregada);
-                chamada.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-                agente.send(chamada);
-
-                if (!empregada) {
-                    Message saida = new Message(conversionId, comodo, agente.getAgentName(), agente.getAgentName());
-                    saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-                    agente.send(saida);
-                }
-            }
         } catch (InterruptedException ex) {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
-        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada?"Preciso comecar a limpar logo!":"Preciso chamar a empregada rapido!") + "\"");
+        if (morador) {
+            Message chamada = new Message(conversionId, comodo.toString(), agente.getAgentName(), empregada ? agente.getAgentName() : Main.idEmpregada);
+            chamada.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+            agente.send(chamada);
+
+            if (!empregada) {
+                Message saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+                saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+                agente.send(saida);
+            }
+        }
+
+        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
+        tela.apendTexto("\"Nossa! Este comodo esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido para limpar a/o " + comodo + "!") + "\"");
+        try {
+            Thread.sleep(ConstantesAplicacao.TEMPO_ESPERAR_EMPREGADA);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
         return true;
     }
 }

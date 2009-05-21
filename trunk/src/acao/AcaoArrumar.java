@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
+import util.GeradorRandomico;
 import visual.JDesktop;
 import visual.Principal;
 
@@ -29,7 +30,7 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-       Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
         int pontuacaoArrumarDeAcordoComPersonalidade = 1;
         boolean empregada = false;
@@ -45,7 +46,7 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
 
             do {
                 try {
-                    tela.apendTexto("       Arrumando comodo...>");
+                    tela.apendTexto("       Arrumando comodo...");
                     Thread.sleep(ConstantesAplicacao.TEMPO_ARRUMAR_UM_PONTO);
                     comodo.arruma();
                 } catch (InterruptedException ex) {
@@ -57,14 +58,26 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
             pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
 
         } while (empregada && !comodo.getNivelArrumacao().equals(Comodo.ARRUMADO));
-        
-        tela.apendTexto("Saindo do comodo ->"+comodo);
-        tela.apendTexto("Situação de Arrumacao ->"+comodo.getNivelArrumacao()+"\n");
 
-        Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
-        if(empregada){
+        tela.apendTexto("Saindo do comodo ->" + comodo);
+        tela.apendTexto("Situação de Arrumacao ->" + comodo.getNivelArrumacao() + "\n");
+
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
+
+        if (empregada) {
             saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
-        } else{
+            if (comodo.getNivelLimpeza().equals(Comodo.LIMPO)) {
+                Residencia residencia = (Residencia) agente.getEnvironment();
+                Comodo c = residencia.pegarComodoAleatoriamente();
+                if(!c.equals(comodo)) {
+                    residencia.trocarAgenteComodo(agente, c);
+                    saida.setContent(c.toString());
+                    saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+                    tela.apendTexto("\"Irei para o comodo " + c + "\"");
+                    tela.apendTexto("       Mudando de comodo...");
+                }
+            }
+        } else {
             saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         }
         agente.send(saida);

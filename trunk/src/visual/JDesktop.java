@@ -56,9 +56,9 @@ public class JDesktop extends javax.swing.JFrame {
         jMSobre = new javax.swing.JMenu();
         jMISobre = new javax.swing.JMenuItem();
         
-        saidas = new Principal();
-        saidas.setTitle("Outras saídas");
-        saidas.setBounds(0, 0, 600, 300);
+//        saidas = new Principal();
+//        saidas.setTitle("Outras saídas");
+//        saidas.setBounds(0, 0, 600, 300);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
@@ -124,7 +124,7 @@ public class JDesktop extends javax.swing.JFrame {
     }
     
     private void jMIArqCriacaoActionPerformed(java.awt.event.ActionEvent evt) {
-        addComponentes();
+//        addComponentes();
         GerenciadorFluxos.iniciarFluxo();
         jMIniciar.setEnabled(false);
     }
