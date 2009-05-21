@@ -14,10 +14,6 @@ import java.io.Serializable;
  */
 public class ResidirFeliz extends LeafGoal implements Serializable{
     
-//    public ResidirFeliz(String tipo, String descricao, Object valor){
-//        super(tipo, descricao, valor);
-//    }
-    
     public ResidirFeliz(){
         super("boolean", "Residir_Feliz",true);
     }
