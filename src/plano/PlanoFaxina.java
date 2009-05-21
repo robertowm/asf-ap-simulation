@@ -105,8 +105,7 @@ public class PlanoFaxina extends Plan implements Serializable{
         
         goal.setAchieved(true);
 //        tela.apendTexto("Plano FAXINA cumprido com sucesso");
-        tela.apendTexto("\"Trabalhei e fiz tudo que consegui dentro do tempo! :)\"");
-
+        tela.apendTexto("Fiz tudo que deu, dentro do tempo! :)\"");
     }
     
     @Override

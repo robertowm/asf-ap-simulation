@@ -38,8 +38,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = (Comodo) msg.getContent();
-        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
+        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
@@ -102,7 +101,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                         Thread.sleep(ConstantesAplicacao.TEMPO_VERIFICAR_COMODO);
                     } catch (InterruptedException ex) {
                     }
-                    saida = new Message(comversionId, comodo, agente.getAgentName(), Main.idEmpregada);
+                    saida = new Message(comversionId, comodo, agente.getAgentName(), agente.getAgentName());
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                     break;
@@ -127,7 +126,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                     agente.send(saida);
                 } else if (crenca.getName().equals("chamaEmpregada")) {
                     // acao chamaEmpregada
-                    saida = new Message(comversionId, comodo, agente.getAgentName(), Main.idEmpregada);
+                    saida = new Message(comversionId, comodo, agente.getAgentName(), agente.getAgentName());
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                 }

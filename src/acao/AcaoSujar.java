@@ -28,24 +28,25 @@ public class AcaoSujar extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = (Comodo) msg.getContent();
-        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
+        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
         // suja de acordo com a personalidade
 
         int pontuacaoSujarDeAcordoComPersonalidade = 2;
         Principal tela = JDesktop.getTela(agente);
-        tela.apendTexto("\"Vou sujar, mas so um pouquinho...\"");
+        tela.apendTexto("\n\"Vou sujar, mas so um pouquinho...\"");
         do {
             try {
                 // dormindo o tempo de sujar um ponto
-                tela.apendTexto("\"Sujando Comodo...\"");
+                tela.apendTexto("       Sujando Comodo...");
                 Thread.sleep(ConstantesAplicacao.TEMPO_SUJAR_UM_PONTO);
                 comodo.suja();
             } catch (InterruptedException ex) {
                 Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (--pontuacaoSujarDeAcordoComPersonalidade > 0);
+        tela.apendTexto("Saindo do comodo ->"+comodo);
+        tela.apendTexto("Situação de Limpeza ->"+comodo.getNivelLimpeza()+"\n");
 
         Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);

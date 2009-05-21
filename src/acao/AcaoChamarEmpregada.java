@@ -33,8 +33,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = (Comodo) msg.getContent();
-        ((Residencia) agente.getEnvironment()).atualizarComodo(agente, comodo);
+        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
 
@@ -54,6 +53,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
         }
         Principal tela = JDesktop.getTela(agente);
         try {
+//            tela.apendTexto("       Chamando Empregada");
             Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
             if (morador) {
                 Message chamada = new Message(conversionId, comodo, agente.getAgentName(), empregada ? agente.getAgentName() : Main.idEmpregada);
