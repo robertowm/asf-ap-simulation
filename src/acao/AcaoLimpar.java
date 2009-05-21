@@ -50,7 +50,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
 //            tela.apendTexto(" ---> Nível de Limpeza comodo ->"+comodo.getNivelLimpeza());
             do {
                 try {
-                    tela.apendTexto("       Limpando o comodo...>");
+                    tela.apendTexto("       Limpando o comodo...");
                     Thread.sleep(ConstantesAplicacao.TEMPO_LIMPAR_UM_PONTO);
                     comodo.limpa();
                 } catch (InterruptedException ex) {
@@ -66,16 +66,24 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
         
 
         
+        Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
         if(empregada){
-            Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
             saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
-            agente.send(saida);
-            
+            if (comodo.getNivelArrumacao().equals(Comodo.ARRUMADO)) {
+                Residencia residencia = (Residencia) agente.getEnvironment();
+                Comodo c = residencia.pegarComodoAleatoriamente();
+                if(!c.equals(residencia.pegarComodoPorAgente(agente))) {
+                    residencia.trocarAgenteComodo(agente, c);
+                    saida.setContent(c.toString());
+                    saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+                    tela.apendTexto("\"Irei para o comodo " + c + "\"");
+                    tela.apendTexto("       Mudando de comodo...");
+                }
+            }
         }else{
-            Message saida = new Message("?" + Thread.currentThread().getName(), comodo, agente.getAgentName(), agente.getAgentName());
             saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-            agente.send(saida);
         }
+        agente.send(saida);
 
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }

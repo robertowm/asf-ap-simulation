@@ -45,14 +45,14 @@ public class Habitacao extends MainOrganization implements Serializable {
             }
         }
 
-        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
+//        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'selectingGoalToAchieve': objetivo -> " + objetivoSelecionado);
 
         return objetivoSelecionado;
     }
 
     @Override
     protected boolean checkIfWillContinue() {
-        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + false + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
+//        System.out.println("[Habitacao:" + this.getDescription().getElementId().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + false + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
         return false;
     }
 }
