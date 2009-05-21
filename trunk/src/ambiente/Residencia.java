@@ -33,19 +33,28 @@ public class Residencia extends MTS_Environment implements Serializable{
         mapaAgentesComodo.put(agent, comodo);
     }
     
-    public synchronized void atualizarComodo(Agent agent, Comodo comodo) {
-        Comodo c = mapaAgentesComodo.get(agent);
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
-        comodo.setNivelArrumacao(c.getNivelArrumacao());
-        comodo.setNivelLimpeza(c.getNivelLimpeza());
-        comodo.setNome(c.getNome());
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
-//        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
-        
+    public synchronized Comodo getComodoPorNome(String nome){
+        for (Comodo comodo : listaComodos) {
+            if(nome.equals(comodo.getNome())){
+                return comodo;
+            }
+        }
+        return null;
     }
+    
+//    public synchronized void atualizarComodo(Agent agent, Comodo comodo) {
+//        Comodo c = mapaAgentesComodo.get(agent);
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
+//        comodo.setNivelArrumacao(c.getNivelArrumacao());
+//        comodo.setNivelLimpeza(c.getNivelLimpeza());
+//        comodo.setNome(c.getNome());
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
+////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
+//        
+//    }
 
     public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {
        mapaAgentesComodo.remove(agent);

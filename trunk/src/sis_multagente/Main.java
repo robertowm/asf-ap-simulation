@@ -84,7 +84,7 @@ public class Main {
 
         Agent m1 = GeradorAgentes.gerarMorador(ambiente, mainOrg);
 
-        //Mensagem Empregada
+//        Mensagem Empregada
         Message msg = new Message("?" + idEmpregada.getName(), ambiente.pegarComodoPorAgente(e1), idEmpregada, idEmpregada);
         msg.setPerformative(ACAO_VERIFICAR_COMODO);
         e1.send(msg);
