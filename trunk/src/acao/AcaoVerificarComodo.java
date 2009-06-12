@@ -9,15 +9,12 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
 import ambiente.Residencia;
 import framework.mentalState.belief.Belief;
 import java.io.Serializable;
-import sis_multagente.Main;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
@@ -29,8 +26,6 @@ import visual.Principal;
  */
 public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
 
-    private Collection organizacao;
-
     @Override
     public boolean execute() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -40,6 +35,8 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+        comodo.adicionaAgente(agente);
+        
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
         boolean morador = false;
@@ -141,6 +138,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
             break;
 
         }
+        comodo.removeAgente(agente);
         return true;
     }
 

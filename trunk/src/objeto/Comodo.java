@@ -4,15 +4,15 @@
  */
 package objeto;
 
+import framework.agent.Agent;
+import javax.swing.JList;
 import static util.ConstantesAplicacao.*;
 
-import framework.agent.Agent;
 import framework.mentalState.Condition;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 /**
  *
@@ -23,7 +23,11 @@ public class Comodo implements Serializable {
     private String nome;
     private String tipo;
 //    private Map<String, Condition> mapaCondicoesComodo;
+    private Vector<Agent> agentes = new Vector();
+    private JList listaAgentesTela;
     private int pontuacaoLimpeza = 7;
+    private javax.swing.JSlider jNivelArrumacao;
+    private javax.swing.JSlider jNivelLimpeza;
     private int pontuacaoArrumacao = 7;
     private String nivelLimpeza;
     private String nivelArrumacao;
@@ -52,6 +56,20 @@ public class Comodo implements Serializable {
         this.nome = nome;
         this.tipo = tipo;
 //        this.mapaCondicoesComodo = condicoes;
+    }
+
+    public synchronized void adicionaAgente(Agent agente) {
+        agentes.add(agente);
+        listaAgentesTela.setListData(agentes);
+    }
+
+    public synchronized void removeAgente(Agent agente) {
+        agentes.remove(agente);
+        listaAgentesTela.setListData(agentes);
+    }
+
+    public void setJListaAgentes(JList jListAgentesTela) {
+        this.listaAgentesTela = jListAgentesTela;
     }
 
 //    public void atribuirAgente(Agent agente) {
@@ -91,7 +109,7 @@ public class Comodo implements Serializable {
             nivelLimpeza = LIMPO;
         } else if (pontuacaoLimpeza > 6) {
             nivelLimpeza = NORMAL_LIMPO;
-        } else if (pontuacaoLimpeza > 4) {
+        } else if (pontuacaoLimpeza > 3) {
             nivelLimpeza = SUJO;
         } else {
             nivelLimpeza = INABITAVEL_SUJO;
@@ -105,7 +123,7 @@ public class Comodo implements Serializable {
             nivelArrumacao = ARRUMADO;
         } else if (pontuacaoArrumacao > 6) {
             nivelArrumacao = NORMAL_ARRUMADO;
-        } else if (pontuacaoArrumacao > 4) {
+        } else if (pontuacaoArrumacao > 3) {
             nivelArrumacao = DESARRUMADO;
         } else {
             nivelArrumacao = INABITAVEL_DESARRUMADO;
@@ -156,6 +174,7 @@ public class Comodo implements Serializable {
     private synchronized void setPontuacaoLimpeza(int pontuacaoLimpeza) {
         if (pontuacaoLimpeza > -1 && pontuacaoLimpeza <= PONTUACAO_TOTAL_LIMPO) {
             this.pontuacaoLimpeza = pontuacaoLimpeza;
+            jNivelLimpeza.setValue(pontuacaoLimpeza);
         }
     }
 
@@ -164,8 +183,9 @@ public class Comodo implements Serializable {
     }
 
     private synchronized void setPontuacaoArrumacao(int pontuacaoArrumacao) {
-        if (pontuacaoArrumacao > -1 && pontuacaoArrumacao < PONTUACAO_TOTAL_ARRUMADO) {
+        if (pontuacaoArrumacao > -1 && pontuacaoArrumacao <= PONTUACAO_TOTAL_ARRUMADO) {
             this.pontuacaoArrumacao = pontuacaoArrumacao;
+            jNivelArrumacao.setValue(pontuacaoArrumacao);
         }
     }
 
@@ -180,6 +200,22 @@ public class Comodo implements Serializable {
         Comodo c = (Comodo) obj;
         return c.nome.equals(this.nome);
         
+    }
+
+    public javax.swing.JSlider getJNivelArrumacao() {
+        return jNivelArrumacao;
+    }
+
+    public void setJNivelArrumacao(javax.swing.JSlider jNivelArrumacao) {
+        this.jNivelArrumacao = jNivelArrumacao;
+    }
+
+    public javax.swing.JSlider getJNivelLimpeza() {
+        return jNivelLimpeza;
+    }
+
+    public void setJNivelLimpeza(javax.swing.JSlider jNivelLimpeza) {
+        this.jNivelLimpeza = jNivelLimpeza;
     }
     
     

@@ -7,6 +7,7 @@ package fabrica;
 import agente.UsuarioAgente;
 import agente.papel.Empregada;
 import agente.papel.Morador;
+import agente.papel.Secretaria;
 import framework.mentalState.belief.Belief;
 import static util.ConstantesAplicacao.*;
 
@@ -22,6 +23,7 @@ import objetivo.ResidirFeliz;
 import objetivo.TornarResidenciaHabitavel;
 import plano.PlanoFaxina;
 import plano.PlanoHabitar;
+import plano.PlanoSecretaria;
 import sis_multagente.Main;
 import visual.JDesktop;
 import visual.Principal;
@@ -58,17 +60,20 @@ public class FabricaAgente {
         
         if(regraAgente instanceof Empregada){
             Empregada papelEmpregada = new Empregada();
-//            papelEmpregada.setAgent(agente);
             agente.setGoal(new TornarResidenciaHabitavel());
             agente.setPlan(new PlanoFaxina());
             regraAgente = papelEmpregada;
         }else if(regraAgente instanceof Morador){
             Morador papelMorador = new Morador();
             papelMorador.setBeleafs(regraAgente.getBeliefs());
-//            papelMorador.setAgent(agente);
             agente.setGoal(new ResidirFeliz());
             agente.setPlan(new PlanoHabitar());
             regraAgente = papelMorador;
+        }else if(regraAgente instanceof Secretaria){
+            Secretaria papelSecretaria = new Secretaria();
+            agente.setGoal(new TornarResidenciaHabitavel());
+            agente.setPlan(new PlanoSecretaria());
+            regraAgente = papelSecretaria;
         }
         
         for (Object belief : regraAgente.getBeliefs()) {

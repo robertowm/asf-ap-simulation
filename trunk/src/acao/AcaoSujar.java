@@ -29,6 +29,8 @@ public class AcaoSujar extends AcaoAgente implements Serializable {
     @Override
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+        
+        comodo.adicionaAgente(agente);
 
         // suja de acordo com a personalidade
 
@@ -52,6 +54,7 @@ public class AcaoSujar extends AcaoAgente implements Serializable {
         saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         agente.send(saida);
 
+        comodo.removeAgente(agente);
 
         return true;
     }

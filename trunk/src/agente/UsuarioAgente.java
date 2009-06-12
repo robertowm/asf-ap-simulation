@@ -24,16 +24,33 @@ import java.util.Vector;
  */
 public class UsuarioAgente extends Agent implements Serializable {
 
+    private String nome;
+
     public UsuarioAgente(MTS_Environment theEnvironment, MainOrganization initialOrg, AgentRole initialRole, ElementID idElemento) {
         super(idElemento, ProtocoloTransporteMensagem.getInstancia());
+        nome = idElemento.getName();
     }
 
     @Override
     public String toString() {
-        return elementId.getName();
+        return nome;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof UsuarioAgente)) {
+            return false;
+        }
+        UsuarioAgente agente = ((UsuarioAgente) (obj));
+        return agente.nome.equals(this.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        return hash;
+    }
 
     @Override
     // COLOCAR CEREBRO!
@@ -63,9 +80,10 @@ public class UsuarioAgente extends Agent implements Serializable {
 
     @Override
     protected Goal selectingGoalToAchieve() {
-        if(this.getGoals().isEmpty()) return null;
-        
-        List<Goal> lista = (List<Goal>)this.getGoals();
+        if (this.getGoals().isEmpty()) {
+            return null;
+        }
+        List<Goal> lista = (List<Goal>) this.getGoals();
         Goal objetivoSelecionado = lista.get(0);
         for (int valor = 1; valor < this.getGoals().size(); valor++) {
             Goal objetivo = (Goal) lista.get(valor);
@@ -85,7 +103,7 @@ public class UsuarioAgente extends Agent implements Serializable {
 //        System.out.println("[UsuarioAgente:" + this.getAgentName().getName() + "] Metodo 'checkIfWillContinue': retorno -> " + plans.isEmpty() + " -> Motivo: NAO TEM! NAO TEM DOCUMENTACAO DESSE METODO!");
         return plans.isEmpty();
     }
-    
+
     @Override
     public void setDescription(Description description) {
         this.description = description;
@@ -94,9 +112,11 @@ public class UsuarioAgente extends Agent implements Serializable {
     public void run() {
 //        System.out.println("-----> Agent " + getAgentName().getName() + " beginning its execution <-----");
         // Parte nova!
-        try{
-        if (description == null) Thread.currentThread().wait();
-        }catch(InterruptedException e){
+        try {
+            if (description == null) {
+                Thread.currentThread().wait();
+            }
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 //        while (description == null);

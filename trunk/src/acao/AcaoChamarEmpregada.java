@@ -35,6 +35,8 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+        comodo.adicionaAgente(agente);
+        
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
 
         String conversionId = "?" + Thread.currentThread().getName();
@@ -78,6 +80,9 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        
+        comodo.removeAgente(agente);
+        
         return true;
     }
 }

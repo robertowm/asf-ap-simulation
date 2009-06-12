@@ -15,6 +15,7 @@ import framework.organization.MainOrganization;
 import java.util.HashMap;
 import java.util.Map;
 import sis_multagente.Main;
+import visual.JAmbiente;
 import visual.Principal;
 
 /**
@@ -43,7 +44,7 @@ public class FabricaAmbiente {
         ams.createDescription(ambiente, elementID, "");
 
         mapaAmbientes.put(nomeAmbiente, ambiente);
-        Principal p = new Principal();
+        JAmbiente p = new JAmbiente(ambiente);
         p.setVisible(true);
         p.setTitle(ambiente.toString());
         Main.desktop.add(p);
