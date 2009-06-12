@@ -7,22 +7,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 import objeto.Comodo;
 import util.GeradorRandomico;
+import visual.JAmbiente;
 
 public class Residencia extends MTS_Environment implements Serializable {
 
     private List<Comodo> listaComodos = new ArrayList<Comodo>();
     private HashMap<Agent, Comodo> mapaAgentesComodo = new HashMap<Agent, Comodo>();
+    private Vector<Agent> listaAgentes = new Vector<Agent>();
+    private JAmbiente janela;
 
     public Residencia(ElementID aid) {
         super(aid);
 
-        listaComodos.add(new Comodo("Cozinha"/*, "cozinha", condicoes*/));
         listaComodos.add(new Comodo("Quarto"/*, "Quarto", condicoes*/));
-        listaComodos.add(new Comodo("Sala"/*, "Sala", condicoes*/));
+        listaComodos.add(new Comodo("Cozinha"/*, "cozinha", condicoes*/));
+//        listaComodos.add(new Comodo("Sala"/*, "Sala", condicoes*/));
         listaComodos.add(new Comodo("Banheiro"/*, "Banheiro", condicoes*/));
-        listaComodos.add(new Comodo("햞ea"/*, "햞ea", condicoes*/));
+//        listaComodos.add(new Comodo("햞ea"/*, "햞ea", condicoes*/));
     }
 
     public Residencia(ElementID aid, List<Comodo> listaComodos) {
@@ -47,6 +51,10 @@ public class Residencia extends MTS_Environment implements Serializable {
         return null;
     }
 
+    public void setJanela(JAmbiente jAmbiente) {
+        janela = jAmbiente;
+    }
+
     public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {
         mapaAgentesComodo.remove(agent);
         mapaAgentesComodo.put(agent, comodo);
@@ -60,6 +68,8 @@ public class Residencia extends MTS_Environment implements Serializable {
     public synchronized void registerAgents(Agent newAgent) {
         super.registerAgents(newAgent);
         mapaAgentesComodo.put(newAgent, pegarComodoAleatoriamente());
+        listaAgentes.add(newAgent);
+        janela.setListAgentes(listaAgentes);
     }
 
     public Comodo pegarComodoAleatoriamente() {

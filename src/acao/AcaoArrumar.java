@@ -32,6 +32,8 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+        comodo.adicionaAgente(agente);
+        
         int pontuacaoArrumarDeAcordoComPersonalidade = 1;
         boolean empregada = false;
         for (Object object : agente.getRolesBeingPlayed()) {
@@ -81,6 +83,8 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
             saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         }
         agente.send(saida);
+        
+        comodo.removeAgente(agente);
 
         return comodo.getNivelArrumacao().equals(Comodo.ARRUMADO);
     }
