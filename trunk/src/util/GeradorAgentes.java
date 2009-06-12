@@ -5,27 +5,16 @@
 
 package util;
 
-import agente.comportamento.Bagunceiro;
-import agente.comportamento.Comportamento;
-import agente.comportamento.Equilibrado;
-import agente.comportamento.Faxineira;
-import agente.comportamento.Higienico;
-import agente.comportamento.NaoHigienico;
-import agente.comportamento.Organizado;
-import agente.comportamento.Relaxado;
-import agente.papel.Empregada;
-import agente.papel.Morador;
+import ambiente.Residencia;
 import fabrica.FabricaAgente;
 import framework.agent.Agent;
+import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
-import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
-import objetivo.ResidirFeliz;
-import objetivo.TornarResidenciaHabitavel;
-import plano.PlanoFaxina;
-import plano.PlanoHabitar;
 import visual.JDesktop;
 import visual.Principal;
+import framework.mentalState.Message;
+import static util.ConstantesAplicacao.*;
 
 /**
  *
@@ -34,75 +23,26 @@ import visual.Principal;
 public class GeradorAgentes {
 
 
-    public static Agent gerarEmpregada(MTS_Environment ambiente, MainOrganization organizacao) {
-        String nome = GeradorNomes.gerarNome() + ":" + ConstantesAplicacao.PAPEL_EMPREGADA;
-        Empregada papelEmpregada = new Empregada(nome, organizacao);
-
-        Agent agente = FabricaAgente.getAgente(nome, papelEmpregada, ambiente, organizacao);
-        papelEmpregada.setAgent(agente);
-
-        agente.setGoal(new TornarResidenciaHabitavel());
+    
+    public static Agent gerarAgente(String nomeAgente, AgentRole papelAgente, MTS_Environment ambiente, MainOrganization organizacao){
         
-        agente.setPlan(new PlanoFaxina());
+        Agent agente = FabricaAgente.getAgente(nomeAgente, papelAgente, ambiente, organizacao);
         
-        Faxineira f = new Faxineira();
-        for (Belief belief : f.getCrencas()) {
-            agente.setBelief(belief);
-        }
-
-        GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
-        
-
-        ambiente.registerAgents(agente);
-        
-
-        return agente;
-    }
-
-    public static Agent gerarMorador(MTS_Environment ambiente, MainOrganization organizacao) {
-        String nome = GeradorNomes.gerarNome() + ":" + ConstantesAplicacao.PAPEL_MORADOR;
-        Morador papelMorador = new Morador(nome, organizacao);
-
-        Agent agente = FabricaAgente.getAgente(nome, papelMorador, ambiente, organizacao);
-
-        papelMorador.setAgent(agente);
-
         Principal tela = JDesktop.getTela(agente);
-
-        Comportamento c = null;
-        switch(GeradorRandomico.geraRandomico(6)) {
-            case 0:
-                c = new Bagunceiro();
-                break;
-            case 1:
-                c = new Equilibrado();
-                break;
-            case 2:
-                c = new Higienico();
-                break;
-            case 3:
-                c = new NaoHigienico();
-                break;
-            case 4:
-                c = new Organizado();
-                break;
-            case 5:
-                c = new Relaxado();
-                break;
-        }
-        tela.apendTexto("Comportamento: " + c.getClass().getSimpleName());
-        for (Belief belief : c.getCrencas()) {
-            agente.setBelief(belief);
-        }
-
-        agente.setGoal(new ResidirFeliz());
         
-        agente.setPlan(new PlanoHabitar());
-
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
 
         ambiente.registerAgents(agente);
-
+        
+        enviarMensagemInicio(agente,(Residencia) ambiente);    
+        
         return agente;
     }
+    
+    private static void enviarMensagemInicio(Agent agente, Residencia residencia) {
+        Message msgm = new Message("?" + agente.getAgentName().getName(), residencia.pegarComodoPorAgente(agente).toString(), agente.getAgentName(), agente.getAgentName());
+        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+        agente.send(msgm);
+    }
+
 }

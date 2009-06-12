@@ -6,11 +6,13 @@ package agente.papel;
 
 import static util.ConstantesAplicacao.*;
 
-import crenca.RepositorioCrencas;
 import framework.FIPA.AMS;
 import framework.agentRole.AgentRole;
+import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
+import java.util.Collection;
+import sis_multagente.Main;
 
 /**
  *
@@ -20,7 +22,12 @@ public class Morador extends AgentRole implements Serializable{
 
     private AMS ams = AMS.getInstance();
 
-    private String nome;
+    protected String nome;
+    
+    public Morador(){
+        this.nome = PREFIXO_NOME_PAPEL + this.getClass().getSimpleName();
+        this.setOwner(Main.OrganizacaoPrincipal);
+    }
 
     public Morador(String nome, MainOrganization organizacao) {
         super();
@@ -45,6 +52,11 @@ public class Morador extends AgentRole implements Serializable{
 
     @Override
     public String toString() {
-        return super.toString();
+        return nome;
+    }
+    
+    
+    public void setBeleafs(Collection<Belief> crencas){
+        beliefs = crencas;
     }
 }

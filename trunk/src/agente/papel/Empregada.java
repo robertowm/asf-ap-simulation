@@ -12,6 +12,7 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.belief.LeafBelief;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
+import sis_multagente.Main;
 
 /**
  *
@@ -24,13 +25,20 @@ public class Empregada extends AgentRole implements Serializable{
     private AMS ams = AMS.getInstance();
 
     private String nome;
+    
+    public Empregada(){
+        this.beliefs.add(new LeafBelief("int", "limpa", 50));
+        this.beliefs.add(new LeafBelief("int", "arruma", 50));
+        this.setOwner(Main.OrganizacaoPrincipal);
+        nome = PREFIXO_NOME_PAPEL + "Empregada";
+    }
 
     public Empregada(String nome, MainOrganization organizacao) {
         super();
         this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
 
-        this.setBelief(new LeafBelief("int", "limpa", 50));
-        this.setBelief(new LeafBelief("int", "arruma", 50));
+        this.beliefs.add(new LeafBelief("int", "limpa", 50));
+        this.beliefs.add(new LeafBelief("int", "arruma", 50));
 
         this.setOwner(organizacao);
 
@@ -41,6 +49,6 @@ public class Empregada extends AgentRole implements Serializable{
 
     @Override
     public String toString() {
-        return super.toString();
+        return nome;
     }
 }

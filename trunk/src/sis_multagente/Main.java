@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import objeto.Comodo;
 import organizacao.Habitacao;
-import util.GeradorAgentes;
 import visual.JDesktop;
 
 /**
@@ -29,6 +28,8 @@ public class Main {
 
     public static ElementID idEmpregada = null;
     public static JDesktop desktop;
+    public static MainOrganization OrganizacaoPrincipal;
+    public static Residencia ambienteCentral = null;
 
     public static void main(String[] args) {
 
@@ -38,26 +39,19 @@ public class Main {
         AMS ams = AMS.getInstance();
         AgentPlatformDescription descricaoPlataforma = ams.getDescriptionPlatform();
         descricaoPlataforma.setName(PLATAFORMA_NOME);
+        OrganizacaoPrincipal = null;
 
         ElementID elementID = null;
 
         elementID = ams.createEnvironmentElementId(AMBIENTE_APJAVA_NOME, true);
-//        elementID.setAddress(LOCAL_HOST);
 
-        Residencia ambiente = null;
+        
         try {
             List<Comodo> comodos = new ArrayList<Comodo>();
-//            Map<String, Condition> condicoes = new HashMap<String, Condition>();
-//            condicoes.put("comida_pronta", new Condition("boolean", "comida_pronta", false));
-//            condicoes.put("louca_suja", new Condition("boolean", "louca_suja", false));
-//            condicoes.put("panela_suja", new Condition("boolean", "panela_suja", false));
-//
-            comodos.add(new Comodo("Cozinha"/*, "cozinha", condicoes*/));
-            comodos.add(new Comodo("Quarto"/*, "cozinha", condicoes*/));
-            comodos.add(new Comodo("Sala"/*, "cozinha", condicoes*/));
-//
-            ambiente = new Residencia(elementID, comodos);
-            ams.createDescription(ambiente, elementID, "");
+            comodos.add(new Comodo("Escritorio"));
+            comodos.add(new Comodo("Banheiro"));
+            ambienteCentral = new Residencia(elementID, comodos);
+            ams.createDescription(ambienteCentral, elementID, "");
             elementID.setAddress(LOCAL_HOST);
         } catch (NullPointerException ex) {
             System.out.println("[ERRO] Valor nulo durante a inicializacao do ambiente Residencia (" + AMBIENTE_APJAVA_NOME + ")");
@@ -66,25 +60,25 @@ public class Main {
 
         elementID = ams.createOrganizationElementId(ORGANIZACAO_HABITACAO_NOME, true);
 
-        MainOrganization mainOrg = null;
+        
         try {
-            mainOrg = new Habitacao(ambiente, elementID, ProtocoloTransporteMensagem.getInstancia());
-            ams.createDescription(mainOrg, elementID, "");
+            OrganizacaoPrincipal = new Habitacao(ambienteCentral, elementID, ProtocoloTransporteMensagem.getInstancia());
+            ams.createDescription(OrganizacaoPrincipal, elementID, "");
             elementID.setAddress(LOCAL_HOST);
         } catch (NullPointerException ex) {
             System.out.println("[ERRO] Valor nulo durante a inicializacao da organizacao Habitacao (" + ORGANIZACAO_HABITACAO_NOME + ")");
             ex.printStackTrace();
         }
 
-        Thread mainOrgThread = new Thread(mainOrg, THREAD_ORGANIZACAO_PRINCIPAL);
+        Thread mainOrgThread = new Thread(OrganizacaoPrincipal, THREAD_ORGANIZACAO_PRINCIPAL);
         mainOrgThread.start();
 
-        Agent e1 = GeradorAgentes.gerarEmpregada(ambiente, mainOrg);
-        idEmpregada = e1.getAgentName();
+//        Agent e1 = GeradorAgentes.gerarEmpregada(ambienteCentral, OrganizacaoPrincipal);
+        idEmpregada = ambienteCentral.getDescription().getElementId();
 
-        Agent m1 = GeradorAgentes.gerarMorador(ambiente, mainOrg);
-        Agent m2 = GeradorAgentes.gerarMorador(ambiente, mainOrg);
-        Agent m3 = GeradorAgentes.gerarMorador(ambiente, mainOrg);
+//        Agent m1 = GeradorAgentes.gerarMorador(ambienteCentral, OrganizacaoPrincipal);
+//        Agent m2 = GeradorAgentes.gerarMorador(ambienteCentral, OrganizacaoPrincipal);
+//        Agent m3 = GeradorAgentes.gerarMorador(ambienteCentral, OrganizacaoPrincipal);
         
 //        Mensagem Empregada
         
@@ -93,9 +87,9 @@ public class Main {
 //        e1.send(msg);
         
         //Mensagem Morador        
-        enviarMensagemInicio(m1,ambiente);
-        enviarMensagemInicio(m2,ambiente);
-        enviarMensagemInicio(m3,ambiente);
+//        enviarMensagemInicio(m1,ambienteCentral);
+//        enviarMensagemInicio(m2,ambienteCentral);
+//        enviarMensagemInicio(m3,ambienteCentral);
     }
 
     private static void enviarMensagemInicio(Agent agente, Residencia residencia) {

@@ -9,15 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import objeto.Comodo;
 import util.GeradorRandomico;
-import visual.JDesktop;
 
-public class Residencia extends MTS_Environment implements Serializable{
+public class Residencia extends MTS_Environment implements Serializable {
 
     private List<Comodo> listaComodos = new ArrayList<Comodo>();
     private HashMap<Agent, Comodo> mapaAgentesComodo = new HashMap<Agent, Comodo>();
 
     public Residencia(ElementID aid) {
         super(aid);
+
+        listaComodos.add(new Comodo("Cozinha"/*, "cozinha", condicoes*/));
+        listaComodos.add(new Comodo("Quarto"/*, "Quarto", condicoes*/));
+        listaComodos.add(new Comodo("Sala"/*, "Sala", condicoes*/));
+        listaComodos.add(new Comodo("Banheiro"/*, "Banheiro", condicoes*/));
+        listaComodos.add(new Comodo("Área"/*, "Área", condicoes*/));
     }
 
     public Residencia(ElementID aid, List<Comodo> listaComodos) {
@@ -32,33 +37,19 @@ public class Residencia extends MTS_Environment implements Serializable{
     public synchronized void colocarAgenteComodo(Agent agent, Comodo comodo) {
         mapaAgentesComodo.put(agent, comodo);
     }
-    
-    public synchronized Comodo getComodoPorNome(String nome){
+
+    public synchronized Comodo getComodoPorNome(String nome) {
         for (Comodo comodo : listaComodos) {
-            if(nome.equals(comodo.getNome())){
+            if (nome.equals(comodo.getNome())) {
                 return comodo;
             }
         }
         return null;
     }
-    
-//    public synchronized void atualizarComodo(Agent agent, Comodo comodo) {
-//        Comodo c = mapaAgentesComodo.get(agent);
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
-//        comodo.setNivelArrumacao(c.getNivelArrumacao());
-//        comodo.setNivelLimpeza(c.getNivelLimpeza());
-//        comodo.setNome(c.getNome());
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelArrumacao());
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNivelLimpeza());
-////        JDesktop.saidas.apendTexto(agent+"  -->>"+comodo.getNome());
-//        
-//    }
 
     public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {
-       mapaAgentesComodo.remove(agent);
-       mapaAgentesComodo.put(agent, comodo);
+        mapaAgentesComodo.remove(agent);
+        mapaAgentesComodo.put(agent, comodo);
     }
 
     public List<Comodo> getListaComodos() {
@@ -79,6 +70,5 @@ public class Residencia extends MTS_Environment implements Serializable{
     public String toString() {
         return super.getEnvironmentName();
     }
-    
 }
 

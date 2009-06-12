@@ -5,8 +5,6 @@
 
 package util;
 
-import objeto.Comodo;
-
 /**
  *
  * @author robertowm
@@ -19,7 +17,7 @@ public interface ConstantesAplicacao {
 
     // >>> Ambientes <<<
     // >>>>>> APJAVA
-    public static final String AMBIENTE_APJAVA_NOME = "Residencia_APJVA";
+    public static final String AMBIENTE_APJAVA_NOME = "Residencia_APJAVA";
 
 
     // >>> Organizacoes <<<
@@ -64,6 +62,7 @@ public interface ConstantesAplicacao {
     public static final String THREAD_ORGANIZACAO_PRINCIPAL = "ThreadOrganizacao";
 
     public static final String PREFIXO_NOME_AGENTE = "Agente::";
+    public static final String PREFIXO_NOME_AMBIENTE = "Ambiente::";
     public static final String PREFIXO_NOME_PAPEL = "Papel::";
     public static final String PREFIXO_PAPEL_MORADOR = "Morador::";
 }
