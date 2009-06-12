@@ -46,7 +46,7 @@ public class PlanoFaxina extends Plan implements Serializable {
 
         Agent agente = role.getAgentPlayingRole();
         Principal tela = JDesktop.getTela(agente);
-        tela.apendTexto("<<<--- Iniciando o plano faxina --->>>");
+        tela.apendTexto("\n<<<--- Iniciando o plano Faxina --->>>");
         tela.apendTexto("Tempo Máximo de faxina -> " + timeOut);
         while (timeOut > 0) {
 
@@ -57,7 +57,7 @@ public class PlanoFaxina extends Plan implements Serializable {
 
             try {
                 if (aguardandoChamada) {
-                    tela.apendTexto("Agente ------>>   AGUARDANDO MENSAGEM");
+                    tela.apendTexto("Agente ------>>   AGUARDANDO CHAMADO");
                     aguardandoChamada = false;
                 }
                 Thread.sleep(aguardandoMensagem);
@@ -98,6 +98,7 @@ public class PlanoFaxina extends Plan implements Serializable {
 
         goal.setAchieved(true);
         tela.apendTexto("Fiz tudo que deu, dentro do tempo! :)\"");
+        aguardandoChamada = true;
         synchronized (agente) {
             agente.getInMessages().clear();
         }

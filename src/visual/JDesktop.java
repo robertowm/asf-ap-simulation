@@ -66,7 +66,7 @@ public class JDesktop extends javax.swing.JFrame {
         jMIniciar.setText("Iniciar Simulação");
         jMIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIArqCriacaoActionPerformed(evt);
+                acaoJanelaCriacao(evt);
             }
         });
 
@@ -123,8 +123,13 @@ public class JDesktop extends javax.swing.JFrame {
         System.exit(1);
     }
     
-    private void jMIArqCriacaoActionPerformed(java.awt.event.ActionEvent evt) {
-//        addComponentes();
+    private void acaoJanelaCriacao(java.awt.event.ActionEvent evt){
+        JCriaAgentes jc = new JCriaAgentes(this);
+        jc.setVisible(true);
+        this.add(jc);
+    }
+    
+    public  void iniciarFluxo() {
         GerenciadorFluxos.iniciarFluxo();
         jMIniciar.setEnabled(false);
     }

@@ -49,11 +49,11 @@ public class PlanoHabitar extends Plan implements Serializable {
     public void execute(AgentRole role) {
         List<Message> listaExecutada;
         Agent agente = role.getAgentPlayingRole();
-        boolean loop = true;
+//        boolean loop = true;
         int descansa = 400;
 //        Principal tela = JDesktop.getTela(agente);
 
-        while (loop) {
+//        while (loop) {
             CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>( agente.getInMessages());
             listaExecutada = new ArrayList(mensagens.size());
             for (Message mensagem : mensagens) {
@@ -74,8 +74,8 @@ public class PlanoHabitar extends Plan implements Serializable {
             synchronized(agente) {
                 agente.getInMessages().removeAll(listaExecutada);
             }
-        }
-        goal.setAchieved(true);
+//        }
+//        goal.setAchieved(true);
 
     }
 
