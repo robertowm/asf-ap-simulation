@@ -7,7 +7,6 @@ package acao;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
-import java.util.Collection;
 import java.util.List;
 import objeto.Comodo;
 import agente.papel.Empregada;
@@ -35,7 +34,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
-        comodo.adicionaAgente(agente);
+        
         
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
@@ -56,6 +55,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
             }
 
             if (empregada) {
+                comodo.adicionaAgente(agente);
                 exibirStatusComodo(tela, comodo);
                 Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
                 if (crenca.getName().equals("limpa")) {

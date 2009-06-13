@@ -41,7 +41,7 @@ public class PlanoFaxina extends Plan implements Serializable {
     public void execute(AgentRole role) {
 //        System.out.println("===================PlanoFaxina.execute===================");
         int descansa = 500;
-        long timeOut = QTD_COMODO * PONTUACAO_TOTAL_ARRUMADO * 500 * VELOCIDADE + 2 * descansa;
+        long timeOut = QTD_COMODO * PONTUACAO_TOTAL_ARRUMADO * 500 * VELOCIDADE + 2 * descansa*1000;
         List<Message> listaExecutada;
 
         Agent agente = role.getAgentPlayingRole();
