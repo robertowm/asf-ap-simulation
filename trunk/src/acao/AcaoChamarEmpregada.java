@@ -76,14 +76,20 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             return false;
         }
 //        if (morador) {
+            /**
+             * mensagem chamando a empregada
+             */
             Message chamada = new Message(conversionId, comodo.toString(), agente.getAgentName(), empregada ? agente.getAgentName() : Main.idEmpregada);
             chamada.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
             agente.send(chamada);
 
 //            if (!empregada) {
-//                Message saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
-//                saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-//                agente.send(saida);
+            /**
+             * mensagem para si mesmo para verificar um quarto qualquer
+             */
+                Message saida = new Message(conversionId, ((Residencia) agente.getEnvironment()).pegarOutroComodoAleatoriamente(comodo).toString() , agente.getAgentName(), agente.getAgentName());
+                saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+                agente.send(saida);
 //            }
 //        }
 

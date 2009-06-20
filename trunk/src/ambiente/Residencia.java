@@ -75,6 +75,15 @@ public class Residencia extends MTS_Environment implements Serializable {
     public Comodo pegarComodoAleatoriamente() {
         return listaComodos.get(GeradorRandomico.geraRandomico(listaComodos.size()));
     }
+    
+    public Comodo pegarOutroComodoAleatoriamente(Comodo comodo) {
+        Comodo c = null;
+        do{
+            c = listaComodos.get(GeradorRandomico.geraRandomico(listaComodos.size()));
+        }while(c.equals(comodo));
+        
+        return c;
+    }
 
     @Override
     public String toString() {

@@ -5,12 +5,12 @@
 package objeto;
 
 import framework.agent.Agent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JList;
 import static util.ConstantesAplicacao.*;
 
 import framework.mentalState.Condition;
+import java.awt.Color;
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -188,6 +188,18 @@ public class Comodo implements Serializable {
         int temp = (adiciona? pontuacaoLimpeza+1: pontuacaoLimpeza-1);
         if (temp > -1 && temp <= PONTUACAO_TOTAL_LIMPO) {
             pontuacaoLimpeza = temp;
+            String nLimpeza = getNivelLimpeza();
+            
+            if(nLimpeza.equals(LIMPO)){
+                jNivelLimpeza.setBackground(Color.GREEN);
+            }else if(nLimpeza.equals(NORMAL_LIMPO)){
+                jNivelLimpeza.setBackground(Color.YELLOW);
+            }else if(nLimpeza.equals(SUJO)){
+                jNivelLimpeza.setBackground(Color.ORANGE);
+            }else{
+                jNivelLimpeza.setBackground(Color.RED);
+            }
+            
             jNivelLimpeza.setValue(pontuacaoLimpeza);
         }
     }
@@ -196,6 +208,18 @@ public class Comodo implements Serializable {
         int temp = (adiciona? pontuacaoArrumacao+1: pontuacaoArrumacao-1);
         if (temp > -1 && temp <= PONTUACAO_TOTAL_ARRUMADO) {
             pontuacaoArrumacao = temp;
+            String nArrumacao = getNivelArrumacao();
+            
+            if(nArrumacao.equals(ARRUMADO)){
+                jNivelArrumacao.setBackground(Color.GREEN);
+            }else if(nArrumacao.equals(NORMAL_ARRUMADO)){
+                jNivelArrumacao.setBackground(Color.YELLOW);
+            }else if(nArrumacao.equals(DESARRUMADO)){
+                jNivelArrumacao.setBackground(Color.ORANGE);
+            }else{
+                jNivelArrumacao.setBackground(Color.RED);
+            }
+            
             jNivelArrumacao.setValue(pontuacaoArrumacao);
         }
     }
