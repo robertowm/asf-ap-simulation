@@ -200,7 +200,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="565" max="32767" attributes="1"/>
+                          <Component id="jScrollPane1" alignment="0" pref="542" max="32767" attributes="1"/>
                           <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
@@ -257,7 +257,7 @@
                               <Component id="jComboAmbiente" min="-2" pref="192" max="-2" attributes="0"/>
                               <Component id="btnAdicionar" min="-2" pref="95" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -294,7 +294,7 @@
                 <Component class="javax.swing.JComboBox" name="jComboPapel">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.DefaultComboBoxModel(new Object[] { &quot;Selecione o Papel&quot;, new Empregada(),new MoradorBagunceiro(), new MoradorEquilibrado(), new MoradorHigienico(), new MoradorNaoHigienico(), new MoradorRelaxado() })" type="code"/>
+                      <Connection code="new javax.swing.DefaultComboBoxModel(new Object[] { &quot;Selecione o Papel&quot;, new Empregada(),new MoradorBagunceiro(), new MoradorEquilibrado(), new MoradorHigienico(), new MoradorNaoHigienico(), new MoradorOrganizado(), new MoradorRelaxado() })" type="code"/>
                     </Property>
                   </Properties>
                 </Component>

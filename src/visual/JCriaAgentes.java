@@ -10,6 +10,7 @@ import agente.papel.MoradorBagunceiro;
 import agente.papel.MoradorEquilibrado;
 import agente.papel.MoradorHigienico;
 import agente.papel.MoradorNaoHigienico;
+import agente.papel.MoradorOrganizado;
 import agente.papel.MoradorRelaxado;
 import ambiente.Residencia;
 import fabrica.FabricaAgente;
@@ -178,7 +179,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboPapel.setModel(new javax.swing.DefaultComboBoxModel(new Object[] { "Selecione o Papel", new Empregada(),new MoradorBagunceiro(), new MoradorEquilibrado(), new MoradorHigienico(), new MoradorNaoHigienico(), new MoradorRelaxado() }));
+        jComboPapel.setModel(new javax.swing.DefaultComboBoxModel(new Object[] { "Selecione o Papel", new Empregada(),new MoradorBagunceiro(), new MoradorEquilibrado(), new MoradorHigienico(), new MoradorNaoHigienico(), new MoradorOrganizado(), new MoradorRelaxado() }));
 
         jLabel1.setText("Papel");
 
@@ -208,7 +209,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboAmbiente, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +244,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(139, 139, 139))
             .addGroup(jPanel3Layout.createSequentialGroup()
