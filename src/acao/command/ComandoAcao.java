@@ -7,12 +7,15 @@ package acao.command;
 
 import acao.AcaoAgente;
 import acao.AcaoArrumar;
+import acao.AcaoAtenderRequisicao;
+import acao.AcaoAtualizarQuadroTarefas;
 import acao.AcaoChamarEmpregada;
-import acao.AcaoConfirmarComACentral;
-import acao.AcaoConvocarEmpregada;
+//import acao.AcaoConfirmarComACentral;
+//import acao.AcaoConvocarEmpregada;
 import acao.AcaoDesarrumar;
 import acao.AcaoLimpar;
 import acao.AcaoSujar;
+import acao.AcaoTrocarComodo;
 import acao.AcaoVerificarComodo;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,11 +33,14 @@ public class ComandoAcao {
         acoes.put(ACAO_ARRUMAR, new AcaoArrumar());
         acoes.put(ACAO_LIMPAR, new AcaoLimpar());
         acoes.put(ACAO_CHAMAR_EMPREGADA, new AcaoChamarEmpregada());
-        acoes.put(ACAO_CONVOCAR_EMPREGADA, new AcaoConvocarEmpregada());
-        acoes.put(ACAO_CONFIRMAR_SERVICO_COM_CENTRAL, new AcaoConfirmarComACentral());
+//        acoes.put(ACAO_CONVOCAR_EMPREGADA, new AcaoConvocarEmpregada());
+//        acoes.put(ACAO_CONFIRMAR_SERVICO_COM_CENTRAL, new AcaoConfirmarComACentral());
         acoes.put(ACAO_DESARRUMAR, new AcaoDesarrumar());
         acoes.put(ACAO_SUJAR, new AcaoSujar());
         acoes.put(ACAO_VERIFICAR_COMODO, new AcaoVerificarComodo());
+        acoes.put(ACAO_ATENDER_REQUISICAO, new AcaoAtenderRequisicao());
+        acoes.put(ACAO_ATUALIZAR_QUADRO_TAREFAS, new AcaoAtualizarQuadroTarefas());
+        acoes.put(ACAO_TROCAR_COMODO, new AcaoTrocarComodo());
     }
     
     public static AcaoAgente getAcao(String msg){

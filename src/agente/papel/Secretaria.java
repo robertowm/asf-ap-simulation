@@ -22,11 +22,7 @@ public class Secretaria extends AgentRole implements Serializable{
     private String nome;
     
     public Secretaria(){
-        this.beliefs.add(new LeafBelief("int", "suja", 10));
-        this.beliefs.add(new LeafBelief("int", "desarumma", 10));
-        this.beliefs.add(new LeafBelief("int", "fazNada", 80));
-        this.setOwner(Main.OrganizacaoPrincipal);
-        nome = PREFIXO_NOME_PAPEL + "Secretária";
+        this(PREFIXO_NOME_PAPEL + "Secretária", Main.OrganizacaoPrincipal);
     }
 
     public Secretaria(String nome, MainOrganization organizacao) {
@@ -35,7 +31,9 @@ public class Secretaria extends AgentRole implements Serializable{
         
         this.beliefs.add(new LeafBelief("int", "suja", 10));
         this.beliefs.add(new LeafBelief("int", "desarumma", 10));
-        this.beliefs.add(new LeafBelief("int", "fazNada", 80));
+        this.beliefs.add(new LeafBelief("int", "fazNada", 30));
+        this.beliefs.add(new LeafBelief("int", "atendeRequisicao", 50));
+
         this.setOwner(organizacao);
 
         this.setRight(null);

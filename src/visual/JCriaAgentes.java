@@ -12,6 +12,7 @@ import agente.papel.MoradorHigienico;
 import agente.papel.MoradorNaoHigienico;
 import agente.papel.MoradorOrganizado;
 import agente.papel.MoradorRelaxado;
+import ambiente.Ambiente;
 import ambiente.Residencia;
 import fabrica.FabricaAgente;
 import fabrica.FabricaAmbiente;
@@ -31,14 +32,14 @@ import util.GeradorAgentes;
 public class JCriaAgentes extends javax.swing.JInternalFrame {
 
     private Vector<Agent> agentes = new Vector<Agent>();
-    private Vector<Residencia> ambientes = new Vector<Residencia>();
+    private Vector<Ambiente> ambientes = new Vector<Ambiente>();
     private JDesktop desktop;
 
     public JCriaAgentes(JDesktop desktop) {
         this();
         this.desktop = desktop;
 
-        Residencia ambiente = FabricaAmbiente.getAmbiente("CENTRAL DE SERVIÇO", Main.OrganizacaoPrincipal);
+        Ambiente ambiente = Main.ambienteCentral;
         ambientes.add(ambiente);
         jListAmbiente.setListData(ambientes);
         adicionaNoComboBox(jComboAmbiente, ambiente);
@@ -327,7 +328,7 @@ private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 private void btnAdicionar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionar2ActionPerformed
 // TODO add your handling code here:
-    Residencia ambiente = null;
+    Ambiente ambiente = null;
     String nomeAmbiente = txtnomeAmbiente.getText();
     if (!stringInvalida(nomeAmbiente, "Preencha corretamente o NOME do ambiente")) {
         return;

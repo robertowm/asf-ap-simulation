@@ -5,7 +5,7 @@
 package acao;
 
 import agente.papel.Empregada;
-import ambiente.Residencia;
+import ambiente.Ambiente;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
-import util.GeradorRandomico;
 import visual.JDesktop;
 import visual.Principal;
 
@@ -30,10 +29,8 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+        Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
-        comodo.adicionaAgente(agente);
-        
         int pontuacaoArrumarDeAcordoComPersonalidade = 1;
         boolean empregada = false;
         for (Object object : agente.getRolesBeingPlayed()) {
@@ -67,25 +64,12 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
         Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
 
         if (empregada) {
-            saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
-            if (comodo.getNivelLimpeza().equals(Comodo.LIMPO)) {
-                Residencia residencia = (Residencia) agente.getEnvironment();
-                Comodo c = residencia.pegarComodoAleatoriamente();
-                if(!c.equals(comodo)) {
-                    residencia.trocarAgenteComodo(agente, c);
-                    saida.setContent(c.toString());
-                    saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-                    tela.apendTexto("\"Irei para o comodo " + c + "\"");
-                    tela.apendTexto("       Mudando de comodo...");
-                }
-            }
+            saida.setPerformative(ConstantesAplicacao.ACAO_TROCAR_COMODO);
         } else {
             saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         }
         agente.send(saida);
         
-        comodo.removeAgente(agente);
-
         return comodo.getNivelArrumacao().equals(Comodo.ARRUMADO);
     }
 }

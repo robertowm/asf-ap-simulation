@@ -40,13 +40,11 @@ public class FabricaAgente {
     public static Agent getAgente(String nome, AgentRole regraAgente, MTS_Environment ambiente, MainOrganization organizacao) {
         String nomeAgente = PREFIXO_NOME_AGENTE + nome + ":" + regraAgente.toString();
 
-
         Agent agente = mapaAgentes.get(nomeAgente);
 
         if (agente != null) {
             return agente;
         }
-        
         
         ElementID elementID = ams.createAgentElementId(nomeAgente, true);
         elementID.setAddress(LOCAL_HOST);
