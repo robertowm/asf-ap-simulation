@@ -11,7 +11,7 @@ import java.util.List;
 import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
-import ambiente.Residencia;
+import ambiente.Ambiente;
 import framework.mentalState.belief.Belief;
 import java.io.Serializable;
 import util.GeradorRandomico;
@@ -32,18 +32,16 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+        Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
-        
-        
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
         boolean morador = false;
 
-        String comversionId = "?" + Thread.currentThread().getName();
+        String conversionId = "?" + Thread.currentThread().getName();
 
         Principal tela = JDesktop.getTela(agente);
-        Message saida = new Message(comversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+        Message saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
 
         for (AgentRole agentRole : papeis) {
             empregada = (agentRole instanceof Empregada);
@@ -70,19 +68,8 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
             }
             if (morador) {
 
-                if (GeradorRandomico.geraPercentual() < 30) {
-                    Residencia residencia = (Residencia) agente.getEnvironment();
-                    Comodo c = residencia.pegarComodoAleatoriamente();
-                    if (!c.equals(residencia.pegarComodoPorAgente(agente))) {
-                        residencia.trocarAgenteComodo(agente, c);
-                        saida.setContent(c.toString());
-                        tela.apendTexto("\"Irei para o comodo " + c + "\"");
-                        tela.apendTexto("       Mudando de comodo...");
-                        comodo = c;
-                    }
-                }
                 exibirStatusComodo(tela, comodo);
-                final List<Comodo> comodos = ((Residencia) agente.getEnvironment()).getListaComodos();
+                final List<Comodo> comodos = ((Ambiente) agente.getEnvironment()).getListaComodos();
                 int pontoLimpezaArrumacao = 0;
                 boolean chamarEmpregada = false;
 
@@ -104,41 +91,45 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                 }
 
                 if (chamarEmpregada) {
-                    saida = new Message(comversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+                    saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
                     break;
                 }
 
-                Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
-                if (crenca.getName().equals("dessarruma")) {
-                    // acao dessarruma
-                    saida.setPerformative(ConstantesAplicacao.ACAO_DESARRUMAR);
+                if (GeradorRandomico.geraPercentual() < 30) {
+                    saida.setPerformative(ConstantesAplicacao.ACAO_TROCAR_COMODO);
                     agente.send(saida);
-                } else if (crenca.getName().equals("arruma")) {
-                    // acao arruma
-                    saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
-                    agente.send(saida);
-                } else if (crenca.getName().equals("limpa")) {
-                    // acao limpa
-                    saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
-                    agente.send(saida);
-                } else if (crenca.getName().equals("suja")) {
-                    // acao suja
-                    saida.setPerformative(ConstantesAplicacao.ACAO_SUJAR);
-                    agente.send(saida);
-                } else if (crenca.getName().equals("chamaEmpregada")) {
-                    // acao chamaEmpregada
-                    saida = new Message(comversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
-                    saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
-                    agente.send(saida);
+                } else {
+                    Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
+                    if (crenca.getName().equals("dessarruma")) {
+                        // acao dessarruma
+                        saida.setPerformative(ConstantesAplicacao.ACAO_DESARRUMAR);
+                        agente.send(saida);
+                    } else if (crenca.getName().equals("arruma")) {
+                        // acao arruma
+                        saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
+                        agente.send(saida);
+                    } else if (crenca.getName().equals("limpa")) {
+                        // acao limpa
+                        saida.setPerformative(ConstantesAplicacao.ACAO_LIMPAR);
+                        agente.send(saida);
+                    } else if (crenca.getName().equals("suja")) {
+                        // acao suja
+                        saida.setPerformative(ConstantesAplicacao.ACAO_SUJAR);
+                        agente.send(saida);
+                    } else if (crenca.getName().equals("chamaEmpregada")) {
+                        // acao chamaEmpregada
+                        saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+                        saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
+                        agente.send(saida);
+                    }
                 }
 
             }
             break;
 
         }
-        comodo.removeAgente(agente);
         return true;
     }
 

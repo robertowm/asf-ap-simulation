@@ -7,7 +7,7 @@ package acao;
 import agente.papel.Empregada;
 import agente.papel.Morador;
 import agente.papel.Secretaria;
-import ambiente.Residencia;
+import ambiente.Ambiente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -34,10 +34,10 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
-        
+        Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
-        
+
         boolean morador = false;
         boolean empregada = false;
         boolean secretaria = false;
@@ -52,21 +52,23 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
                 secretaria = true;
             }
         }
-        
+
         String conversionId = "?" + Thread.currentThread().getName();
-        
-        if(secretaria){
-            Message chamada = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
-            chamada.setPerformative(ConstantesAplicacao.ACAO_CONVOCAR_EMPREGADA);
+
+        if (secretaria) {
+            Message chamada = new Message(conversionId, comodo + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
+            chamada.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
             agente.send(chamada);
-            return true;
+
+        } else if (morador) {
+            Message chamada = new Message(conversionId, comodo + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), Main.ambienteCentral.getSecretaria().getAgentName());
+            chamada.setPerformative(ConstantesAplicacao.ACAO_ATENDER_REQUISICAO);
+            agente.send(chamada);
+
+            Message saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+            saida.setPerformative(ConstantesAplicacao.ACAO_TROCAR_COMODO);
+            agente.send(chamada);
         }
-        
-
-        comodo.adicionaAgente(agente);
-        
-
-
 
         Principal tela = JDesktop.getTela(agente);
         try {
@@ -75,35 +77,17 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-//        if (morador) {
-            /**
-             * mensagem chamando a empregada
-             */
-            Message chamada = new Message(conversionId, comodo.toString(), agente.getAgentName(), empregada ? agente.getAgentName() : Main.idEmpregada);
-            chamada.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-            agente.send(chamada);
 
-//            if (!empregada) {
-            /**
-             * mensagem para si mesmo para verificar um quarto qualquer
-             */
-                Message saida = new Message(conversionId, ((Residencia) agente.getEnvironment()).pegarOutroComodoAleatoriamente(comodo).toString() , agente.getAgentName(), agente.getAgentName());
-                saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-                agente.send(saida);
-//            }
-//        }
-
-        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
+//        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
         tela.apendTexto("\"Nossa! Este comodo esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido para limpar a/o " + comodo + "!") + "\"");
+
         try {
-            Thread.sleep(ConstantesAplicacao.TEMPO_ESPERAR_EMPREGADA);
-        } catch (InterruptedException ex) {            
+            Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
+        } catch (InterruptedException ex) {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
-        comodo.removeAgente(agente);
-        
+
         return true;
     }
 }

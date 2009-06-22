@@ -5,18 +5,17 @@
 
 package fabrica;
 
+import ambiente.Ambiente;
 import ambiente.Residencia;
 import static util.ConstantesAplicacao.*;
 
 import framework.FIPA.AMS;
 import framework.FIPA.ElementID;
-import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
 import java.util.HashMap;
 import java.util.Map;
 import sis_multagente.Main;
 import visual.JAmbiente;
-import visual.Principal;
 
 /**
  *
@@ -24,35 +23,50 @@ import visual.Principal;
  */
 public class FabricaAmbiente {
 
-    private static Map<String, Residencia> mapaAmbientes = new HashMap<String, Residencia>();    
+    private static Map<String, Ambiente> mapaAmbientes = new HashMap<String, Ambiente>();
 
     private static AMS ams = AMS.getInstance();
 
-    public static Residencia getAmbiente(String nome, MainOrganization organizacao) {
+    public static Ambiente getAmbiente(String nome, MainOrganization organizacao) {
         String nomeAmbiente = PREFIXO_NOME_AMBIENTE + nome;
 
-        Residencia amb = mapaAmbientes.get(nomeAmbiente);
+        Ambiente amb = mapaAmbientes.get(nomeAmbiente);
 
         if(amb != null) {
             return amb;
         }
-        
-        ElementID elementID = ams.createAgentElementId(nomeAmbiente, true);
-        elementID.setAddress(LOCAL_HOST);
-        
-        Residencia ambiente = new Residencia(elementID);
-        ams.createDescription(ambiente, elementID, "");
+        Ambiente ambiente = criarResidencia(nomeAmbiente);
 
-        mapaAmbientes.put(nomeAmbiente, ambiente);
-        JAmbiente p = new JAmbiente(ambiente);
-        p.setVisible(true);
-        p.setTitle(ambiente.toString());
-        Main.desktop.add(p);
+        adicionarAmbiente(ambiente);
 
         return ambiente;
+    }
+
+    public static void adicionarAmbiente(Ambiente ambiente) {
+        mapaAmbientes.put(ambiente.getEnvironmentName(), ambiente);
+        JAmbiente p = new JAmbiente(ambiente);
+//        p.setVisible(true);
+        p.setTitle(ambiente.toString());
+        Main.desktop.add(p);
     }
     
     public static boolean existeAmbiente(String nome){
         return mapaAmbientes.containsKey(PREFIXO_NOME_AMBIENTE +nome);
+    }
+
+    public static Ambiente recuperarAmbientePorNome(String nome){
+        Ambiente ambiente = mapaAmbientes.get(PREFIXO_NOME_AMBIENTE +nome);
+        if(ambiente == null) {
+            ambiente = mapaAmbientes.get(nome);
+        }
+        return ambiente;
+    }
+
+    private static Ambiente criarResidencia(String nomeAmbiente) {
+        ElementID elementID = ams.createAgentElementId(nomeAmbiente, true);
+        elementID.setAddress(LOCAL_HOST);
+        Ambiente ambiente = new Residencia(elementID);
+        ams.createDescription(ambiente, elementID, "");
+        return ambiente;
     }
 }

@@ -4,12 +4,13 @@
  */
 package objeto;
 
+import ambiente.Ambiente;
 import framework.agent.Agent;
+import framework.environment.MTS_Environment;
 import javax.swing.JList;
 import static util.ConstantesAplicacao.*;
 
 import framework.mentalState.Condition;
-import java.awt.Color;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class Comodo implements Serializable {
 
     private String nome;
     private String tipo;
+    private Ambiente ambiente;
 //    private Map<String, Condition> mapaCondicoesComodo;
     private Vector<Agent> agentes = new Vector();
     private JList listaAgentesTela;
@@ -46,22 +48,23 @@ public class Comodo implements Serializable {
     public static final String MUITO_DESARRUMADO = "Muito desarrumado";
     public static final String INABITAVEL_DESARRUMADO = "Inabitável";
 
-    public Comodo(String nome) {
-        this(nome, "", new HashMap<String, Condition>());
+    public Comodo(String nome, Ambiente ambiente) {
+        this(nome, "", ambiente, new HashMap<String, Condition>());
     }
 
 //    public Comodo(String nome, String tipo) {
 //        this(nome, tipo, new HashMap<String, Condition>());
 //    }
 // TORNAR PUBLICO DEPOIS
-    private Comodo(String nome, String tipo, Map<String, Condition> condicoes) {
+    private Comodo(String nome, String tipo, Ambiente ambiente, Map<String, Condition> condicoes) {
         this.nome = nome;
         this.tipo = tipo;
+        this.ambiente = ambiente;
 //        this.mapaCondicoesComodo = condicoes;
     }
 
     public void adicionaAgente(Agent agente) {
-            adicionaRemoveAgente(agente, true);
+        adicionaRemoveAgente(agente, true);
     }
 
     public synchronized void adicionaRemoveAgente(Agent agente, boolean adiciona) {
@@ -73,8 +76,8 @@ public class Comodo implements Serializable {
         listaAgentesTela.setListData(agentes);
     }
 
-    public  void removeAgente(Agent agente) {
-            adicionaRemoveAgente(agente, false);
+    public void removeAgente(Agent agente) {
+        adicionaRemoveAgente(agente, false);
     }
 
     public void setJListaAgentes(JList jListAgentesTela) {
@@ -178,48 +181,48 @@ public class Comodo implements Serializable {
     public int getPontuacaoLimpeza() {
         return pontuacaoLimpeza;
     }
-    
-    public void setPontuacaoLimpeza(int pontuacaoLimpeza){
+
+    public void setPontuacaoLimpeza(int pontuacaoLimpeza) {
         this.pontuacaoLimpeza = pontuacaoLimpeza;
         jNivelLimpeza.setValue(pontuacaoLimpeza);
     }
 
     private synchronized void adicionaRemovePontuacaoLimpeza(boolean adiciona) {
-        int temp = (adiciona? pontuacaoLimpeza+1: pontuacaoLimpeza-1);
+        int temp = (adiciona ? pontuacaoLimpeza + 1 : pontuacaoLimpeza - 1);
         if (temp > -1 && temp <= PONTUACAO_TOTAL_LIMPO) {
             pontuacaoLimpeza = temp;
             String nLimpeza = getNivelLimpeza();
-            
-            if(nLimpeza.equals(LIMPO)){
+
+            if (nLimpeza.equals(LIMPO)) {
                 jNivelLimpeza.setBackground(Color.GREEN);
-            }else if(nLimpeza.equals(NORMAL_LIMPO)){
+            } else if (nLimpeza.equals(NORMAL_LIMPO)) {
                 jNivelLimpeza.setBackground(Color.YELLOW);
-            }else if(nLimpeza.equals(SUJO)){
+            } else if (nLimpeza.equals(SUJO)) {
                 jNivelLimpeza.setBackground(Color.ORANGE);
-            }else{
+            } else {
                 jNivelLimpeza.setBackground(Color.RED);
             }
-            
+
             jNivelLimpeza.setValue(pontuacaoLimpeza);
         }
     }
 
     private synchronized void adicionaRemovePontuacaoArrumacao(boolean adiciona) {
-        int temp = (adiciona? pontuacaoArrumacao+1: pontuacaoArrumacao-1);
+        int temp = (adiciona ? pontuacaoArrumacao + 1 : pontuacaoArrumacao - 1);
         if (temp > -1 && temp <= PONTUACAO_TOTAL_ARRUMADO) {
             pontuacaoArrumacao = temp;
             String nArrumacao = getNivelArrumacao();
-            
-            if(nArrumacao.equals(ARRUMADO)){
+
+            if (nArrumacao.equals(ARRUMADO)) {
                 jNivelArrumacao.setBackground(Color.GREEN);
-            }else if(nArrumacao.equals(NORMAL_ARRUMADO)){
+            } else if (nArrumacao.equals(NORMAL_ARRUMADO)) {
                 jNivelArrumacao.setBackground(Color.YELLOW);
-            }else if(nArrumacao.equals(DESARRUMADO)){
+            } else if (nArrumacao.equals(DESARRUMADO)) {
                 jNivelArrumacao.setBackground(Color.ORANGE);
-            }else{
+            } else {
                 jNivelArrumacao.setBackground(Color.RED);
             }
-            
+
             jNivelArrumacao.setValue(pontuacaoArrumacao);
         }
     }
@@ -229,8 +232,8 @@ public class Comodo implements Serializable {
     }
 
     public void setPontuacaoArrumacao(int pontuacaoArrumacao) {
-            this.pontuacaoArrumacao = pontuacaoArrumacao;
-            jNivelArrumacao.setValue(pontuacaoArrumacao);
+        this.pontuacaoArrumacao = pontuacaoArrumacao;
+        jNivelArrumacao.setValue(pontuacaoArrumacao);
     }
 
     @Override
@@ -262,5 +265,13 @@ public class Comodo implements Serializable {
 
     public void setJNivelLimpeza(javax.swing.JSlider jNivelLimpeza) {
         this.jNivelLimpeza = jNivelLimpeza;
+    }
+
+    public MTS_Environment getAmbiente() {
+        return ambiente;
+    }
+
+    public void setAmbiente(Ambiente ambiente) {
+        this.ambiente = ambiente;
     }
 }

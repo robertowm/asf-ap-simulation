@@ -4,7 +4,7 @@
  */
 package acao;
 
-import ambiente.Residencia;
+import ambiente.Ambiente;
 import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
@@ -28,10 +28,8 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = ((Residencia) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
+        Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
-        comodo.adicionaAgente(agente);
-        
         // suja de acordo com a personalidade
 
         int pontuacaoDesarrumarDeAcordoComPersonalidade = 2;
@@ -55,8 +53,6 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
         saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         agente.send(saida);
 
-        comodo.removeAgente(agente);
-        
         return true;
     }
 }

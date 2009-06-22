@@ -6,6 +6,7 @@
 
 package visual;
 
+import ambiente.Ambiente;
 import ambiente.Residencia;
 import framework.agent.Agent;
 import java.util.List;
@@ -23,7 +24,7 @@ public class JAmbiente extends javax.swing.JInternalFrame {
         initComponents();
     }
 
-    public JAmbiente(Residencia ambiente) {
+    public JAmbiente(Ambiente ambiente) {
         this();
         this.setTitle(ambiente.toString());
         List<Comodo> listaComodos = ambiente.getListaComodos();

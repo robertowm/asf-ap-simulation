@@ -4,10 +4,12 @@
  */
 package sis_multagente;
 
+import ambiente.CentralAtendimento;
 import static util.ConstantesAplicacao.*;
 
 import ambiente.Residencia;
 import comunicacao.ProtocoloTransporteMensagem;
+import fabrica.FabricaAmbiente;
 import framework.FIPA.AMS;
 import framework.FIPA.AgentPlatformDescription;
 import framework.FIPA.ElementID;
@@ -29,7 +31,7 @@ public class Main {
     public static ElementID idEmpregada = null;
     public static JDesktop desktop;
     public static MainOrganization OrganizacaoPrincipal;
-    public static Residencia ambienteCentral = null;
+    public static CentralAtendimento ambienteCentral = null;
 
     public static void main(String[] args) {
 
@@ -43,24 +45,17 @@ public class Main {
 
         ElementID elementID = null;
 
-        elementID = ams.createEnvironmentElementId(AMBIENTE_APJAVA_NOME, true);
-
-        
+        elementID = ams.createEnvironmentElementId(AMBIENTE_CENTRAL_ATENDIMENTO, true);
         try {
-            List<Comodo> comodos = new ArrayList<Comodo>();
-            comodos.add(new Comodo("Escritorio"));
-            comodos.add(new Comodo("Banheiro"));
-            ambienteCentral = new Residencia(elementID, comodos);
+            ambienteCentral = new CentralAtendimento(elementID);
             ams.createDescription(ambienteCentral, elementID, "");
             elementID.setAddress(LOCAL_HOST);
         } catch (NullPointerException ex) {
-            System.out.println("[ERRO] Valor nulo durante a inicializacao do ambiente Residencia (" + AMBIENTE_APJAVA_NOME + ")");
+            System.out.println("[ERRO] Valor nulo durante a inicializacao do ambiente Central de Atendimento (" + AMBIENTE_CENTRAL_ATENDIMENTO + ")");
             ex.printStackTrace();
         }
 
         elementID = ams.createOrganizationElementId(ORGANIZACAO_HABITACAO_NOME, true);
-
-        
         try {
             OrganizacaoPrincipal = new Habitacao(ambienteCentral, elementID, ProtocoloTransporteMensagem.getInstancia());
             ams.createDescription(OrganizacaoPrincipal, elementID, "");
@@ -70,11 +65,14 @@ public class Main {
             ex.printStackTrace();
         }
 
+        ambienteCentral.carregarSecretaria();
+        FabricaAmbiente.adicionarAmbiente(ambienteCentral);
+        
         Thread mainOrgThread = new Thread(OrganizacaoPrincipal, THREAD_ORGANIZACAO_PRINCIPAL);
         mainOrgThread.start();
 
 //        Agent e1 = GeradorAgentes.gerarEmpregada(ambienteCentral, OrganizacaoPrincipal);
-        idEmpregada = ambienteCentral.getDescription().getElementId();
+//        idEmpregada = ambienteCentral.getDescription().getElementId();
 
 //        Agent m1 = GeradorAgentes.gerarMorador(ambienteCentral, OrganizacaoPrincipal);
 //        Agent m2 = GeradorAgentes.gerarMorador(ambienteCentral, OrganizacaoPrincipal);

@@ -19,14 +19,11 @@ import framework.mentalState.Plan;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
-import visual.JDesktop;
-import visual.Principal;
 
 /**
  *
