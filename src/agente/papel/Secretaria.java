@@ -22,12 +22,12 @@ public class Secretaria extends AgentRole implements Serializable{
     private String nome;
     
     public Secretaria(){
-        this(PREFIXO_NOME_PAPEL + "Secretária", Main.OrganizacaoPrincipal);
+        this("Secretária", Main.OrganizacaoPrincipal);
     }
 
     public Secretaria(String nome, MainOrganization organizacao) {
         super();
-        this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
+        this.nome = PREFIXO_NOME_PAPEL + nome;
         
         this.beliefs.add(new LeafBelief("int", "suja", 10));
         this.beliefs.add(new LeafBelief("int", "desarumma", 10));
