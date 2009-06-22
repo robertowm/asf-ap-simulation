@@ -17,6 +17,8 @@ public interface ConstantesAplicacao {
 
     // >>> Ambientes <<<
     // >>>>>> APJAVA
+    public static final String TIPO_AMBIENTE_RESIDENCIA = "Residência";
+    public static final String TIPO_AMBIENTE_CENTRAL_ATENDIMENTO = "Central de Atendimento";
     public static final String AMBIENTE_APJAVA_NOME = "Residencia_APJAVA";
     public static final String AMBIENTE_CENTRAL_ATENDIMENTO = "Central_Atendimento";
 

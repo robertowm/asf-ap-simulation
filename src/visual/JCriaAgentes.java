@@ -71,7 +71,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         btnAdicionar2 = new javax.swing.JButton();
         txtnomeAmbiente = new javax.swing.JTextField();
-        cmbPapel2 = new javax.swing.JComboBox();
+        JComboTipoAmbiente = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -108,9 +108,9 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbPapel2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o Tipo", "Residência" }));
-        cmbPapel2.setSelectedIndex(1);
-        cmbPapel2.setEnabled(false);
+        JComboTipoAmbiente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o Tipo", "Residência" }));
+        JComboTipoAmbiente.setSelectedIndex(1);
+        JComboTipoAmbiente.setEnabled(false);
 
         jLabel7.setText("Tipo");
 
@@ -124,7 +124,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPapel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JComboTipoAmbiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,7 +139,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(cmbPapel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JComboTipoAmbiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtnomeAmbiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
@@ -251,7 +251,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(btnIniciarSilicacao)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(350, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +302,7 @@ private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     if (!stringInvalida(nomeAgente, "O NOME do agente é inválido")) {
         return;
     }
-    if (!(objAmbiente instanceof Residencia)) {
+    if (!(objAmbiente instanceof Ambiente)) {
         stringInvalida(null, "Selecione um Ambiente");
         return;
     }
@@ -311,12 +311,12 @@ private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         return;
     }
 
-    if (FabricaAgente.existeAgente(nomeAgente + ":" + objPapel, (Residencia) objAmbiente)) {
+    if (FabricaAgente.existeAgente(nomeAgente + ":" + objPapel, (Ambiente) objAmbiente)) {
         stringInvalida(null, "Já existe esse agente no ambiente selecionado");
         return;
     }
 
-    Agent a = GeradorAgentes.gerarAgente(nomeAgente, (AgentRole) objPapel, (Residencia) objAmbiente, Main.OrganizacaoPrincipal);
+    Agent a = GeradorAgentes.gerarAgente(nomeAgente, (AgentRole) objPapel, (Ambiente) objAmbiente, Main.OrganizacaoPrincipal);
     agentes.add(a);
     jListAgentes.setListData(agentes);
 }//GEN-LAST:event_btnAdicionarActionPerformed
@@ -338,18 +338,18 @@ private void btnAdicionar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         return;
     }
 
-    ambiente = FabricaAmbiente.getAmbiente(nomeAmbiente, Main.OrganizacaoPrincipal);
+    ambiente = FabricaAmbiente.getAmbiente(nomeAmbiente, JComboTipoAmbiente.getSelectedItem().toString());
     ambientes.add(ambiente);
     jListAmbiente.setListData(ambientes);
     adicionaNoComboBox(jComboAmbiente, ambiente);
 }//GEN-LAST:event_btnAdicionar2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox JComboTipoAmbiente;
     private javax.swing.JTabbedPane JTablePanel;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAdicionar2;
     private javax.swing.JButton btnIniciarSilicacao;
-    private javax.swing.JComboBox cmbPapel2;
     private javax.swing.JComboBox jComboAmbiente;
     private javax.swing.JComboBox jComboPapel;
     private javax.swing.JLabel jLabel1;
