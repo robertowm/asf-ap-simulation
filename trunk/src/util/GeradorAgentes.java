@@ -5,7 +5,6 @@
 package util;
 
 import ambiente.Ambiente;
-import ambiente.Residencia;
 import fabrica.FabricaAgente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
@@ -13,8 +12,6 @@ import framework.organization.MainOrganization;
 import visual.JDesktop;
 import visual.Principal;
 import framework.mentalState.Message;
-import sis_multagente.Main;
-import visual.JAmbiente;
 import static util.ConstantesAplicacao.*;
 
 /**
@@ -27,14 +24,9 @@ public class GeradorAgentes {
 
         Agent agente = FabricaAgente.getAgente(nomeAgente, papelAgente, ambiente, organizacao);
 
-        Principal tela = JDesktop.getTela(agente);
+//        Principal tela = JDesktop.getTela(agente);
 
         GerenciadorFluxos.registrarFluxo(agente.getAgentName().getName(), agente);
-
-        JAmbiente p = new JAmbiente(ambiente);
-        p.setVisible(true);
-        p.setTitle(ambiente.toString());
-        Main.desktop.add(p);
 
         ambiente.registerAgents(agente);
 

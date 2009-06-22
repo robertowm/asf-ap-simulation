@@ -26,14 +26,15 @@ public class AcaoTrocarComodo extends AcaoAgente implements Serializable {
 
     @Override
     public boolean execute(Agent agente, Message msg) {
-        Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
         Ambiente ambiente = (Ambiente) agente.getEnvironment();
+        Comodo comodo = ambiente.getComodoPorNome(msg.getContent().toString());
 
         comodo.removeAgente(agente);
 
-        Comodo novoComodo = ((Ambiente) agente.getEnvironment()).pegarOutroComodoAleatoriamente(comodo);
+        Comodo novoComodo = ambiente.pegarOutroComodoAleatoriamente(comodo);
         novoComodo.adicionaAgente(agente);
-        ambiente.trocarAgenteComodo(agente, novoComodo);
+        
+//        ambiente.trocarAgenteComodo(agente, novoComodo);
 
         Principal tela = JDesktop.getTela(agente);
 
