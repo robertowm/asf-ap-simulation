@@ -22,6 +22,7 @@ public class Ambiente extends MTS_Environment implements Serializable {
     protected HashMap<Agent, Comodo> mapaAgentesComodo = new HashMap<Agent, Comodo>();
     protected Vector<Agent> listaAgentes = new Vector<Agent>();
     protected JAmbiente janela = null;
+    private String nome;
 
     public Ambiente(ElementID aid) {
         this(aid, new ArrayList<Comodo>());
@@ -30,6 +31,7 @@ public class Ambiente extends MTS_Environment implements Serializable {
     public Ambiente(ElementID aid, List<Comodo> listaComodos) {
         super(aid);
         this.listaComodos = listaComodos;
+        nome = elementId.getName();
     }
 
     public Comodo pegarComodoPorAgente(Agent agente) {
@@ -53,9 +55,15 @@ public class Ambiente extends MTS_Environment implements Serializable {
         janela = jAmbiente;
     }
 
-    public synchronized void trocarAgenteComodo(Agent agent, Comodo comodo) {
+    public synchronized void trocarAgenteComodo(Agent agent, Comodo antigo, Comodo novo) {
+        Comodo comodo = mapaAgentesComodo.get(agent);
+        if(!comodo.equals(antigo)) {
+            System.out.println("++++++++++++++++++++++++++++++ DIFERENTE ++++++++++++++++++++++++");
+        }
         mapaAgentesComodo.remove(agent);
-        mapaAgentesComodo.put(agent, comodo);
+        mapaAgentesComodo.put(agent, novo);
+        antigo.adicionaRemoveAgente(agent, false);
+        novo.adicionaRemoveAgente(agent, true);
     }
 
     public List<Comodo> getListaComodos() {
@@ -67,6 +75,14 @@ public class Ambiente extends MTS_Environment implements Serializable {
         super.registerAgents(newAgent);
         mapaAgentesComodo.put(newAgent, pegarComodoAleatoriamente());
         listaAgentes.add(newAgent);
+        janela.setListAgentes(listaAgentes);
+    }
+    
+    @Override
+    public synchronized void cancelAgentRegister(Agent newAgent) {
+        super.cancelAgentRegister(newAgent);
+        mapaAgentesComodo.remove(newAgent);
+        listaAgentes.remove(newAgent);
         janela.setListAgentes(listaAgentes);
     }
 
@@ -87,5 +103,22 @@ public class Ambiente extends MTS_Environment implements Serializable {
     public String toString() {
         return super.getEnvironmentName();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Ambiente)){
+            return false;
+        }
+        return nome.equals(((Ambiente)obj).nome);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        return hash;
+    }
+    
+    
 
 }

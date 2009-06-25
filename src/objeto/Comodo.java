@@ -52,9 +52,6 @@ public class Comodo implements Serializable {
         this(nome, "", ambiente, new HashMap<String, Condition>());
     }
 
-//    public Comodo(String nome, String tipo) {
-//        this(nome, tipo, new HashMap<String, Condition>());
-//    }
 // TORNAR PUBLICO DEPOIS
     private Comodo(String nome, String tipo, Ambiente ambiente, Map<String, Condition> condicoes) {
         this.nome = nome;
@@ -70,10 +67,17 @@ public class Comodo implements Serializable {
     public synchronized void adicionaRemoveAgente(Agent agente, boolean adiciona) {
         if (adiciona) {
             agentes.add(agente);
+            System.out.println(this.nome + "  ADICIONA -----------------------------------------");
         } else {
+            System.out.println(this.nome + "  REMOVE -----------------------------------------");
             agentes.remove(agente);
         }
+
         listaAgentesTela.setListData(agentes);
+        for (Agent agent : agentes) {
+            System.out.print(agent.getAgentName().getName() + "  ");
+        }
+        System.out.println("");
     }
 
     public void removeAgente(Agent agente) {
@@ -84,20 +88,6 @@ public class Comodo implements Serializable {
         this.listaAgentesTela = jListAgentesTela;
     }
 
-//    public void atribuirAgente(Agent agente) {
-////        mapaAgentes.put(agente.toString(), agente);
-//        agentes.add(agente);
-//    }
-//
-//    public boolean atendePreCondicoes(Collection<Condition> condicoes) {
-//        for (Condition condicaoAcao : condicoes) {
-//            Condition condicaoComodo = mapaCondicoesComodo.get(condicaoAcao.getName());
-//            if (condicaoComodo == null || !condicaoComodo.getValue().equals(condicaoAcao.getValue()) || !condicaoComodo.getType().equals(condicaoAcao.getType())) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
     public void suja() {
         adicionaRemovePontuacaoLimpeza(false);
     }
@@ -247,8 +237,16 @@ public class Comodo implements Serializable {
             return false;
         }
         Comodo c = (Comodo) obj;
-        return c.nome.equals(this.nome);
+        return c.nome.equals(this.nome) && c.ambiente.equals(this.ambiente);
 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 89 * hash + (this.ambiente != null ? this.ambiente.hashCode() : 0);
+        return hash;
     }
 
     public javax.swing.JSlider getJNivelArrumacao() {
@@ -274,4 +272,5 @@ public class Comodo implements Serializable {
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
+    
 }

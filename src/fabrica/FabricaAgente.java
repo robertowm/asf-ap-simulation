@@ -4,6 +4,7 @@
  */
 package fabrica;
 
+import ambiente.Ambiente;
 import agente.UsuarioAgente;
 import agente.papel.Empregada;
 import agente.papel.Morador;
@@ -37,7 +38,7 @@ public class FabricaAgente {
     private static Map<String, Agent> mapaAgentes = new HashMap<String, Agent>();
     private static AMS ams = AMS.getInstance();
 
-    public static Agent getAgente(String nome, AgentRole regraAgente, MTS_Environment ambiente, MainOrganization organizacao) {
+    public static Agent getAgente(String nome, AgentRole regraAgente, Ambiente ambiente, MainOrganization organizacao) {
         String nomeAgente = PREFIXO_NOME_AGENTE + nome + ":" + regraAgente.toString();
 
         Agent agente = mapaAgentes.get(nomeAgente);
@@ -56,6 +57,11 @@ public class FabricaAgente {
 
         agente.setEnvironment(ambiente);
         
+//        List<Comodo> listaComodos = ambiente.getListaComodos();
+//        int valor = GeradorRandomico.geraRandomico(listaComodos.size());
+//        listaComodos.get(valor).adicionaRemoveAgente(agente, true);
+//        ambiente.colocarAgenteComodo(agente, listaComodos.get(valor));
+        
         if(regraAgente instanceof Empregada){
             Empregada papelEmpregada = new Empregada();
             agente.setGoal(new TornarResidenciaHabitavel());
@@ -72,6 +78,7 @@ public class FabricaAgente {
             agente.setGoal(new TornarResidenciaHabitavel());
             agente.setPlan(new PlanoSecretaria());
             regraAgente = papelSecretaria;
+            ambiente.colocarAgenteComodo(agente, ambiente.getComodoPorNome("Escritorio"));
         }
         
         for (Object belief : regraAgente.getBeliefs()) {

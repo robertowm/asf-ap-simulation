@@ -41,7 +41,12 @@ public interface ConstantesAplicacao {
     public static final int TEMPO_VERIFICAR_COMODO = 100 * VELOCIDADE;
     public static final int TEMPO_ATENDER_REQUISICAO = 200 * VELOCIDADE;
     public static final int TEMPO_ATUALIZAR_QUADRO_TAREFAS = 100 * VELOCIDADE;
-
+    public static final int TEMPO_FAZ_NADA = 400 * VELOCIDADE;
+    public static final int TEMPO_PEGAR_FAXINA = 500 * VELOCIDADE;
+    public static final int TEMPO_VISITAR_RESIDENCIA = 500 * VELOCIDADE;
+    public static final int TEMPO_IR_PARA_A_CENTRAL = 500 * VELOCIDADE;
+    public static final int TEMPO_TROCAR_COMODO = 500 * VELOCIDADE;
+    
     // >>> Pontuacoes <<<
     public static final int PONTUACAO_TOTAL_LIMPO = 10;
     public static final int PONTUACAO_TOTAL_ARRUMADO = 10;
@@ -67,7 +72,10 @@ public interface ConstantesAplicacao {
     public static final String ACAO_ATENDER_REQUISICAO = "Atender Requisição";
     public static final String ACAO_ATUALIZAR_QUADRO_TAREFAS = "Atualizar o Quadro de Tarefas";
     public static final String ACAO_TROCAR_COMODO = "Trocar Comodo";
-
+    public static final String ACAO_FAZ_NADA = "Faz Nada";
+    public static final String ACAO_PEGAR_FAXINA = "Pegar Faxina";
+    public static final String ACAO_VISITAR_RESIDENCIA = "Visitar Residencia";
+    public static final String ACAO_IR_PARA_A_CENTRAL = "Ir para a Central";
     // >> Outros <<
     public static final String LOCAL_HOST = "127.0.0.1";
     public static final String THREAD_ORGANIZACAO_PRINCIPAL = "ThreadOrganizacao";
@@ -76,6 +84,4 @@ public interface ConstantesAplicacao {
     public static final String PREFIXO_NOME_AMBIENTE = "Ambiente::";
     public static final String PREFIXO_NOME_PAPEL = "Papel::";
     public static final String PREFIXO_PAPEL_MORADOR = "Morador::";
-    
-
 }

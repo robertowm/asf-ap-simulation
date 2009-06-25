@@ -19,7 +19,7 @@ public class GerenciadorFluxos {
 
     private static Map<String, Thread> mapa = new HashMap<String, Thread>();
 
-    public static Runnable recuperarFluxo(String nome) {
+    public static Thread recuperarFluxo(String nome) {
         return mapa.get(nome);
     }
 

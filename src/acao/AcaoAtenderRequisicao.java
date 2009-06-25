@@ -5,6 +5,7 @@
 package acao;
 
 import ambiente.Ambiente;
+import ambiente.CentralAtendimento;
 import fabrica.FabricaAmbiente;
 import framework.agent.Agent;
 import framework.mentalState.Message;
@@ -32,12 +33,15 @@ public class AcaoAtenderRequisicao extends AcaoAgente implements Serializable {
 
         Ambiente ambiente = FabricaAmbiente.recuperarAmbientePorNome(informacoes.split("#")[1]);
         Comodo comodo = (Comodo) ambiente.getComodoPorNome(informacoes.split("#")[0]);
-
+        Comodo escritorio = ((CentralAtendimento)agente.getEnvironment()).getComodoPorNome("Escritorio");
+        
+        escritorio.adicionaAgente(agente);
+        
         String conversionId = "?" + Thread.currentThread().getName();
 
         Principal tela = JDesktop.getTela(agente);
         
-        Message saida = new Message(conversionId, comodo + "#" + ambiente.getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
+        Message saida = new Message(conversionId, comodo.toString() + "#" + ambiente.getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
         try {
             Thread.sleep(ConstantesAplicacao.TEMPO_ATENDER_REQUISICAO);
@@ -47,12 +51,14 @@ public class AcaoAtenderRequisicao extends AcaoAgente implements Serializable {
 
         tela.apendTexto("\"Irei atualizar o quadro de tarefas com mais uma requisição: Limpar a casa de " + agente.getAgentName().getName() + "\"");
 
+        escritorio.removeAgente(agente);
+        
         return true;
     }
 
-    private void exibirStatusComodo(Principal tela, Comodo comodo) {
-        tela.apendTexto("Verificando comodo: " + comodo.getNome());
-        tela.apendTexto(" - Nivel de limpeza   = " + comodo.getNivelLimpeza());
-        tela.apendTexto(" - Nivel de arrumacao = " + comodo.getNivelArrumacao());
-    }
+//    private void exibirStatusComodo(Principal tela, Comodo comodo) {
+//        tela.apendTexto("Verificando comodo: " + comodo.getNome());
+//        tela.apendTexto(" - Nivel de limpeza   = " + comodo.getNivelLimpeza());
+//        tela.apendTexto(" - Nivel de arrumacao = " + comodo.getNivelArrumacao());
+//    }
 }
