@@ -5,12 +5,13 @@
 
 package agente.papel;
 
+import agente.comportamento.Funcionario;
 import static util.ConstantesAplicacao.*;
 
 import framework.agentRole.AgentRole;
-import framework.mentalState.belief.LeafBelief;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
+import java.util.ArrayList;
 import sis_multagente.Main;
 
 /**
@@ -29,11 +30,8 @@ public class Secretaria extends AgentRole implements Serializable{
         super();
         this.nome = PREFIXO_NOME_PAPEL + nome;
         
-        this.beliefs.add(new LeafBelief("int", "suja", 10));
-        this.beliefs.add(new LeafBelief("int", "desarumma", 10));
-        this.beliefs.add(new LeafBelief("int", "fazNada", 30));
-        this.beliefs.add(new LeafBelief("int", "atendeRequisicao", 50));
-
+        this.beliefs = new ArrayList(new Funcionario().getCrencas());
+        
         this.setOwner(organizacao);
 
         this.setRight(null);

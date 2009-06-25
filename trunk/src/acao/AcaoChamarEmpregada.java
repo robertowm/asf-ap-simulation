@@ -36,6 +36,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+        
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
 
         boolean morador = false;
@@ -56,12 +57,15 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
         String conversionId = "?" + Thread.currentThread().getName();
 
         if (secretaria) {
-            Message chamada = new Message(conversionId, comodo + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
+            Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
             agente.send(chamada);
 
         } else if (morador) {
-            Message chamada = new Message(conversionId, comodo + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), Main.ambienteCentral.getSecretaria().getAgentName());
+        
+            comodo.adicionaAgente(agente);
+            
+            Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), Main.ambienteCentral.getSecretaria().getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATENDER_REQUISICAO);
             agente.send(chamada);
 
@@ -81,13 +85,15 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
 //        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
         tela.apendTexto("\"Nossa! Este comodo esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido para limpar a/o " + comodo + "!") + "\"");
 
-        try {
-            Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+//        try {
+//            Thread.sleep(ConstantesAplicacao.TEMPO_CHAMAR_EMPREGADA);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
+//            return false;
+//        }
 
+        comodo.removeAgente(agente);
+        
         return true;
     }
 }

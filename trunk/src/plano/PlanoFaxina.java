@@ -7,6 +7,8 @@ package plano;
 import acao.AcaoAgente;
 import acao.AcaoLimpar;
 import acao.AcaoArrumar;
+import acao.AcaoIrParaACentralAtendimento;
+import acao.AcaoVisitarResidencia;
 import acao.command.ComandoAcao;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
@@ -41,37 +43,32 @@ public class PlanoFaxina extends Plan implements Serializable {
     public void execute(AgentRole role) {
 //        System.out.println("===================PlanoFaxina.execute===================");
         int descansa = 500;
-        long timeOut = QTD_COMODO * PONTUACAO_TOTAL_ARRUMADO * 500 * VELOCIDADE + 2 * descansa*1000;
+        long tempoFaxina = 20 * 1000;
+        boolean fimDoExpediente = false;
+        boolean limpando = false;
         List<Message> listaExecutada;
 
         Agent agente = role.getAgentPlayingRole();
         Principal tela = JDesktop.getTela(agente);
-        tela.apendTexto("\n<<<--- Iniciando o plano Faxina --->>>");
-        tela.apendTexto("Tempo Máximo de faxina -> " + timeOut);
-        while (timeOut > 0) {
 
+        while (!fimDoExpediente) {
             CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>(agente.getInMessages());
             listaExecutada = new ArrayList(mensagens.size());
 
-            int aguardandoMensagem = 300;
-
-            try {
-                if (aguardandoChamada) {
-                    tela.apendTexto("Agente ------>>   AGUARDANDO CHAMADO");
-                    aguardandoChamada = false;
-                }
-                Thread.sleep(aguardandoMensagem);
-
-            } catch (InterruptedException ex) {
-                Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            // Sleep para inicio do plano
 
             for (Message mensagem : mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
                 long tempoAcao = System.currentTimeMillis();
-                boolean executou = acao.execute(agente, mensagem);
-                timeOut -= (System.currentTimeMillis() - tempoAcao);
 
+                boolean executou = acao.execute(agente, mensagem);
+                
+                if(limpando) {
+                    tempoFaxina -= (System.currentTimeMillis() - tempoAcao);
+                }
+                if(acao instanceof AcaoVisitarResidencia) {
+                    limpando = true;
+                }
                 if (executou) {
                     listaExecutada.add(mensagem);
                 }
@@ -83,11 +80,12 @@ public class PlanoFaxina extends Plan implements Serializable {
                     Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                timeOut -= descansa;
+//                tempoFaxina -= descansa;
                 // se escotou o tempo do agente fazer faxina ele vai embora sem pegar uma próxima ação
-                if (timeOut <= 0) {
+                if (tempoFaxina <= 0) {
                     tela.apendTexto("\"Acabou meu tempo.\"");
-                    break;
+                    limpando = false;
+                    fimDoExpediente = true;
                 }
             }
 
@@ -101,6 +99,10 @@ public class PlanoFaxina extends Plan implements Serializable {
         aguardandoChamada = true;
         synchronized (agente) {
             agente.getInMessages().clear();
+
+            Message saida = new Message("?" + Thread.currentThread().getName(), null, agente.getAgentName(), agente.getAgentName());
+            saida.setPerformative(ConstantesAplicacao.ACAO_IR_PARA_A_CENTRAL);
+            agente.send(saida);
         }
     }
 

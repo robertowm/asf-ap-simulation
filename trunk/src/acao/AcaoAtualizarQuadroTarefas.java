@@ -11,6 +11,7 @@ import framework.agent.Agent;
 import framework.mentalState.Message;
 import java.io.Serializable;
 import objeto.Comodo;
+import util.ConstantesAplicacao;
 
 /**
  *
@@ -29,10 +30,24 @@ public class AcaoAtualizarQuadroTarefas extends AcaoAgente implements Serializab
 
         Ambiente ambiente = FabricaAmbiente.recuperarAmbientePorNome(informacoes.split("#")[1]);
         Comodo comodo = (Comodo) ambiente.getComodoPorNome(informacoes.split("#")[0]);
-
+        Comodo escritorio = ((CentralAtendimento)agente.getEnvironment()).getComodoPorNome("Escritorio");
+        
+        escritorio.adicionaAgente(agente);
+        
         CentralAtendimento central = (CentralAtendimento) agente.getEnvironment();
 
         central.adicionarTarefa(comodo);
+        
+        String conversionId = "?" + Thread.currentThread().getName();
+        Message saida = new Message(conversionId, escritorio.toString(), agente.getAgentName(), agente.getAgentName());
+        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+        try {
+            Thread.sleep(ConstantesAplicacao.TEMPO_ATUALIZAR_QUADRO_TAREFAS);
+        } catch (InterruptedException ex) {
+        }
+        agente.send(saida);
+        
+        escritorio.removeAgente(agente);
         
         return true;
     }

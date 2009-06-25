@@ -62,7 +62,6 @@ public class Main {
             ex.printStackTrace();
         }
         
-
         ambienteCentral.carregarSecretaria();
         
         Thread mainOrgThread = new Thread(OrganizacaoPrincipal, THREAD_ORGANIZACAO_PRINCIPAL);

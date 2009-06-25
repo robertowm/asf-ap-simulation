@@ -4,6 +4,7 @@
  */
 package acao;
 
+import agente.UsuarioAgente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -11,7 +12,9 @@ import java.util.List;
 import objeto.Comodo;
 import agente.papel.Empregada;
 import agente.papel.Morador;
+import agente.papel.Secretaria;
 import ambiente.Ambiente;
+import ambiente.CentralAtendimento;
 import framework.mentalState.belief.Belief;
 import java.io.Serializable;
 import util.GeradorRandomico;
@@ -34,9 +37,12 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+//        comodo.adicionaAgente(agente);
+
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         boolean empregada = false;
         boolean morador = false;
+        boolean secretaria = false;
 
         String conversionId = "?" + Thread.currentThread().getName();
 
@@ -46,6 +52,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
         for (AgentRole agentRole : papeis) {
             empregada = (agentRole instanceof Empregada);
             morador = (agentRole instanceof Morador);
+            secretaria = (agentRole instanceof Secretaria);
 
             try {
                 Thread.sleep(ConstantesAplicacao.TEMPO_VERIFICAR_COMODO);
@@ -53,8 +60,13 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
             }
 
             if (empregada) {
-                comodo.adicionaAgente(agente);
                 exibirStatusComodo(tela, comodo);
+
+//                Ambiente ambiente = (Ambiente) agente.getEnvironment();
+//                if (ambiente instanceof CentralAtendimento) {
+//                    saida.setPerformative(ConstantesAplicacao.ACAO_PEGAR_FAXINA);
+//                    agente.send(saida);
+//                } else {
                 Belief crenca = GeradorRandomico.getBelief(agente.getBeliefs());
                 if (crenca.getName().equals("limpa")) {
                     // acao limpa
@@ -65,8 +77,9 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                     saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
                     agente.send(saida);
                 }
+//                }
             }
-            if (morador) {
+            if (morador || secretaria) {
 
                 exibirStatusComodo(tela, comodo);
                 final List<Comodo> comodos = ((Ambiente) agente.getEnvironment()).getListaComodos();
@@ -94,7 +107,6 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                     saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
                     saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                     agente.send(saida);
-                    break;
                 }
 
                 if (GeradorRandomico.geraPercentual() < 30) {
@@ -123,13 +135,19 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
                         saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
                         saida.setPerformative(ConstantesAplicacao.ACAO_CHAMAR_EMPREGADA);
                         agente.send(saida);
+                    } else if (crenca.getName().equals("fazNada")) {
+                        // acao fazNada
+                        saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
+                        saida.setPerformative(ConstantesAplicacao.ACAO_FAZ_NADA);
+                        agente.send(saida);
                     }
                 }
-
             }
             break;
 
         }
+        comodo.removeAgente(agente);
+
         return true;
     }
 

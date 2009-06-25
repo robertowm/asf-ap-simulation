@@ -7,7 +7,6 @@
 package visual;
 
 import ambiente.Ambiente;
-import ambiente.Residencia;
 import framework.agent.Agent;
 import java.util.List;
 import java.util.Vector;
@@ -45,7 +44,7 @@ public class JAmbiente extends javax.swing.JInternalFrame {
         
     }
 
-    public void setListAgentes(Vector<Agent> listaAgentes) {
+    public synchronized void setListAgentes(Vector<Agent> listaAgentes) {
         this.jListAgentes.setListData(listaAgentes);
     }
 

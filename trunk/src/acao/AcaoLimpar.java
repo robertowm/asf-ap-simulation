@@ -33,6 +33,8 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
     public boolean execute(Agent agente, Message msg) {
         Comodo comodo = ((Ambiente) agente.getEnvironment()).getComodoPorNome(msg.getContent().toString());
 
+        comodo.adicionaAgente(agente);
+        
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
         int pontuacaoLimparDeAcordoComPersonalidade = 1;
         boolean empregada = false;
@@ -67,11 +69,17 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
         
         Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
         if(empregada){
-            saida.setPerformative(ConstantesAplicacao.ACAO_TROCAR_COMODO);
+            if(comodo.getNivelArrumacao().equals(Comodo.ARRUMADO)) {
+                saida.setPerformative(ConstantesAplicacao.ACAO_TROCAR_COMODO);
+            } else {
+                saida.setPerformative(ConstantesAplicacao.ACAO_ARRUMAR);
+            }
         }else{
             saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
         }
         agente.send(saida);
+        
+        comodo.removeAgente(agente);
         
         return comodo.getNivelLimpeza().equals(Comodo.LIMPO);
     }

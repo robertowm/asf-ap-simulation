@@ -10,13 +10,15 @@ import acao.AcaoArrumar;
 import acao.AcaoAtenderRequisicao;
 import acao.AcaoAtualizarQuadroTarefas;
 import acao.AcaoChamarEmpregada;
-//import acao.AcaoConfirmarComACentral;
-//import acao.AcaoConvocarEmpregada;
 import acao.AcaoDesarrumar;
+import acao.AcaoFazNada;
+import acao.AcaoIrParaACentralAtendimento;
 import acao.AcaoLimpar;
+import acao.AcaoPegarFaxina;
 import acao.AcaoSujar;
 import acao.AcaoTrocarComodo;
 import acao.AcaoVerificarComodo;
+import acao.AcaoVisitarResidencia;
 import java.util.HashMap;
 import java.util.Map;
 import static util.ConstantesAplicacao.*;
@@ -41,6 +43,10 @@ public class ComandoAcao {
         acoes.put(ACAO_ATENDER_REQUISICAO, new AcaoAtenderRequisicao());
         acoes.put(ACAO_ATUALIZAR_QUADRO_TAREFAS, new AcaoAtualizarQuadroTarefas());
         acoes.put(ACAO_TROCAR_COMODO, new AcaoTrocarComodo());
+        acoes.put(ACAO_FAZ_NADA, new AcaoFazNada());
+        acoes.put(ACAO_IR_PARA_A_CENTRAL, new AcaoIrParaACentralAtendimento());
+        acoes.put(ACAO_PEGAR_FAXINA, new AcaoPegarFaxina());
+        acoes.put(ACAO_VISITAR_RESIDENCIA, new AcaoVisitarResidencia());
     }
     
     public static AcaoAgente getAcao(String msg){

@@ -4,13 +4,12 @@
  */
 package util;
 
+import agente.papel.Empregada;
 import ambiente.Ambiente;
 import fabrica.FabricaAgente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.organization.MainOrganization;
-import visual.JDesktop;
-import visual.Principal;
 import framework.mentalState.Message;
 import static util.ConstantesAplicacao.*;
 
@@ -35,9 +34,20 @@ public class GeradorAgentes {
         return agente;
     }
 
-    private static void enviarMensagemInicio(Agent agente, Ambiente residencia) {
-        Message msgm = new Message("?" + agente.getAgentName().getName(), residencia.pegarComodoPorAgente(agente).toString(), agente.getAgentName(), agente.getAgentName());
-        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+    private static void enviarMensagemInicio(Agent agente, Ambiente ambiente) {
+        Message msgm = new Message("?" + agente.getAgentName().getName(), ambiente.pegarComodoPorAgente(agente).toString(), agente.getAgentName(), agente.getAgentName());
+        boolean empregada = false;
+        for (Object object : agente.getRolesBeingPlayed()) {
+            if(object instanceof Empregada) {
+                empregada = true;
+                break;
+            }
+        }
+        if(empregada) {
+            msgm.setPerformative(ACAO_PEGAR_FAXINA);
+        } else {
+            msgm.setPerformative(ACAO_VERIFICAR_COMODO);
+        }
         agente.send(msgm);
     }
 }
