@@ -4,7 +4,6 @@
  */
 package agente.papel;
 
-
 import agente.comportamento.Higienico;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
@@ -14,14 +13,15 @@ import java.util.ArrayList;
  *
  * @author heliokann
  */
-public class MoradorHigienico extends Morador implements Serializable{
+public class MoradorHigienico extends Morador implements Serializable {
 
-    public MoradorHigienico(){
+    public MoradorHigienico() {
+        this("", null);
         beliefs = new ArrayList(new Higienico().getCrencas());
     }
 
     public MoradorHigienico(String nome, MainOrganization organizacao) {
-        super(nome, organizacao);
+        super("Higienico" + nome, organizacao);
         beliefs = new ArrayList(new Higienico().getCrencas());
 
 //        this.setDuty(new Duty("AcaoVerificarComodo"));
@@ -34,12 +34,10 @@ public class MoradorHigienico extends Morador implements Serializable{
 
 //        this.setRight(null);
 //        this.startThread();
-        
+
 //        this.setRoleName("Morador");
 //        this.setStatus(null);
     }
-
-
 
     @Override
     public String toString() {

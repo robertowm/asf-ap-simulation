@@ -70,7 +70,6 @@ public class PlanoSecretaria extends Plan implements Serializable {
 
     @Override
     public void execute(MainOrganization organization) {
-        System.out.println("[PlanoHabitar] chamada do metodo 'public void execute(MainOrganization organization)'");
     }
 
     @Override

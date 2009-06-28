@@ -24,19 +24,22 @@ public class GeradorRandomico {
         return r.nextInt(100);
     }
     
+    public static double geraPercentualDouble() {
+        return r.nextDouble()*100;
+    }
+    
     public static Belief getBelief(List<Belief> crencas) {
-        int probabilidade = geraPercentual();
+        double probabilidade = geraPercentualDouble();
         
         for (Belief crenca : crencas) {
-            if(!(crenca.getValue() instanceof Integer)) continue;
-            Integer valor = (Integer)crenca.getValue();
+            if(!(crenca.getValue() instanceof Double)) continue;
+            Double valor = (Double)crenca.getValue();
             if(probabilidade <= valor) {
-                System.out.println("RETORNANDO A CRENCA ALEATORIAMENTE --->>"+crenca.getName());
                 return crenca;
             }
             probabilidade -= valor;
         }
-        return null;
+        return crencas.get(crencas.size()-1);
     }
 
     public static Belief getBelief(Collection beliefs) {

@@ -19,10 +19,10 @@ public class Relaxado extends Comportamento{
 
     @Override
     protected void carregaCrencas() {
-        crencas.add(new LeafBelief("int", "dessarruma", 40));
-        crencas.add(new LeafBelief("int", "arruma", 10));
-        crencas.add(new LeafBelief("int", "limpa", 10));
-        crencas.add(new LeafBelief("int", "suja", 40));
+        crencas.add(new LeafBelief("Double", "arruma", new Double(10d)));
+        crencas.add(new LeafBelief("Double", "dessarruma", new Double(40d)));
+        crencas.add(new LeafBelief("Double", "limpa", new Double(10d)));
+        crencas.add(new LeafBelief("Double", "suja", new Double(40d)));
         crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
    

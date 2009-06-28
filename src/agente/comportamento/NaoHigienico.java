@@ -19,10 +19,10 @@ public class NaoHigienico extends Comportamento{
 
     @Override
     protected void carregaCrencas() {
-       crencas.add(new LeafBelief("int", "dessarruma", 15));
-        crencas.add(new LeafBelief("int", "arruma", 15));
-        crencas.add(new LeafBelief("int", "limpa", 10));
-        crencas.add(new LeafBelief("int", "suja", 60));
+        crencas.add(new LeafBelief("Double", "arruma", new Double(15d)));
+        crencas.add(new LeafBelief("Double", "dessarruma", new Double(15d)));
+        crencas.add(new LeafBelief("Double", "limpa", new Double(10d)));
+        crencas.add(new LeafBelief("double", "suja", new Double(60d)));
         crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
 

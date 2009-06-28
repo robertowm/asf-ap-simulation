@@ -291,6 +291,7 @@ public class JCriaAgentes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnIniciarSilicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSilicacaoActionPerformed
+    Main.tempoInicio = System.currentTimeMillis();
     desktop.iniciarFluxo();
     this.dispose();
 }//GEN-LAST:event_btnIniciarSilicacaoActionPerformed

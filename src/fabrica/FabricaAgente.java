@@ -18,6 +18,7 @@ import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
 import framework.organization.MainOrganization;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import objetivo.ResidirFeliz;
@@ -108,5 +109,9 @@ public class FabricaAgente {
             return false;
         }
         return true;
+    }
+
+    public static Collection getListaAgentes() {
+        return mapaAgentes.values();
     }
 }

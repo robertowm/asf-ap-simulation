@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author heliokann
  */
 public class ResidirFeliz extends LeafGoal implements Serializable{
-    
+
     public ResidirFeliz(){
         super("boolean", "Residir_Feliz",true);
     }
@@ -30,7 +30,4 @@ public class ResidirFeliz extends LeafGoal implements Serializable{
         ResidirFeliz resi = (ResidirFeliz) obj;
         return (resi.name.equals(this.name) && resi.value.equals(this.value));
     }
-    
-    
-    
 }

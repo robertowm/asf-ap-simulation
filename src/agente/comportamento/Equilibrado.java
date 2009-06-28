@@ -19,10 +19,10 @@ public class Equilibrado extends Comportamento{
 
     @Override
     protected void carregaCrencas() {
-        crencas.add(new LeafBelief("int", "dessarruma", 25));
-        crencas.add(new LeafBelief("int", "arruma", 25));
-        crencas.add(new LeafBelief("int", "limpa", 25));
-        crencas.add(new LeafBelief("int", "suja", 25));
+        crencas.add(new LeafBelief("Double", "arruma", new Double(25d)));
+        crencas.add(new LeafBelief("Double", "dessarruma", new Double(25d)));
+        crencas.add(new LeafBelief("Double", "limpa", new Double(25d)));
+        crencas.add(new LeafBelief("Double", "suja", new Double(25d)));
         crencas.add(new LeafBelief("int", "chamaEmpregada", true));
     }
 
