@@ -4,19 +4,11 @@
  */
 package plano;
 
-import ambiente.Residencia;
-import framework.agent.Agent;
 import framework.agentRole.AgentRole;
-import framework.environment.MTS_Environment;
 import framework.mentalState.Action;
 import framework.mentalState.Condition;
 import framework.mentalState.Plan;
-import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import objetivo.ResidirFeliz;
-import objeto.Comodo;
 
 /**
  *
@@ -35,7 +27,6 @@ public class PlanoCozinharINVALIDO extends Plan {
 
         @Override
         public boolean execute() {
-            System.out.println("AcaoFazerComida");
             return true;
         }
     }
@@ -51,7 +42,6 @@ public class PlanoCozinharINVALIDO extends Plan {
 
         @Override
         public boolean execute() {
-            System.out.println("AcaoComer");
             return true;
         }
     }
@@ -65,7 +55,6 @@ public class PlanoCozinharINVALIDO extends Plan {
 
         @Override
         public boolean execute() {
-            System.out.println("AcaoLavarLouca");
             return true;
         }
     }
@@ -79,7 +68,6 @@ public class PlanoCozinharINVALIDO extends Plan {
 
         @Override
         public boolean execute() {
-            System.out.println("AcaoLavarPanela");
             return true;
         }
     }

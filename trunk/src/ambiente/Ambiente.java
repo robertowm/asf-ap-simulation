@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import objeto.Comodo;
+import util.ConstantesAplicacao;
 import util.GeradorRandomico;
 import visual.JAmbiente;
 
@@ -34,6 +35,23 @@ public class Ambiente extends MTS_Environment implements Serializable {
         nome = elementId.getName();
     }
 
+    public synchronized boolean isAmbienteArrumadoLimpo() {
+        for (Comodo comodo : listaComodos) {
+            if(!comodo.getNivelArrumacao().equals(Comodo.ARRUMADO) || !comodo.getNivelLimpeza().equals(Comodo.LIMPO)) {
+                return false;
+            }
+        }
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        System.out.println("#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$");
+        return true;
+    }
+
     public Comodo pegarComodoPorAgente(Agent agente) {
         return mapaAgentesComodo.get(agente);
     }
@@ -56,10 +74,6 @@ public class Ambiente extends MTS_Environment implements Serializable {
     }
 
     public synchronized void trocarAgenteComodo(Agent agent, Comodo antigo, Comodo novo) {
-        Comodo comodo = mapaAgentesComodo.get(agent);
-        if(!comodo.equals(antigo)) {
-            System.out.println("++++++++++++++++++++++++++++++ DIFERENTE ++++++++++++++++++++++++");
-        }
         mapaAgentesComodo.remove(agent);
         mapaAgentesComodo.put(agent, novo);
         antigo.adicionaRemoveAgente(agent, false);
@@ -118,7 +132,4 @@ public class Ambiente extends MTS_Environment implements Serializable {
         hash = 89 * hash + (this.nome != null ? this.nome.hashCode() : 0);
         return hash;
     }
-    
-    
-
 }

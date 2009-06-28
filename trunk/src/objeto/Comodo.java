@@ -67,17 +67,10 @@ public class Comodo implements Serializable {
     public synchronized void adicionaRemoveAgente(Agent agente, boolean adiciona) {
         if (adiciona) {
             agentes.add(agente);
-            System.out.println(this.nome + "  ADICIONA -----------------------------------------");
         } else {
-            System.out.println(this.nome + "  REMOVE -----------------------------------------");
             agentes.remove(agente);
         }
-
         listaAgentesTela.setListData(agentes);
-        for (Agent agent : agentes) {
-            System.out.print(agent.getAgentName().getName() + "  ");
-        }
-        System.out.println("");
     }
 
     public void removeAgente(Agent agente) {

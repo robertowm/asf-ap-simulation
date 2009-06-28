@@ -7,7 +7,6 @@ package agente.papel;
 import static util.ConstantesAplicacao.*;
 
 import framework.FIPA.AMS;
-import framework.agentRole.AgentRole;
 import framework.mentalState.belief.Belief;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
@@ -18,20 +17,17 @@ import sis_multagente.Main;
  *
  * @author heliokann
  */
-public class Morador extends AgentRole implements Serializable{
+public class Morador extends Papel implements Serializable{
 
     private AMS ams = AMS.getInstance();
 
-    protected String nome;
-    
     public Morador(){
-        this.nome = PREFIXO_NOME_PAPEL + this.getClass().getSimpleName();
+        super("Morador");
         this.setOwner(Main.OrganizacaoPrincipal);
     }
 
     public Morador(String nome, MainOrganization organizacao) {
-        super();
-        this.nome = PREFIXO_NOME_PAPEL + PREFIXO_PAPEL_MORADOR + nome;
+        super(PREFIXO_PAPEL_MORADOR + nome);
 
 //        this.setDuty(new Duty("AcaoVerificarComodo"));
 

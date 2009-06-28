@@ -19,10 +19,10 @@ public class Funcionario extends Comportamento{
     
     @Override
     protected void carregaCrencas() {
-        crencas.add(new LeafBelief("int", "arruma", 20));
-        crencas.add(new LeafBelief("int", "dessarruma", 15));
-        crencas.add(new LeafBelief("int", "suja", 15));
-        crencas.add(new LeafBelief("int", "fazNada", 50));
+        crencas.add(new LeafBelief("Double", "arruma", new Double(20d)));
+        crencas.add(new LeafBelief("Double", "dessarruma", new Double(15d)));
+        crencas.add(new LeafBelief("Double", "suja", new Double(15d)));
+        crencas.add(new LeafBelief("Double", "fazNada", new Double(50d)));
         crencas.add(new LeafBelief("boolean", "chamaEmpregada", true));
     }
     

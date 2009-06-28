@@ -19,8 +19,8 @@ public class Faxineira extends Comportamento{
     
     @Override
     protected void carregaCrencas() {
-        crencas.add(new LeafBelief("int", "arruma", 50));
-        crencas.add(new LeafBelief("int", "limpa", 50));
+        crencas.add(new LeafBelief("Double", "arruma", new Double(50d)));
+        crencas.add(new LeafBelief("Double", "limpa", new Double(50d)));
     }
     
     

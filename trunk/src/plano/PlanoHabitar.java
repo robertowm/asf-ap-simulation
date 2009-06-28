@@ -12,18 +12,24 @@ import acao.AcaoLimpar;
 import acao.AcaoSujar;
 import acao.AcaoVerificarComodo;
 import acao.command.ComandoAcao;
-import framework.agent.Agent;
+import agente.UsuarioAgente;
+import agente.papel.Papel;
+import ambiente.Ambiente;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
 import framework.mentalState.Plan;
 import framework.organization.MainOrganization;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
+import util.FluxoResultados;
+import util.GerenciadorFluxos;
 
 /**
  *
@@ -31,6 +37,8 @@ import objetivo.ResidirFeliz;
  */
 public class PlanoHabitar extends Plan implements Serializable {
 
+    private Map<String,Double> mapaAcoes = null;
+    
     public PlanoHabitar() {
         this.setAction(new AcaoChamarEmpregada());
         this.setAction(new AcaoDesarrumar());
@@ -40,45 +48,60 @@ public class PlanoHabitar extends Plan implements Serializable {
         this.setAction(new AcaoVerificarComodo());
 
         this.setGoal(new ResidirFeliz());
+        
+        this.mapaAcoes = new HashMap<String,Double>();
     }
 
     @Override
     public void execute(AgentRole role) {
         List<Message> listaExecutada;
-        Agent agente = role.getAgentPlayingRole();
+        UsuarioAgente agente = (UsuarioAgente) role.getAgentPlayingRole();
+        Ambiente ambiente = (Ambiente) agente.getEnvironment();
+
 //        boolean loop = true;
         int descansa = 400;
 //        Principal tela = JDesktop.getTela(agente);
 
-//        while (loop) {
-            CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>( agente.getInMessages());
-            listaExecutada = new ArrayList(mensagens.size());
-            for (Message mensagem : mensagens) {
-                AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
-                boolean executou = acao.execute(agente, mensagem);
+//        while (!goal.getAchieved()) {
+        CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>(agente.getInMessages());
+        listaExecutada = new ArrayList(mensagens.size());
+        for (Message mensagem : mensagens) {
+            AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
+            boolean executou = acao.execute(agente, mensagem);
 
-                if (executou) {
-                    listaExecutada.add(mensagem);
-                }
-
-                try {
-                    Thread.sleep(descansa);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                }
-
+            if (executou) {
+                listaExecutada.add(mensagem);
+                Double n = (Double)mapaAcoes.get(acao.getClass().getName());
+                mapaAcoes.put(acao.getClass().getName(), (n == null) ? 0 : n + 1);
             }
-            synchronized(agente) {
-                agente.getInMessages().removeAll(listaExecutada);
+
+            try {
+                Thread.sleep(descansa);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
+
+            if (ambiente.isAmbienteArrumadoLimpo()) {
+                boolean achieved = goal.getAchieved();
+                if(!achieved) {
+                    goal.setAchieved(true);
+                }
+                ((Papel)role).atualizarComportamento(mapaAcoes);
+                FluxoResultados fr = (FluxoResultados) GerenciadorFluxos.recuperarFluxo("relatorios");
+                fr.atualizarRelatorio((Papel)role);
+                
+            } else {
+                goal.setAchieved(false);
+            }
+        }
+        synchronized (agente) {
+            agente.getInMessages().removeAll(listaExecutada);
+        }
 //        }
-//        goal.setAchieved(true);
-
     }
 
     @Override
     public void execute(MainOrganization organization) {
-        System.out.println("[PlanoHabitar] chamada do metodo 'public void execute(MainOrganization organization)'");
     }
 
     @Override
