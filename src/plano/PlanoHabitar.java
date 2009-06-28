@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
 import util.FluxoResultados;
 import util.GerenciadorFluxos;
+import util.ThreadAtualizacaoPlano;
 
 /**
  *
@@ -53,7 +54,7 @@ public class PlanoHabitar extends Plan implements Serializable {
     }
 
     @Override
-    public void execute(AgentRole role) {
+    public synchronized void execute(AgentRole role) {
         List<Message> listaExecutada;
         UsuarioAgente agente = (UsuarioAgente) role.getAgentPlayingRole();
         Ambiente ambiente = (Ambiente) agente.getEnvironment();
@@ -86,10 +87,8 @@ public class PlanoHabitar extends Plan implements Serializable {
                 if(!achieved) {
                     goal.setAchieved(true);
                 }
-                ((Papel)role).atualizarComportamento(mapaAcoes);
-                FluxoResultados fr = (FluxoResultados) GerenciadorFluxos.recuperarFluxo("relatorios");
-                fr.atualizarRelatorio((Papel)role);
-                
+                Thread thread = new ThreadAtualizacaoPlano(mapaAcoes,(Papel) role);
+                thread.start();
             } else {
                 goal.setAchieved(false);
             }

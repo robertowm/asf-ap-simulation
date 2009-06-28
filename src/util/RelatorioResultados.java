@@ -9,10 +9,7 @@ import acao.AcaoDesarrumar;
 import acao.AcaoLimpar;
 import acao.AcaoSujar;
 import agente.papel.Papel;
-import java.text.ParseException;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
