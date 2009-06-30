@@ -73,6 +73,14 @@ public class Comodo implements Serializable {
         listaAgentesTela.setListData(agentes);
     }
 
+    public boolean isMaximoArrumacao() {
+        return pontuacaoArrumacao == PONTUACAO_TOTAL_ARRUMADO;
+    }
+    
+    public boolean isMaximoLimpo() {
+        return pontuacaoLimpeza == PONTUACAO_TOTAL_LIMPO;
+    }
+
     public void removeAgente(Agent agente) {
         adicionaRemoveAgente(agente, false);
     }

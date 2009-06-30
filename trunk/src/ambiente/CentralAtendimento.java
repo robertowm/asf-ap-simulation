@@ -19,17 +19,20 @@ import util.GeradorAgentes;
 public class CentralAtendimento extends Ambiente implements Serializable {
 
     class Pacote {
+
         String comodo;
         String ambiente;
+        boolean ocupado;
 
         public Pacote(String comodo, String ambiente) {
             this.comodo = comodo;
             this.ambiente = ambiente;
+            this.ocupado = false;
         }
-        
+
         @Override
         public boolean equals(Object obj) {
-            if(!(obj instanceof Pacote)) {
+            if (!(obj instanceof Pacote)) {
                 return false;
             }
             Pacote p = (Pacote) obj;
@@ -42,11 +45,14 @@ public class CentralAtendimento extends Ambiente implements Serializable {
             hash = 13 * hash + (this.ambiente != null ? this.ambiente.hashCode() : 0);
             return hash;
         }
+
+        @Override
+        public String toString() {
+            return comodo + "/" + ambiente + "/" + ocupado;
+        }
         
     }
-    
     private LinkedBlockingQueue<Pacote> quadroTarefas = null;
-    private Vector<Ambiente> ambientesOcupados = null;
     private UsuarioAgente secretaria = null;
     private Semaphore semaforo = new Semaphore(1);
 
@@ -58,13 +64,19 @@ public class CentralAtendimento extends Ambiente implements Serializable {
         listaComodos.add(new Comodo("Banheiro", this));
 
         quadroTarefas = new LinkedBlockingQueue<Pacote>();
-        ambientesOcupados = new Vector<Ambiente>();
     }
 
     public synchronized void adicionarTarefa(Comodo comodo) {
         try {
             semaforo.acquire();
-            if(!ambientesOcupados.contains(comodo.getAmbiente())) {
+            boolean achou = false;
+            for (Pacote pacote : quadroTarefas) {
+                if (pacote.ambiente.equals(comodo.getAmbiente().getEnvironmentName())  ) {
+                    achou = true;
+                    break;
+                }
+            }
+            if (!achou) {
                 quadroTarefas.add(new Pacote(comodo.toString(), comodo.getAmbiente().toString()));
             }
             semaforo.release();
@@ -81,9 +93,19 @@ public class CentralAtendimento extends Ambiente implements Serializable {
         try {
             semaforo.acquire();
             Pacote pacote = quadroTarefas.poll();
+            int count = quadroTarefas.size();
+            while (--count > 0) {
+                if(pacote.ocupado) {
+                    quadroTarefas.add(pacote);
+                    pacote = quadroTarefas.poll();
+                } else {
+                    break;
+                }
+            }
             Object[] obj = null;
-            if (pacote != null) {
-                ambientesOcupados.add(FabricaAmbiente.recuperarAmbientePorNome(pacote.ambiente));
+            if(pacote != null) {
+                pacote.ocupado = true;
+                quadroTarefas.add(pacote);
                 obj = new Object[2];
                 obj[0] = pacote.ambiente;
                 obj[1] = pacote.comodo;
@@ -99,17 +121,22 @@ public class CentralAtendimento extends Ambiente implements Serializable {
     public synchronized void avisarRetornoServico(Ambiente ambiente) {
         try {
             semaforo.acquire();
-//            if(!
-                    ambientesOcupados.remove(ambiente);
-//                    ){
-//              JOptionPane.showMessageDialog(null, "Não removeu" );  
-//            }
+            Pacote pacote = null;
+            for (Pacote p : quadroTarefas) {
+                if(p.ambiente.equals(ambiente.getEnvironmentName())) {
+                    pacote = p;
+                    break;
+                }
+            }
+            if(pacote != null) {
+                quadroTarefas.remove(pacote);
+            }
             semaforo.release();
         } catch (InterruptedException ex) {
             Logger.getLogger(CentralAtendimento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public UsuarioAgente getSecretaria() {
         return secretaria;
     }

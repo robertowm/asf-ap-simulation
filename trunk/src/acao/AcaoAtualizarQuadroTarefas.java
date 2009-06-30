@@ -38,14 +38,14 @@ public class AcaoAtualizarQuadroTarefas extends AcaoAgente implements Serializab
 
         central.adicionarTarefa(comodo);
         
-        String conversionId = "?" + Thread.currentThread().getName();
-        Message saida = new Message(conversionId, escritorio.toString(), agente.getAgentName(), agente.getAgentName());
-        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+//        String conversionId = "?" + Thread.currentThread().getName();
+//        Message saida = new Message(conversionId, escritorio.toString(), agente.getAgentName(), agente.getAgentName());
+//        saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+//        agente.send(saida);
         try {
             Thread.sleep(ConstantesAplicacao.TEMPO_ATUALIZAR_QUADRO_TAREFAS);
         } catch (InterruptedException ex) {
         }
-        agente.send(saida);
         
         escritorio.removeAgente(agente);
         

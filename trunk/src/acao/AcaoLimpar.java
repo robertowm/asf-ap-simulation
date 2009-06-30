@@ -61,7 +61,8 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
 
 //            pontuacaoLimparDeAcordoComPersonalidade = comodo.getPontosFaltaLimpo();
 
-        } while (empregada && !comodo.getNivelLimpeza().equals(Comodo.LIMPO));
+        } while (empregada && !comodo.isMaximoLimpo());
+        
         tela.apendTexto("Saindo do comodo ->"+comodo);
         tela.apendTexto("Situação de Limpeza ->"+comodo.getNivelLimpeza()+"\n");
         

@@ -5,6 +5,7 @@
 package util;
 
 import agente.papel.Empregada;
+import agente.papel.Secretaria;
 import ambiente.Ambiente;
 import fabrica.FabricaAgente;
 import framework.agent.Agent;
@@ -37,14 +38,21 @@ public class GeradorAgentes {
     private static void enviarMensagemInicio(Agent agente, Ambiente ambiente) {
         Message msgm = new Message("?" + agente.getAgentName().getName(), ambiente.pegarComodoPorAgente(agente).toString(), agente.getAgentName(), agente.getAgentName());
         boolean empregada = false;
+        boolean secretaria = false;
         for (Object object : agente.getRolesBeingPlayed()) {
             if(object instanceof Empregada) {
                 empregada = true;
                 break;
             }
+            if(object instanceof Secretaria) {
+                secretaria = true;
+                break;
+            }
         }
         if(empregada) {
             msgm.setPerformative(ACAO_PEGAR_FAXINA);
+        } else if(secretaria){
+            msgm.setPerformative(ACAO_FAZ_NADA);
         } else {
             msgm.setPerformative(ACAO_VERIFICAR_COMODO);
         }

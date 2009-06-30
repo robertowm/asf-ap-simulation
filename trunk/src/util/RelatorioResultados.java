@@ -31,7 +31,7 @@ public class RelatorioResultados {
     }
 
     public synchronized void atualizar() {
-        this.papel.getStatusAcoes(saida);
+        this.papel.atualizarStatusAcoes(saida);
     }
 
     public void exibirDados() {

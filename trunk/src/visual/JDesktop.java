@@ -119,16 +119,16 @@ public class JDesktop extends javax.swing.JFrame {
     }
 
     private void jMISobreActionPerformed(java.awt.event.ActionEvent evt) {
-        ImageIcon icone = new ImageIcon("computador1.gif");
+        ImageIcon icone = new ImageIcon(getClass().getResource("/visual/computador1.gif"));
         JOptionPane.showMessageDialog(null, "Universidade Federal Fluminense \n\n" +
                 "DISCIPLINA:: Sistema Multi-Agentes \n\n" +
                 "CURSO: " +
                 "Mestrado em Ciência da Computação 1º/2009\n\n" +
-                "Simulação de uma Residência com integrantes e faxineira\n\n" +
+                "Simulação de uma Residências com integrantes e \numa Central de Serviços com  faxineiras\n\n" +
                 "INTEGRANTES DO GRUPO :\n\n" +
                 "Heliomar Kann da Rocha Santos \n\n" +
                 "Roberto Weidmann Menezes\n\n\n" +
-                "Maio 2009", "Sistema Multi-Agentes", JOptionPane.INFORMATION_MESSAGE,
+                "1º Senestre de 2009", "Sistema Multi-Agentes", JOptionPane.INFORMATION_MESSAGE,
                 icone);
     }
 

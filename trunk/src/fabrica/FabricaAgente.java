@@ -17,6 +17,7 @@ import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.environment.MTS_Environment;
+import framework.mentalState.belief.LeafBelief;
 import framework.organization.MainOrganization;
 import java.util.Collection;
 import java.util.HashMap;
@@ -83,7 +84,9 @@ public class FabricaAgente {
         }
         
         for (Object belief : regraAgente.getBeliefs()) {
-            agente.setBelief((Belief) belief);
+            Belief b = (Belief) belief;
+            Belief crenca = new LeafBelief(b.getType(), b.getName(), b.getValue());
+            agente.setBelief(crenca);
         }
 
         regraAgente.setRoleName(elementIdRegra);

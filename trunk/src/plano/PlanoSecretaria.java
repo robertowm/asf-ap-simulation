@@ -5,13 +5,9 @@
 package plano;
 
 import acao.AcaoAgente;
-import acao.AcaoArrumar;
-import acao.AcaoChamarEmpregada;
-import acao.AcaoDesarrumar;
-import acao.AcaoLimpar;
-import acao.AcaoSujar;
 import acao.AcaoVerificarComodo;
 import acao.command.ComandoAcao;
+import ambiente.Ambiente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -24,6 +20,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.TornarResidenciaHabitavel;
+import objeto.Comodo;
+import util.ConstantesAplicacao;
+import visual.JDesktop;
+import visual.Principal;
 
 /**
  *
@@ -43,29 +43,43 @@ public class PlanoSecretaria extends Plan implements Serializable {
         Agent agente = role.getAgentPlayingRole();
 
         int descansa = 400;
-
+        Principal tela = JDesktop.getTela(agente);
         CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>(agente.getInMessages());
-        listaExecutada = new ArrayList(mensagens.size());
-        for (Message mensagem : mensagens) {
-            AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
-            boolean executou = acao.execute(agente, mensagem);
+//        if (mensagens.isEmpty()) {
+//            Comodo comodo = ((Ambiente) agente.getEnvironment()).pegarComodoPorAgente(agente);
+//            if (comodo != null) {
+//                Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
+//                saida.setPerformative(ConstantesAplicacao.ACAO_FAZ_NADA);
+//                agente.send(saida);
+//            }
+//            try {
+//                tela.apendTexto("\"Vou descancar um pouco...\"");
+//                Thread.sleep(descansa);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+            listaExecutada = new ArrayList(mensagens.size());
+            for (Message mensagem : mensagens) {
+                AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
+                boolean executou = acao.execute(agente, mensagem);
 
-            if (executou) {
-                listaExecutada.add(mensagem);
-            }
+                if (executou) {
+                    listaExecutada.add(mensagem);
+                }
 
-            try {
-                Thread.sleep(descansa);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                try {
+                    Thread.sleep(descansa);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        synchronized (agente) {
-            agente.getInMessages().removeAll(listaExecutada);
-        }
+            synchronized (agente) {
+                agente.getInMessages().removeAll(listaExecutada);
+            }
+//        }
 //        }
 //        goal.setAchieved(true);
-
     }
 
     @Override

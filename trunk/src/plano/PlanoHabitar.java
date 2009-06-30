@@ -87,8 +87,8 @@ public class PlanoHabitar extends Plan implements Serializable {
                 if(!achieved) {
                     goal.setAchieved(true);
                 }
-                Thread thread = new ThreadAtualizacaoPlano(mapaAcoes,(Papel) role);
-                thread.start();
+                Thread t = new Thread(new ThreadAtualizacaoPlano(mapaAcoes,(Papel) role));
+                t.start();
             } else {
                 goal.setAchieved(false);
             }
