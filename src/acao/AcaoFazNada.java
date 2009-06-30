@@ -46,22 +46,22 @@ public class AcaoFazNada extends AcaoAgente implements Serializable {
                 Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
-        
-        boolean empregada = false;
-        for (Object roles : agente.getRolesBeingPlayed()) {
-            AgentRole papel = (AgentRole) roles;
-            if(papel instanceof Empregada) {
-                empregada = true;
-                break;
-            }
-        }
-        if(empregada) {
-            saida.setPerformative(ConstantesAplicacao.ACAO_PEGAR_FAXINA);
-        } else {
-            saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
-        }
-        agente.send(saida);
+//        Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
+//        
+//        boolean empregada = false;
+//        for (Object roles : agente.getRolesBeingPlayed()) {
+//            AgentRole papel = (AgentRole) roles;
+//            if(papel instanceof Empregada) {
+//                empregada = true;
+//                break;
+//            }
+//        }
+//        if(empregada) {
+//            saida.setPerformative(ConstantesAplicacao.ACAO_PEGAR_FAXINA);
+//        } else {
+//            saida.setPerformative(ConstantesAplicacao.ACAO_VERIFICAR_COMODO);
+//        }
+//        agente.send(saida);
 
         comodo.removeAgente(agente);
         

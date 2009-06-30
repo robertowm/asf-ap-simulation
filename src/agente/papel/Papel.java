@@ -12,8 +12,6 @@ import framework.agentRole.AgentRole;
 import framework.mentalState.belief.Belief;
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,19 +26,21 @@ import util.ConstantesAplicacao;
 public abstract class Papel extends AgentRole implements Serializable {
 
     protected String nome;
-    
+    private DecimalFormat formatador = new DecimalFormat("0.####");
+
     public Papel(String nome) {
         super();
         this.nome = this.nome = ConstantesAplicacao.PREFIXO_NOME_PAPEL + nome;
     }
-    
-    public synchronized void getStatusAcoes(StringBuffer retorno) {
+
+    public synchronized void atualizarStatusAcoes(StringBuffer retorno) {
         Double arrumar = Double.NaN, dessarrumar = Double.NaN, limpar = Double.NaN, sujar = Double.NaN;
         long tempoInicial = Main.tempoInicio;
-        if(tempoInicial == 0) tempoInicial = System.currentTimeMillis();
-        
+        if (tempoInicial == 0) {
+            tempoInicial = System.currentTimeMillis();
+        }
         long tempo = System.currentTimeMillis();
-        
+
         for (Object object : getBeliefs()) {
             Belief belief = (Belief) object;
             if (!(belief.getValue() instanceof Double)) {
@@ -57,9 +57,9 @@ public abstract class Papel extends AgentRole implements Serializable {
             }
         }
 
-        retorno.append(tempo-Main.tempoInicio);
+        retorno.append(tempo - Main.tempoInicio);
         retorno.append(";");
-        
+
         retorno.append(formatarNumero(arrumar));
         retorno.append(";");
         retorno.append(formatarNumero(dessarrumar));
@@ -70,8 +70,7 @@ public abstract class Papel extends AgentRole implements Serializable {
         retorno.append(";");
         retorno.append("\n");
     }
-    
-    DecimalFormat formatador = new DecimalFormat("0.####");
+
     private String formatarNumero(Double numero) {
         return formatador.format(numero);
     }
@@ -81,19 +80,22 @@ public abstract class Papel extends AgentRole implements Serializable {
         Map<String, Double> mapaFinal = new HashMap<String, Double>();
         double total = 0;
 
-        for (Map.Entry<String, Double> entry : mapaAcoes.entrySet()) {
-            if (entry.getKey().equals(AcaoArrumar.class.getName())) {
-                mapaFinal.put("arruma", entry.getValue());
-                total += entry.getValue();
-            } else if (entry.getKey().equals(AcaoDesarrumar.class.getName())) {
-                mapaFinal.put("dessarruma", entry.getValue());
-                total += entry.getValue();
-            } else if (entry.getKey().equals(AcaoLimpar.class.getName())) {
-                mapaFinal.put("limpa", entry.getValue());
-                total += entry.getValue();
-            } else if (entry.getKey().equals(AcaoSujar.class.getName())) {
-                mapaFinal.put("suja", entry.getValue());
-                total += entry.getValue();
+        for (String key : mapaAcoes.keySet()) {
+            String chaveCorreta = null;
+            if(key.equals(AcaoArrumar.class.getName())){
+                chaveCorreta = "arruma";
+            } else if (key.equals(AcaoDesarrumar.class.getName())) {
+                chaveCorreta = "dessarruma";
+            } else if (key.equals(AcaoLimpar.class.getName())) {
+                chaveCorreta = "limpa";
+            } else if (key.equals(AcaoSujar.class.getName())) {
+                chaveCorreta = "suja";
+            }
+            
+            if(chaveCorreta != null) {
+                Double valor = mapaAcoes.get(key);
+                mapaFinal.put(chaveCorreta, valor);
+                total += valor;
             }
         }
 

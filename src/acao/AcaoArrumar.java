@@ -56,9 +56,9 @@ public class AcaoArrumar extends AcaoAgente implements Serializable {
             } while (--pontuacaoArrumarDeAcordoComPersonalidade > 0);
 
             // caso seja empregada eh necessario verificar se ainda falta arrumar
-            pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
+//            pontuacaoArrumarDeAcordoComPersonalidade = comodo.getPontosFaltaArrumado();
 
-        } while (empregada && !comodo.getNivelArrumacao().equals(Comodo.ARRUMADO));
+        } while (empregada && !comodo.isMaximoArrumacao());
 
         tela.apendTexto("Saindo do comodo ->" + comodo);
         tela.apendTexto("Situação de Arrumacao ->" + comodo.getNivelArrumacao() + "\n");
