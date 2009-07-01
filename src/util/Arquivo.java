@@ -166,4 +166,11 @@ public class Arquivo {
     public String getNome() {
         return nome;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
 }

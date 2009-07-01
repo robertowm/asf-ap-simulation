@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import sis_multagente.Main;
+import util.Arquivo;
 import util.ConstantesAplicacao;
 
 /**
@@ -33,7 +34,7 @@ public abstract class Papel extends AgentRole implements Serializable {
         this.nome = this.nome = ConstantesAplicacao.PREFIXO_NOME_PAPEL + nome;
     }
 
-    public synchronized void atualizarStatusAcoes(StringBuffer retorno) {
+    public synchronized void atualizarStatusAcoes(Arquivo retorno) {
         Double arrumar = Double.NaN, dessarrumar = Double.NaN, limpar = Double.NaN, sujar = Double.NaN;
         long tempoInicial = Main.tempoInicio;
         if (tempoInicial == 0) {
@@ -57,18 +58,7 @@ public abstract class Papel extends AgentRole implements Serializable {
             }
         }
 
-        retorno.append(tempo - Main.tempoInicio);
-        retorno.append(";");
-
-        retorno.append(formatarNumero(arrumar));
-        retorno.append(";");
-        retorno.append(formatarNumero(dessarrumar));
-        retorno.append(";");
-        retorno.append(formatarNumero(limpar));
-        retorno.append(";");
-        retorno.append(formatarNumero(sujar));
-        retorno.append(";");
-        retorno.append("\n");
+        retorno.append((tempo - Main.tempoInicio)+ ";"+ formatarNumero(arrumar)+ ";" + formatarNumero(dessarrumar)+ ";"+ formatarNumero(limpar)+ ";" + formatarNumero(sujar)+ ";");
     }
 
     private String formatarNumero(Double numero) {

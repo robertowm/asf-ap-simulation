@@ -28,9 +28,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.ResidirFeliz;
-import util.FluxoResultados;
+import util.GeradorRelatorio;
 import util.GerenciadorFluxos;
-import util.ThreadAtualizacaoPlano;
+//import util.AtualizacaoPlano;
 
 /**
  *
@@ -87,8 +87,12 @@ public class PlanoHabitar extends Plan implements Serializable {
                 if(!achieved) {
                     goal.setAchieved(true);
                 }
-                Thread t = new Thread(new ThreadAtualizacaoPlano(mapaAcoes,(Papel) role));
-                t.start();
+                Papel papel = (Papel)role;
+                papel.atualizarComportamento(mapaAcoes);
+                papel.atualizarStatusAcoes(GeradorRelatorio.getArquivoAprendizado(papel));
+//                GeradorRelatorio.atualizar(papel);
+//                Thread t = new Thread(new AtualizacaoPlano(mapaAcoes,(Papel) role));
+//                t.start();
             } else {
                 goal.setAchieved(false);
             }

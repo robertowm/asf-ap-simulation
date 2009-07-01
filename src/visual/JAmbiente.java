@@ -3,14 +3,18 @@
  *
  * Created on 12 de Junho de 2009, 13:45
  */
-
 package visual;
 
+import agente.papel.Morador;
 import ambiente.Ambiente;
 import framework.agent.Agent;
+import framework.agentRole.AgentRole;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import objeto.Comodo;
+import sis_multagente.Main;
+import visual.relatorio.Grafico;
 
 /**
  *
@@ -27,21 +31,26 @@ public class JAmbiente extends javax.swing.JInternalFrame {
         this();
         this.setTitle(ambiente.toString());
         List<Comodo> listaComodos = ambiente.getListaComodos();
+
         Comodo c1 = listaComodos.get(0);
         Comodo c2 = listaComodos.get(1);
         Comodo c3 = listaComodos.get(2);
-        c1.setJNivelArrumacao(jSlider1);
-        c2.setJNivelArrumacao(jSlider3);
-        c3.setJNivelArrumacao(jSlider5);
+
+        c1.setJNivelArrumacao(jNLA1);
+        c2.setJNivelArrumacao(jNLA2);
+        c3.setJNivelArrumacao(jNLA3);
+
         c1.setJNivelLimpeza(jNLC1);
         c2.setJNivelLimpeza(jNLC2);
         c3.setJNivelLimpeza(jNLC3);
+
         c1.setJListaAgentes(jListAgentesC1);
         c2.setJListaAgentes(jListAgentesC2);
         c3.setJListaAgentes(jListAgentesC3);
+
         jListComodos.setListData(new Vector<Object>(listaComodos));
         ambiente.setJanela(this);
-        
+
     }
 
     public synchronized void setListAgentes(Vector<Agent> listaAgentes) {
@@ -58,23 +67,23 @@ public class JAmbiente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jSlider1 = new javax.swing.JSlider();
-        jNLC1 = new javax.swing.JSlider();
+        jNLA2 = new javax.swing.JSlider();
+        jNLC2 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListAgentesC1 = new javax.swing.JList();
+        jListAgentesC2 = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListAgentes = new javax.swing.JList();
         jPanel2 = new javax.swing.JPanel();
-        jSlider3 = new javax.swing.JSlider();
-        jNLC2 = new javax.swing.JSlider();
+        jNLA1 = new javax.swing.JSlider();
+        jNLC1 = new javax.swing.JSlider();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jListAgentesC2 = new javax.swing.JList();
+        jListAgentesC1 = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
-        jSlider5 = new javax.swing.JSlider();
+        jNLA3 = new javax.swing.JSlider();
         jNLC3 = new javax.swing.JSlider();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -87,19 +96,19 @@ public class JAmbiente extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 102, 0), 2, true));
 
-        jSlider1.setMaximum(10);
-        jSlider1.setValue(7);
-        jSlider1.setEnabled(false);
+        jNLA2.setMaximum(10);
+        jNLA2.setValue(7);
+        jNLA2.setEnabled(false);
 
-        jNLC1.setMaximum(10);
-        jNLC1.setValue(7);
-        jNLC1.setEnabled(false);
+        jNLC2.setMaximum(10);
+        jNLC2.setValue(7);
+        jNLC2.setEnabled(false);
 
         jLabel1.setText("Limpeza");
 
         jLabel2.setText("Arrumação");
 
-        jScrollPane1.setViewportView(jListAgentesC1);
+        jScrollPane1.setViewportView(jListAgentesC2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,10 +119,10 @@ public class JAmbiente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addComponent(jNLC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jNLC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jNLA2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -125,33 +134,38 @@ public class JAmbiente extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNLC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNLC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNLA2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
+        jListAgentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListAgentesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jListAgentes);
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 102, 0), 2, true));
 
-        jSlider3.setMaximum(10);
-        jSlider3.setValue(7);
-        jSlider3.setEnabled(false);
+        jNLA1.setMaximum(10);
+        jNLA1.setValue(7);
+        jNLA1.setEnabled(false);
 
-        jNLC2.setMaximum(10);
-        jNLC2.setValue(7);
-        jNLC2.setEnabled(false);
+        jNLC1.setMaximum(10);
+        jNLC1.setValue(7);
+        jNLC1.setEnabled(false);
 
         jLabel3.setText("Limpeza");
 
         jLabel4.setText("Arrumação");
 
-        jScrollPane3.setViewportView(jListAgentesC2);
+        jScrollPane3.setViewportView(jListAgentesC1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -163,10 +177,10 @@ public class JAmbiente extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel3)
-                            .addComponent(jNLC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jNLC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel4)
-                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jNLA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -174,11 +188,11 @@ public class JAmbiente extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNLC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNLC1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNLA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -186,9 +200,9 @@ public class JAmbiente extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 102, 0), 2, true));
 
-        jSlider5.setMaximum(10);
-        jSlider5.setValue(7);
-        jSlider5.setEnabled(false);
+        jNLA3.setMaximum(10);
+        jNLA3.setValue(7);
+        jNLA3.setEnabled(false);
 
         jNLC3.setMaximum(10);
         jNLC3.setValue(7);
@@ -213,7 +227,7 @@ public class JAmbiente extends javax.swing.JInternalFrame {
                             .addComponent(jNLC3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel6)
-                            .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jNLA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -225,7 +239,7 @@ public class JAmbiente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNLA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -282,13 +296,31 @@ public class JAmbiente extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+private void jListAgentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAgentesMouseClicked
+// TODO add your handling code here:
+    if (evt.getClickCount() == 2) {
+        Agent agent = (Agent) jListAgentes.getSelectedValue();
+        AgentRole ar = (AgentRole) agent.getRolesBeingPlayed().iterator().next();
+        if (!(ar instanceof Morador)) {
+            JOptionPane.showMessageDialog(this, "O recurso de gráfico está disponível apenas para MORADORES", "Atenção", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            Grafico grafico = new Grafico(ar);
+            grafico.pack();
+            grafico.setVisible(true);
+            Main.desktop.add(grafico);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro ao gerar gráfico", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}//GEN-LAST:event_jListAgentesMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -303,6 +335,9 @@ public class JAmbiente extends javax.swing.JInternalFrame {
     private javax.swing.JList jListAgentesC2;
     private javax.swing.JList jListAgentesC3;
     private javax.swing.JList jListComodos;
+    private javax.swing.JSlider jNLA1;
+    private javax.swing.JSlider jNLA2;
+    private javax.swing.JSlider jNLA3;
     private javax.swing.JSlider jNLC1;
     private javax.swing.JSlider jNLC2;
     private javax.swing.JSlider jNLC3;
@@ -314,9 +349,5 @@ public class JAmbiente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider3;
-    private javax.swing.JSlider jSlider5;
     // End of variables declaration//GEN-END:variables
-
 }

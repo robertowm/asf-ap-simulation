@@ -39,15 +39,14 @@ public class GerenciadorFluxos {
     
     public static void iniciarFluxo(){
 //>>>
-        List<RelatorioResultados> relatorios = new ArrayList<RelatorioResultados>();
-        for (Object object : FabricaAgente.getListaAgentes()) {
-            UsuarioAgente agente = (UsuarioAgente) object;
-            
-            relatorios.add(new RelatorioResultados(agente.getRolesBeingPlayed()));
-        }
-        
-        registrarFluxo("relatorios", new FluxoResultados(relatorios));
-//<<<        
+//        List<RelatorioResultados> relatorios = new ArrayList<RelatorioResultados>();
+//        for (Object object : FabricaAgente.getListaAgentes()) {
+//            UsuarioAgente agente = (UsuarioAgente) object;
+//            
+//            relatorios.add(new RelatorioResultados(agente.getRolesBeingPlayed()));
+//        }
+//        
+////<<<        
         for (String str : mapa.keySet()) {
             mapa.get(str).start();
         }

@@ -59,9 +59,9 @@ public class CentralAtendimento extends Ambiente implements Serializable {
     public CentralAtendimento(ElementID aid) {
         super(aid);
 
-        listaComodos.add(new Comodo("Escritorio", this));
         listaComodos.add(new Comodo("Área de Espera", this));
         listaComodos.add(new Comodo("Banheiro", this));
+        listaComodos.add(new Comodo("Escritorio", this));
 
         quadroTarefas = new LinkedBlockingQueue<Pacote>();
     }

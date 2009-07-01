@@ -38,12 +38,6 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
 
         
         List<AgentRole> papeis = (List<AgentRole>) agente.getRolesBeingPlayed();
-        Principal tela = JDesktop.getTela(agente);
-            tela.apendTexto("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n chamando empregada para o comodo [" +
-                    comodo+
-                    "] [" +
-                    comodo.getAmbiente()+
-                    "]AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n");
 
         boolean morador = false;
         boolean empregada = false;
@@ -66,11 +60,11 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
             agente.send(chamada);
-            tela.apendTexto("#################################\n\n\n chamando empregada para o comodo [" +
-                    comodo+
-                    "] [" +
-                    comodo.getAmbiente()+
-                    "]#################################\n\n\n");
+//            tela.apendTexto("#################################\n\n\n chamando empregada para o comodo [" +
+//                    comodo+
+//                    "] [" +
+//                    comodo.getAmbiente()+
+//                    "]#################################\n\n\n");
 
         } else if (morador) {
         
@@ -91,6 +85,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        Principal tela = JDesktop.getTela(agente);
 
 //        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
         tela.apendTexto("\"Nossa! Este comodo esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido para limpar a/o " + comodo + "!") + "\"");
