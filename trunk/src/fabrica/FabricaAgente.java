@@ -28,6 +28,7 @@ import plano.PlanoFaxina;
 import plano.PlanoHabitar;
 import plano.PlanoSecretaria;
 import sis_multagente.Main;
+import util.GeradorRelatorio;
 import visual.JDesktop;
 import visual.Principal;
 
@@ -102,6 +103,8 @@ public class FabricaAgente {
         p.apendTexto("Agente Criado");
         Main.desktop.add(p);
         JDesktop.telagentes.put(agente, p);
+        
+        GeradorRelatorio.criarRelatorio(regraAgente);
 
         return agente;
     }
