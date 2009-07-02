@@ -124,11 +124,11 @@ public class JDesktop extends javax.swing.JFrame {
                 "DISCIPLINA:: Sistema Multi-Agentes \n\n" +
                 "CURSO: " +
                 "Mestrado em Ciência da Computação 1º/2009\n\n" +
-                "Simulação de uma Residências com integrantes e \numa Central de Serviços com  faxineiras\n\n" +
+                "Simulação de uma Residências com integrantes\ne uma Central de Serviços com  faxineiras\n\n" +
                 "INTEGRANTES DO GRUPO :\n\n" +
                 "Heliomar Kann da Rocha Santos \n\n" +
                 "Roberto Weidmann Menezes\n\n\n" +
-                "1º Senestre de 2009", "Sistema Multi-Agentes", JOptionPane.INFORMATION_MESSAGE,
+                "1º Semestre de 2009", "Sistema Multi-Agentes", JOptionPane.INFORMATION_MESSAGE,
                 icone);
     }
 

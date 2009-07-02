@@ -58,21 +58,21 @@ public abstract class Papel extends AgentRole implements Serializable {
             }
         }
 
-        retorno.append((tempo - Main.tempoInicio)+ ";"+ formatarNumero(arrumar)+ ";" + formatarNumero(dessarrumar)+ ";"+ formatarNumero(limpar)+ ";" + formatarNumero(sujar)+ ";");
+        retorno.append((tempo - Main.tempoInicio) + ";" + formatarNumero(arrumar) + ";" + formatarNumero(dessarrumar) + ";" + formatarNumero(limpar) + ";" + formatarNumero(sujar) + ";");
     }
 
     private String formatarNumero(Double numero) {
         return formatador.format(numero);
     }
 
-    public void atualizarComportamento(Map<String, Double> mapaAcoes) {
+    public boolean atualizarComportamento(Map<String, Double> mapaAcoes) {
         List<Belief> chanceAcoes = (List<Belief>) this.beliefs;
         Map<String, Double> mapaFinal = new HashMap<String, Double>();
         double total = 0;
 
         for (String key : mapaAcoes.keySet()) {
             String chaveCorreta = null;
-            if(key.equals(AcaoArrumar.class.getName())){
+            if (key.equals(AcaoArrumar.class.getName())) {
                 chaveCorreta = "arruma";
             } else if (key.equals(AcaoDesarrumar.class.getName())) {
                 chaveCorreta = "dessarruma";
@@ -81,8 +81,8 @@ public abstract class Papel extends AgentRole implements Serializable {
             } else if (key.equals(AcaoSujar.class.getName())) {
                 chaveCorreta = "suja";
             }
-            
-            if(chaveCorreta != null) {
+
+            if (chaveCorreta != null) {
                 Double valor = mapaAcoes.get(key);
                 mapaFinal.put(chaveCorreta, valor);
                 total += valor;
@@ -95,7 +95,7 @@ public abstract class Papel extends AgentRole implements Serializable {
 
         if (Main.heuristica) {
             if (calcularValorHeuristico(chanceAcoes) > calcularValorHeuristico(mapaFinal)) {
-                return;
+                return false;
             }
         }
 
@@ -105,6 +105,7 @@ public abstract class Papel extends AgentRole implements Serializable {
                 belief.setValue((((Double) belief.getValue()) + valor) / 2);
             }
         }
+        return true;
     }
 
     private double calcularValorHeuristico(List<Belief> lista) {
@@ -116,8 +117,6 @@ public abstract class Papel extends AgentRole implements Serializable {
             }
             valor = (Double) belief.getValue();
             if (belief.getName().equals("arruma") || belief.getName().equals("limpa")) {
-                retorno += 2 * valor;
-            } else {
                 retorno += valor;
             }
         }
@@ -128,8 +127,6 @@ public abstract class Papel extends AgentRole implements Serializable {
         double retorno = 0;
         for (Entry<String, Double> entry : mapa.entrySet()) {
             if (entry.getKey().equals("arruma") || entry.getKey().equals("limpa")) {
-                retorno += 2 * entry.getValue();
-            } else {
                 retorno += entry.getValue();
             }
         }
