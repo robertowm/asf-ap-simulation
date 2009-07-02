@@ -154,7 +154,7 @@ public class Arquivo {
         try {
             temp = reader.readLine();
         } catch (IOException erro) {
-            javax.swing.JOptionPane.showMessageDialog(null, "entrou no erro do lelinha");
+            javax.swing.JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo, \nProvavelmente o mesmo está sendo utilizado para escrita");
             System.err.println("Erro no Arquivo do tipo : " + erro.getMessage() + "  Classe " + this.getClass().getName());
         }
         if ((temp == null) && !fechado) {

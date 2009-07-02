@@ -69,6 +69,7 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
         } else if (morador) {
         
             comodo.adicionaAgente(agente);
+//            agente.getInMessages().clear();
             
             Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), Main.ambienteCentral.getSecretaria().getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATENDER_REQUISICAO);

@@ -31,11 +31,11 @@ public interface ConstantesAplicacao {
     public static final int MTP_PORTA = 1500;
     
     // >>> Tempos em ms<<<
-    public static final int VELOCIDADE = 1;
+    public static final int VELOCIDADE = 2;
     public static final int TEMPO_LIMPAR_UM_PONTO = 200 * VELOCIDADE;
     public static final int TEMPO_ARRUMAR_UM_PONTO = 300 * VELOCIDADE;
-    public static final int TEMPO_SUJAR_UM_PONTO = 600 * VELOCIDADE;
-    public static final int TEMPO_DESARRUMAR_UM_PONTO = 900 * VELOCIDADE;
+    public static final int TEMPO_SUJAR_UM_PONTO = 1000 * VELOCIDADE;
+    public static final int TEMPO_DESARRUMAR_UM_PONTO = 1000 * VELOCIDADE;
     public static final int TEMPO_CHAMAR_EMPREGADA = 500 * VELOCIDADE;
     public static final int TEMPO_ESPERAR_EMPREGADA = 1000 * VELOCIDADE;;
     public static final int TEMPO_VERIFICAR_COMODO = 100 * VELOCIDADE;

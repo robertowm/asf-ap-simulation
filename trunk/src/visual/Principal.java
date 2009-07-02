@@ -33,7 +33,7 @@ public class Principal extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(380, 10, 500, 300);
     }
     

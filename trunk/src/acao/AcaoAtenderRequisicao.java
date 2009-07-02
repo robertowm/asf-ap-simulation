@@ -40,7 +40,7 @@ public class AcaoAtenderRequisicao extends AcaoAgente implements Serializable {
         String conversionId = "?" + Thread.currentThread().getName();
 
         Principal tela = JDesktop.getTela(agente);
-        
+        agente.getInMessages().clear();
         Message saida = new Message(conversionId, comodo.toString() + "#" + ambiente.getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
         try {
