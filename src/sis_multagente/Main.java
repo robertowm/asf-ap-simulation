@@ -28,7 +28,7 @@ public class Main {
     public static JDesktop desktop;
     public static MainOrganization OrganizacaoPrincipal;
     public static CentralAtendimento ambienteCentral = null;
-    public static boolean heuristica = true;
+    public static boolean heuristica = false;
     public static long tempoInicio;
 
     public static void main(String[] args) {

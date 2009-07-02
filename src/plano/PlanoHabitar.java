@@ -38,8 +38,8 @@ import util.GerenciadorFluxos;
  */
 public class PlanoHabitar extends Plan implements Serializable {
 
-    private Map<String,Double> mapaAcoes = null;
-    
+    private Map<String, Double> mapaAcoes = null;
+
     public PlanoHabitar() {
         this.setAction(new AcaoChamarEmpregada());
         this.setAction(new AcaoDesarrumar());
@@ -49,8 +49,8 @@ public class PlanoHabitar extends Plan implements Serializable {
         this.setAction(new AcaoVerificarComodo());
 
         this.setGoal(new ResidirFeliz());
-        
-        this.mapaAcoes = new HashMap<String,Double>();
+
+        this.mapaAcoes = new HashMap<String, Double>();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class PlanoHabitar extends Plan implements Serializable {
 
             if (executou) {
                 listaExecutada.add(mensagem);
-                Double n = (Double)mapaAcoes.get(acao.getClass().getName());
+                Double n = (Double) mapaAcoes.get(acao.getClass().getName());
                 mapaAcoes.put(acao.getClass().getName(), (n == null) ? 0 : n + 1);
             }
 
@@ -84,15 +84,16 @@ public class PlanoHabitar extends Plan implements Serializable {
 
             if (ambiente.isAmbienteArrumadoLimpo()) {
                 boolean achieved = goal.getAchieved();
-                if(!achieved) {
+                if (!achieved) {
                     goal.setAchieved(true);
                 }
-                Papel papel = (Papel)role;
-                papel.atualizarComportamento(mapaAcoes);
-                papel.atualizarStatusAcoes(GeradorRelatorio.getArquivoAprendizado(papel));
+                Papel papel = (Papel) role;
+                if (papel.atualizarComportamento(mapaAcoes)) {
+                    papel.atualizarStatusAcoes(GeradorRelatorio.getArquivoAprendizado(papel));
 //                GeradorRelatorio.atualizar(papel);
 //                Thread t = new Thread(new AtualizacaoPlano(mapaAcoes,(Papel) role));
 //                t.start();
+                }
             } else {
                 goal.setAchieved(false);
             }
