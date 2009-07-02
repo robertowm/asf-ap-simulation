@@ -44,6 +44,12 @@ public class AcaoIrParaACentralAtendimento extends AcaoAgente implements Seriali
         
         Main.ambienteCentral.avisarRetornoServico(ambiente);
         
+        try {
+            Thread.sleep(ConstantesAplicacao.TEMPO_FAZ_NADA);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Message saida = new Message("?" + Thread.currentThread().getName(), Main.ambienteCentral.pegarComodoAleatoriamente().toString(), agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_PEGAR_FAXINA);
         agente.send(saida);

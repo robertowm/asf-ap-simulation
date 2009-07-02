@@ -2,16 +2,13 @@ package ambiente;
 
 import agente.UsuarioAgente;
 import agente.papel.Secretaria;
-import fabrica.FabricaAmbiente;
 import framework.FIPA.ElementID;
 import framework.agent.Agent;
 import java.io.Serializable;
-import java.util.Vector;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import objeto.Comodo;
 import sis_multagente.Main;
 import util.GeradorAgentes;
@@ -50,7 +47,6 @@ public class CentralAtendimento extends Ambiente implements Serializable {
         public String toString() {
             return comodo + "/" + ambiente + "/" + ocupado;
         }
-        
     }
     private LinkedBlockingQueue<Pacote> quadroTarefas = null;
     private UsuarioAgente secretaria = null;
@@ -68,17 +64,15 @@ public class CentralAtendimento extends Ambiente implements Serializable {
 
     public synchronized void adicionarTarefa(Comodo comodo) {
         try {
+            String nomeAmbiente = comodo.getAmbiente().toString();
             semaforo.acquire();
-            boolean achou = false;
             for (Pacote pacote : quadroTarefas) {
-                if (pacote.ambiente.equals(comodo.getAmbiente().getEnvironmentName())  ) {
-                    achou = true;
-                    break;
+                if (pacote.ambiente.equals(nomeAmbiente)) {
+                    semaforo.release();
+                    return;
                 }
             }
-            if (!achou) {
-                quadroTarefas.add(new Pacote(comodo.toString(), comodo.getAmbiente().toString()));
-            }
+            quadroTarefas.add(new Pacote(comodo.toString(), nomeAmbiente));
             semaforo.release();
         } catch (InterruptedException ex) {
             Logger.getLogger(CentralAtendimento.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,26 +86,21 @@ public class CentralAtendimento extends Ambiente implements Serializable {
     public synchronized Object[] pegarProximaTarefa(Agent agent) {
         try {
             semaforo.acquire();
-            Pacote pacote = quadroTarefas.poll();
             int count = quadroTarefas.size();
-            while (--count > 0) {
-                if(pacote.ocupado) {
-                    quadroTarefas.add(pacote);
-                    pacote = quadroTarefas.poll();
-                } else {
-                    break;
+            while ( count-- > 0) {
+                Pacote pacote = quadroTarefas.poll();
+                quadroTarefas.add(pacote);
+                if (!pacote.ocupado) {
+                    pacote.ocupado = true;
+                    Object[] obj = null;
+                    obj = new Object[2];
+                    obj[0] = pacote.ambiente;
+                    obj[1] = pacote.comodo;
+                    semaforo.release();
+                    return obj;
                 }
             }
-            Object[] obj = null;
-            if(pacote != null) {
-                pacote.ocupado = true;
-                quadroTarefas.add(pacote);
-                obj = new Object[2];
-                obj[0] = pacote.ambiente;
-                obj[1] = pacote.comodo;
-            }
             semaforo.release();
-            return obj;
         } catch (InterruptedException ex) {
             Logger.getLogger(CentralAtendimento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,12 +112,12 @@ public class CentralAtendimento extends Ambiente implements Serializable {
             semaforo.acquire();
             Pacote pacote = null;
             for (Pacote p : quadroTarefas) {
-                if(p.ambiente.equals(ambiente.getEnvironmentName())) {
+                if (p.ambiente.equals(ambiente.toString())) {
                     pacote = p;
                     break;
                 }
             }
-            if(pacote != null) {
+            if (pacote != null) {
                 quadroTarefas.remove(pacote);
             }
             semaforo.release();

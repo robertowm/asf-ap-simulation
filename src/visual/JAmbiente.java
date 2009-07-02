@@ -312,6 +312,7 @@ private void jListAgentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
             return;
         }
         try {
+            System.gc();
             Grafico grafico = new Grafico(ar);
             grafico.pack();
             grafico.setVisible(true);

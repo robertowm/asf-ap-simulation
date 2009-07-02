@@ -28,7 +28,7 @@ public class Main {
     public static JDesktop desktop;
     public static MainOrganization OrganizacaoPrincipal;
     public static CentralAtendimento ambienteCentral = null;
-    public static boolean heuristica = false;
+    public static boolean heuristica = true;
     public static long tempoInicio;
 
     public static void main(String[] args) {
@@ -44,15 +44,7 @@ public class Main {
         ElementID elementID = null;
 
         elementID = ams.createEnvironmentElementId(AMBIENTE_CENTRAL_ATENDIMENTO, true);
-//        try {
         ambienteCentral = (CentralAtendimento) FabricaAmbiente.getAmbiente(AMBIENTE_CENTRAL_ATENDIMENTO, ConstantesAplicacao.TIPO_AMBIENTE_CENTRAL_ATENDIMENTO);
-//                    new CentralAtendimento(elementID);
-//            ams.createDescription(ambienteCentral, elementID, "");
-//            elementID.setAddress(LOCAL_HOST);
-//        } catch (NullPointerException ex) {
-//            System.out.println("[ERRO] Valor nulo durante a inicializacao do ambiente Central de Atendimento (" + AMBIENTE_CENTRAL_ATENDIMENTO + ")");
-//            ex.printStackTrace();
-//        }
 
         elementID = ams.createOrganizationElementId(ORGANIZACAO_HABITACAO_NOME, true);
         try {
@@ -72,9 +64,4 @@ public class Main {
 
     }
 
-//    private static void enviarMensagemInicio(Agent agente, Residencia residencia) {
-//        Message msgm = new Message("?" + agente.getAgentName().getName(), residencia.pegarComodoPorAgente(agente).toString(), agente.getAgentName(), agente.getAgentName());
-//        msgm.setPerformative(ACAO_VERIFICAR_COMODO);
-//        agente.send(msgm);
-//    }
 }

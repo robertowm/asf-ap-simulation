@@ -109,11 +109,16 @@ public abstract class Papel extends AgentRole implements Serializable {
 
     private double calcularValorHeuristico(List<Belief> lista) {
         double retorno = 0;
+        Double valor = null;
         for (Belief belief : lista) {
+            if (!(belief.getValue() instanceof Double)) {
+                continue;
+            }
+            valor = (Double) belief.getValue();
             if (belief.getName().equals("arruma") || belief.getName().equals("limpa")) {
-                retorno += 2 * ((Integer) belief.getValue());
+                retorno += 2 * valor;
             } else {
-                retorno += ((Integer) belief.getValue());
+                retorno += valor;
             }
         }
         return retorno;
