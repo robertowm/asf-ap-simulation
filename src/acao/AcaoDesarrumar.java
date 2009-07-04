@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -35,7 +35,7 @@ public class AcaoDesarrumar extends AcaoAgente implements Serializable{
         
         int pontuacaoDesarrumarDeAcordoComPersonalidade = 2;
 
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou desarrumar, mas so um pouquinho...\"");
         do {
             try {

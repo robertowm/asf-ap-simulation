@@ -30,7 +30,7 @@ import plano.PlanoSecretaria;
 import sis_multagente.Main;
 import util.GeradorRelatorio;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -97,7 +97,7 @@ public class FabricaAgente {
         ams.createDescription(agente, elementID, "");
 
         mapaAgentes.put(nomeAgente, agente);
-        Principal p = new Principal();
+        Saida p = new Saida();
         p.setVisible(true);
         p.setTitle(agente.toString());
         p.apendTexto("Agente Criado");

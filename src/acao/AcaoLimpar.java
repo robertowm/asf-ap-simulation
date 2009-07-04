@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -43,7 +43,7 @@ public class AcaoLimpar extends AcaoAgente implements Serializable{
             if(empregada) break;
         }
         
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         
         tela.apendTexto("\n\"Vou limpar aqui!\"");
         do { // se empregada, limpa enquanto o nivel de limpeza nao esta limpo

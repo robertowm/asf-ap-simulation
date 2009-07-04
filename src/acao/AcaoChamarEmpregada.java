@@ -19,7 +19,7 @@ import objeto.Comodo;
 import sis_multagente.Main;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -60,17 +60,10 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
             agente.send(chamada);
-//            tela.apendTexto("#################################\n\n\n chamando empregada para o comodo [" +
-//                    comodo+
-//                    "] [" +
-//                    comodo.getAmbiente()+
-//                    "]#################################\n\n\n");
 
         } else if (morador) {
         
             comodo.adicionaAgente(agente);
-//            agente.getInMessages().clear();
-            
             Message chamada = new Message(conversionId, comodo.toString() + "#" + comodo.getAmbiente().getEnvironmentName(), agente.getAgentName(), Main.ambienteCentral.getSecretaria().getAgentName());
             chamada.setPerformative(ConstantesAplicacao.ACAO_ATENDER_REQUISICAO);
             agente.send(chamada);
@@ -86,9 +79,8 @@ public class AcaoChamarEmpregada extends AcaoAgente implements Serializable {
             Logger.getLogger(AcaoLimpar.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
 
-//        tela.apendTexto("\"Nossa! Minha casa esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido!") + "\"");
         tela.apendTexto("\"Nossa! Este comodo esta uma bagunca! " + (empregada ? "Preciso comecar a limpar logo!" : "Preciso chamar a empregada rapido para limpar a/o " + comodo + "!") + "\"");
 
 //        try {

@@ -20,7 +20,7 @@ import java.io.Serializable;
 import util.GeradorRandomico;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -46,7 +46,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
 
         String conversionId = "?" + Thread.currentThread().getName();
 
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         Message saida = new Message(conversionId, comodo.toString(), agente.getAgentName(), agente.getAgentName());
 
         for (AgentRole agentRole : papeis) {
@@ -151,7 +151,7 @@ public class AcaoVerificarComodo extends AcaoAgente implements Serializable {
         return true;
     }
 
-    private void exibirStatusComodo(Principal tela, Comodo comodo) {
+    private void exibirStatusComodo(Saida tela, Comodo comodo) {
         tela.apendTexto("Verificando comodo: " + comodo.getNome());
         tela.apendTexto(" - Nivel de limpeza   = " + comodo.getNivelLimpeza());
         tela.apendTexto(" - Nivel de arrumacao = " + comodo.getNivelArrumacao());

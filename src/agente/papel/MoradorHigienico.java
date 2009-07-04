@@ -24,19 +24,7 @@ public class MoradorHigienico extends Morador implements Serializable {
         super("Higienico" + nome, organizacao);
         beliefs = new ArrayList(new Higienico().getCrencas());
 
-//        this.setDuty(new Duty("AcaoVerificarComodo"));
-
-//        this.setGoal(new ResidirFeliz());
-
         this.setOwner(organizacao);
-
-//        this.setProtocol(null);
-
-//        this.setRight(null);
-//        this.startThread();
-
-//        this.setRoleName("Morador");
-//        this.setStatus(null);
     }
 
     @Override

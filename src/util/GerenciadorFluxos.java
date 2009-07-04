@@ -5,11 +5,7 @@
 
 package util;
 
-import agente.UsuarioAgente;
-import fabrica.FabricaAgente;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -38,15 +34,7 @@ public class GerenciadorFluxos {
     }
     
     public static void iniciarFluxo(){
-//>>>
-//        List<RelatorioResultados> relatorios = new ArrayList<RelatorioResultados>();
-//        for (Object object : FabricaAgente.getListaAgentes()) {
-//            UsuarioAgente agente = (UsuarioAgente) object;
-//            
-//            relatorios.add(new RelatorioResultados(agente.getRolesBeingPlayed()));
-//        }
-//        
-////<<<        
+   
         for (String str : mapa.keySet()) {
             mapa.get(str).start();
         }

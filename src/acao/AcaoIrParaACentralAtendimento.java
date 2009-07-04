@@ -14,7 +14,7 @@ import objeto.Comodo;
 import sis_multagente.Main;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -29,7 +29,7 @@ public class AcaoIrParaACentralAtendimento extends AcaoAgente implements Seriali
 
     @Override
     public synchronized boolean execute(Agent agente, Message msg) {
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou para a Central de Atendimento.\"");
         Ambiente ambiente = (Ambiente)agente.getEnvironment();
         ambiente.cancelAgentRegister(agente);

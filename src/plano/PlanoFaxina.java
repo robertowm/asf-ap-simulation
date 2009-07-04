@@ -27,7 +27,7 @@ import objeto.Comodo;
 import util.ConstantesAplicacao;
 import static util.ConstantesAplicacao.*;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -52,7 +52,7 @@ public class PlanoFaxina extends Plan implements Serializable {
         List<Message> listaExecutada;
 
         Agent agente = role.getAgentPlayingRole();
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
 
         while (!fimDoExpediente) {
             CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>(agente.getInMessages());

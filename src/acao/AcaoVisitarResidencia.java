@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -36,7 +36,7 @@ public class AcaoVisitarResidencia extends AcaoAgente implements Serializable {
         
         ((Ambiente)agente.getEnvironment()).cancelAgentRegister(agente);
         
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou visitar " + ambiente.toString() + ".\"");
         try {
             Thread.sleep(ConstantesAplicacao.TEMPO_VISITAR_RESIDENCIA);
