@@ -1,5 +1,5 @@
 /*
- * Principal.java
+ * Saida.java
  *
  * Created on 29 de Novembro de 2006, 00:47
  */
@@ -10,9 +10,9 @@ package visual;
  *
  * @author  Heliomar kann
  */
-public class Principal extends javax.swing.JInternalFrame {
+public class Saida extends javax.swing.JInternalFrame {
     
-    public Principal() {
+    public Saida() {
         initComponents();
     }
 

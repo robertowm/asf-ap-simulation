@@ -19,8 +19,6 @@ import sis_multagente.Main;
  */
 public class Morador extends Papel implements Serializable{
 
-    private AMS ams = AMS.getInstance();
-
     public Morador(){
         super("Morador");
         this.setOwner(Main.OrganizacaoPrincipal);

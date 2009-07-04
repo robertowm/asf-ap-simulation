@@ -5,9 +5,10 @@
 package plano;
 
 import acao.AcaoAgente;
-import acao.AcaoVerificarComodo;
+import acao.AcaoAtenderRequisicao;
+import acao.AcaoAtualizarQuadroTarefas;
+import acao.AcaoChamarEmpregada;
 import acao.command.ComandoAcao;
-import ambiente.Ambiente;
 import framework.agent.Agent;
 import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
@@ -20,10 +21,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetivo.TornarResidenciaHabitavel;
-import objeto.Comodo;
-import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -32,7 +31,10 @@ import visual.Principal;
 public class PlanoSecretaria extends Plan implements Serializable {
 
     public PlanoSecretaria() {
-        this.setAction(new AcaoVerificarComodo());
+//        this.setAction(new AcaoVerificarComodo());
+        this.setAction(new AcaoChamarEmpregada());
+        this.setAction(new AcaoAtenderRequisicao());
+        this.setAction(new AcaoAtualizarQuadroTarefas());
 
         this.setGoal(new TornarResidenciaHabitavel());
     }
@@ -43,22 +45,16 @@ public class PlanoSecretaria extends Plan implements Serializable {
         Agent agente = role.getAgentPlayingRole();
 
         int descansa = 400;
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         CopyOnWriteArrayList<Message> mensagens = new CopyOnWriteArrayList<Message>(agente.getInMessages());
-//        if (mensagens.isEmpty()) {
-//            Comodo comodo = ((Ambiente) agente.getEnvironment()).pegarComodoPorAgente(agente);
-//            if (comodo != null) {
-//                Message saida = new Message("?" + Thread.currentThread().getName(), comodo.toString(), agente.getAgentName(), agente.getAgentName());
-//                saida.setPerformative(ConstantesAplicacao.ACAO_FAZ_NADA);
-//                agente.send(saida);
-//            }
-//            try {
-//                tela.apendTexto("\"Vou descancar um pouco...\"");
-//                Thread.sleep(descansa);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else {
+        if (mensagens.isEmpty()) {
+            try {
+                tela.apendTexto("\"Vou descancar um pouco...\"");
+                Thread.sleep(descansa);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PlanoFaxina.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
             listaExecutada = new ArrayList(mensagens.size());
             for (Message mensagem : mensagens) {
                 AcaoAgente acao = ComandoAcao.getAcao(mensagem.getPerformative());
@@ -77,8 +73,7 @@ public class PlanoSecretaria extends Plan implements Serializable {
             synchronized (agente) {
                 agente.getInMessages().removeAll(listaExecutada);
             }
-//        }
-//        }
+        }
 //        goal.setAchieved(true);
     }
 

@@ -4,10 +4,8 @@
  */
 package acao;
 
-import agente.papel.Empregada;
 import ambiente.Ambiente;
 import framework.agent.Agent;
-import framework.agentRole.AgentRole;
 import framework.mentalState.Message;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -15,7 +13,7 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -38,7 +36,7 @@ public class AcaoFazNada extends AcaoAgente implements Serializable {
 
         comodo.adicionaAgente(agente);
         
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou ficar parado um pouco...\"");
             try {
                 Thread.sleep(ConstantesAplicacao.TEMPO_FAZ_NADA);

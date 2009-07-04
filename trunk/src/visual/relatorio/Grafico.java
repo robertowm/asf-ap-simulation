@@ -31,7 +31,7 @@ import util.GeradorRelatorio;
 /**
  * A simple demonstration of the crosshairs that can be displayed in an {@link XYPlot}.
  *
- * @author David Gilbert
+ * @author Heliokann
  */
 public class Grafico extends javax.swing.JInternalFrame {
 

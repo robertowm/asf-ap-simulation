@@ -11,7 +11,7 @@ import java.io.Serializable;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -32,7 +32,7 @@ public class AcaoTrocarComodo extends AcaoAgente implements Serializable {
 
         comodo.adicionaAgente(agente);
         
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
 
         tela.apendTexto("\n\"Vou ir para outro comodo. Irei para " + novoComodo + "\"");
 

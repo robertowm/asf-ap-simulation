@@ -16,7 +16,7 @@ import objeto.Comodo;
 import sis_multagente.Main;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -43,7 +43,7 @@ public class AcaoPegarFaxina extends AcaoAgente implements Serializable {
 
         escritorio.adicionaAgente(agente);
 
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou ver se tem alguma faxina para fazer.\"");
         try {
             Thread.sleep(ConstantesAplicacao.TEMPO_PEGAR_FAXINA);

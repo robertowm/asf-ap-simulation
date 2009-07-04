@@ -12,7 +12,6 @@ import agente.papel.Papel;
 import framework.agentRole.AgentRole;
 import framework.mentalState.belief.Belief;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

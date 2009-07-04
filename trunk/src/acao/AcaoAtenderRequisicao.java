@@ -13,7 +13,7 @@ import objeto.Comodo;
 import java.io.Serializable;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -39,7 +39,7 @@ public class AcaoAtenderRequisicao extends AcaoAgente implements Serializable {
         
         String conversionId = "?" + Thread.currentThread().getName();
 
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         agente.getInMessages().clear();
         Message saida = new Message(conversionId, comodo.toString() + "#" + ambiente.getEnvironmentName(), agente.getAgentName(), agente.getAgentName());
         saida.setPerformative(ConstantesAplicacao.ACAO_ATUALIZAR_QUADRO_TAREFAS);
@@ -56,9 +56,4 @@ public class AcaoAtenderRequisicao extends AcaoAgente implements Serializable {
         return true;
     }
 
-//    private void exibirStatusComodo(Principal tela, Comodo comodo) {
-//        tela.apendTexto("Verificando comodo: " + comodo.getNome());
-//        tela.apendTexto(" - Nivel de limpeza   = " + comodo.getNivelLimpeza());
-//        tela.apendTexto(" - Nivel de arrumacao = " + comodo.getNivelArrumacao());
-//    }
 }

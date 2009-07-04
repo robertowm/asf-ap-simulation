@@ -21,8 +21,8 @@ import util.GerenciadorFluxos;
  */
 public class JDesktop extends javax.swing.JFrame {
 
-    public static Map<Agent, Principal> telagentes = new HashMap<Agent, Principal>();
-    public static Principal saidas;
+    public static Map<Agent, Saida> telagentes = new HashMap<Agent, Saida>();
+    public static Saida saidas;
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenuItem jMIniciar;
     private javax.swing.JMenuItem jMISair;
@@ -37,7 +37,7 @@ public class JDesktop extends javax.swing.JFrame {
         initComponents();
     }
 
-    public static Principal getTela(Agent agente) {
+    public static Saida getTela(Agent agente) {
         return telagentes.get(agente);
     }
 
@@ -55,7 +55,7 @@ public class JDesktop extends javax.swing.JFrame {
         jMSobre = new javax.swing.JMenu();
         jMISobre = new javax.swing.JMenuItem();
 
-//        saidas = new Principal();
+//        saidas = new Saida();
 //        saidas.setTitle("Outras saídas");
 //        saidas.setBounds(0, 0, 600, 300);
 

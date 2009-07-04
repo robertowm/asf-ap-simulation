@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import objeto.Comodo;
 import util.ConstantesAplicacao;
 import visual.JDesktop;
-import visual.Principal;
+import visual.Saida;
 
 /**
  *
@@ -35,7 +35,7 @@ public class AcaoSujar extends AcaoAgente implements Serializable {
         // suja de acordo com a personalidade
 
         int pontuacaoSujarDeAcordoComPersonalidade = 2;
-        Principal tela = JDesktop.getTela(agente);
+        Saida tela = JDesktop.getTela(agente);
         tela.apendTexto("\n\"Vou sujar, mas so um pouquinho...\"");
         do {
             try {
